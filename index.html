@@ -1,0 +1,1274 @@
+<!doctype html>
+<html lang="te">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Mee Maata · మీ మాట</title>
+  <meta name="description"
+    content="మీ తరగతి గది అనుభవాలు మీ గొంతులో చెప్పండి. సుమారు 15 నిమిషాలు, వాయిస్‌తో, పేరు అవసరం లేదు.">
+  <meta property="og:title" content="మీ మాట · Mee Maata — ఉపాధ్యాయుల గొంతు">
+  <meta property="og:description"
+    content="ఉపాధ్యాయుల కోసం ఉచిత సాధనాలు తయారు చేసే ముందు, మీ మాట వినాలనుకుంటున్నాం. సుమారు 15 నిమిషాలు, వాయిస్‌తో.">
+  <!-- For a picture in the WhatsApp preview, host og.png next to this file and replace with its FULL https address -->
+  <meta property="og:image" content="og.png">
+  <meta name="theme-color" content="#1E5A44">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anek+Telugu:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Layout: one calm column, chalkboard-green header band, a single big marigold record button as the hero of every question. */
+    :root {
+      --bg: #F1F5F1;
+      --surface: #FFFFFF;
+      --ink: #15241C;
+      --muted: #56665C;
+      --line: #D5DED7;
+      --board: #1E5A44;
+      --board-ink: #F2F8F4;
+      --board-muted: #B9D3C6;
+      --marigold: #E9A21B;
+      --marigold-ink: #271A00;
+      --marigold-soft: #FBEFD3;
+      --rec: #D4452A;
+      --ok: #2E7D4F;
+      --font: "Anek Telugu", "Noto Sans Telugu", "Nirmala UI", "Gautami", "Vani", system-ui, sans-serif;
+      --r: 14px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #0E1813;
+        --surface: #15221B;
+        --ink: #E7F0EA;
+        --muted: #A1B2A7;
+        --line: #2A3B31;
+        --board: #173F31;
+        --board-ink: #EAF4EE;
+        --board-muted: #98BBA9;
+        --marigold: #F1B23C;
+        --marigold-ink: #241800;
+        --marigold-soft: #3A2E14;
+        --rec: #F0694B;
+        --ok: #62BE8A;
+        color-scheme: dark;
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #0E1813;
+      --surface: #15221B;
+      --ink: #E7F0EA;
+      --muted: #A1B2A7;
+      --line: #2A3B31;
+      --board: #173F31;
+      --board-ink: #EAF4EE;
+      --board-muted: #98BBA9;
+      --marigold: #F1B23C;
+      --marigold-ink: #241800;
+      --marigold-soft: #3A2E14;
+      --rec: #F0694B;
+      --ok: #62BE8A;
+      color-scheme: dark;
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      margin: 0
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font);
+      font-size: 18px;
+      line-height: 1.6;
+      -webkit-text-size-adjust: 100%
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+      color: inherit
+    }
+
+    .wrap {
+      max-width: 560px;
+      margin: 0 auto;
+      padding-left: max(16px, env(safe-area-inset-left, 0px));
+      padding-right: max(16px, env(safe-area-inset-right, 0px))
+    }
+
+    header {
+      background: var(--board);
+      color: var(--board-ink);
+      padding-top: env(safe-area-inset-top, 0px)
+    }
+
+    header .wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-block: 12px
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 20px
+    }
+
+    .brand small {
+      display: block;
+      font-weight: 500;
+      font-size: 12px;
+      color: var(--board-muted);
+      letter-spacing: .6px;
+      text-transform: uppercase;
+      line-height: 1.1
+    }
+
+    .brand svg {
+      flex: none
+    }
+
+    .spacer {
+      flex: 1
+    }
+
+    .lang {
+      display: flex;
+      border: 1px solid var(--board-muted);
+      border-radius: 999px;
+      overflow: hidden;
+      flex: none
+    }
+
+    .lang button {
+      background: transparent;
+      border: 0;
+      color: var(--board-ink);
+      padding: 6px 12px;
+      font-size: 15px;
+      cursor: pointer;
+      min-height: 36px
+    }
+
+    .lang button[aria-pressed="true"] {
+      background: var(--board-ink);
+      color: var(--board)
+    }
+
+    .status {
+      font-size: 14px;
+      padding: 0 0 10px;
+      color: var(--board-muted);
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .status .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--board-muted);
+      flex: none
+    }
+
+    .status.ok .dot {
+      background: #7FD3A2
+    }
+
+    .status.wait .dot {
+      background: var(--marigold)
+    }
+
+    .demo {
+      background: var(--marigold-soft);
+      color: var(--ink);
+      font-size: 14px;
+      text-align: center;
+      padding: 6px 16px
+    }
+
+    main {
+      padding-block: 20px 48px
+    }
+
+    h1 {
+      font-size: 28px;
+      line-height: 1.3;
+      margin: 4px 0 12px;
+      text-wrap: balance
+    }
+
+    h2 {
+      font-size: 23px;
+      line-height: 1.35;
+      margin: 0 0 6px;
+      text-wrap: balance
+    }
+
+    p {
+      margin: 0 0 12px
+    }
+
+    .muted {
+      color: var(--muted)
+    }
+
+    .small {
+      font-size: 15px
+    }
+
+    .promises {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0;
+      display: grid;
+      gap: 10px
+    }
+
+    .promises li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start
+    }
+
+    .promises svg {
+      flex: none;
+      margin-top: 5px;
+      color: var(--ok)
+    }
+
+    .chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 8px 0 14px
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-size: 15px;
+      background: var(--surface)
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--r);
+      padding: 16px
+    }
+
+    details.card {
+      padding: 0;
+      margin: 0 0 14px
+    }
+
+    details.card summary {
+      padding: 12px 16px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 16px;
+      min-height: 44px
+    }
+
+    details.card ul {
+      margin: 0;
+      padding: 0 16px 14px 34px;
+      font-size: 15px;
+      display: grid;
+      gap: 6px
+    }
+
+    .consent {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      cursor: pointer
+    }
+
+    .consent input {
+      width: 24px;
+      height: 24px;
+      margin-top: 3px;
+      accent-color: var(--board);
+      flex: none
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 12px;
+      border: 0;
+      padding: 14px 20px;
+      min-height: 52px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 18px;
+      text-decoration: none;
+      text-align: center
+    }
+
+    .btn-primary {
+      background: var(--board);
+      color: var(--board-ink)
+    }
+
+    .btn:disabled {
+      opacity: .45;
+      cursor: not-allowed
+    }
+
+    .btn-gold {
+      background: var(--marigold);
+      color: var(--marigold-ink)
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--line)
+    }
+
+    .btn-block {
+      width: 100%
+    }
+
+    .stack {
+      display: grid;
+      gap: 12px
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 8px;
+      margin-top: 18px
+    }
+
+    .link {
+      background: none;
+      border: 0;
+      color: var(--muted);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      padding: 10px 4px;
+      cursor: pointer;
+      font-size: 16px;
+      min-height: 44px
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--marigold);
+      outline-offset: 2px
+    }
+
+    .progress {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 14px
+    }
+
+    .bar {
+      flex: 1;
+      height: 6px;
+      border-radius: 99px;
+      background: var(--line);
+      overflow: hidden
+    }
+
+    .bar i {
+      display: block;
+      height: 100%;
+      background: var(--marigold);
+      border-radius: 99px;
+      transition: width .4s
+    }
+
+    .badge {
+      background: var(--marigold-soft);
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 2px 10px;
+      font-size: 14px;
+      font-weight: 600
+    }
+
+    .qtext {
+      font-size: 23px;
+      line-height: 1.5;
+      font-weight: 600;
+      margin: 0 0 8px;
+      text-wrap: pretty
+    }
+
+    .hint {
+      font-size: 16px;
+      color: var(--muted);
+      margin-bottom: 8px
+    }
+
+    .listen {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: none;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 15px;
+      cursor: pointer;
+      color: var(--ink);
+      min-height: 40px
+    }
+
+    .reczone {
+      display: grid;
+      justify-items: center;
+      gap: 10px;
+      margin: 22px 0 6px;
+      text-align: center
+    }
+
+    .recbtn {
+      width: 132px;
+      height: 132px;
+      border-radius: 50%;
+      border: 0;
+      background: var(--marigold);
+      color: var(--marigold-ink);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      box-shadow: 0 0 0 10px var(--marigold-soft);
+      transition: transform .15s, background .2s
+    }
+
+    .recbtn:active {
+      transform: scale(.96)
+    }
+
+    .recbtn.on {
+      background: var(--rec);
+      color: #fff;
+      box-shadow: 0 0 0 10px color-mix(in srgb, var(--rec) 22%, transparent);
+      animation: pulse 1.6s ease-in-out infinite
+    }
+
+    @keyframes pulse {
+      50% {
+        box-shadow: 0 0 0 18px color-mix(in srgb, var(--rec) 10%, transparent)
+      }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      .recbtn.on {
+        animation: none
+      }
+
+      .bar i {
+        transition: none
+      }
+    }
+
+    .reclabel {
+      font-weight: 600
+    }
+
+    .timer {
+      font-variant-numeric: tabular-nums;
+      color: var(--muted);
+      font-size: 16px
+    }
+
+    .meter {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      height: 36px
+    }
+
+    .meter span {
+      width: 5px;
+      border-radius: 3px;
+      background: var(--rec);
+      height: 4px;
+      transition: height .08s
+    }
+
+    audio {
+      width: 100%;
+      margin: 6px 0
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 160px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px;
+      background: var(--surface);
+      resize: vertical;
+      font-size: 18px
+    }
+
+    .tip {
+      background: var(--marigold-soft);
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 16px;
+      margin: 14px 0 0
+    }
+
+    .chipgroup {
+      margin: 0 0 18px
+    }
+
+    .chipgroup h3 {
+      font-size: 17px;
+      margin: 0 0 8px;
+      font-weight: 600
+    }
+
+    .opts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px
+    }
+
+    .opt {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      border-radius: 999px;
+      padding: 8px 16px;
+      min-height: 44px;
+      cursor: pointer;
+      font-size: 17px
+    }
+
+    .opt[aria-pressed="true"] {
+      background: var(--board);
+      border-color: var(--board);
+      color: var(--board-ink)
+    }
+
+    input[type=text],
+    input[type=tel] {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px;
+      background: var(--surface);
+      min-height: 48px
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+      transform: translateX(-50%) translateY(20px);
+      background: var(--ink);
+      color: var(--bg);
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-size: 16px;
+      opacity: 0;
+      transition: .3s;
+      max-width: calc(100% - 32px);
+      text-align: center;
+      pointer-events: none;
+      z-index: 20
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0)
+    }
+
+    .note {
+      border-left: 4px solid var(--marigold);
+      padding: 4px 0 4px 12px;
+      margin: 14px 0
+    }
+
+    .alert {
+      background: var(--marigold-soft);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-top: 12px;
+      font-size: 16px
+    }
+
+    .code {
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 2px;
+      font-weight: 700;
+      font-size: 22px;
+      user-select: all
+    }
+
+    .celebrate {
+      display: grid;
+      place-items: center;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--marigold-soft);
+      color: var(--marigold);
+      margin: 4px 0 12px
+    }
+
+    .foot {
+      margin-top: 28px;
+      font-size: 14px;
+      color: var(--muted);
+      text-align: center
+    }
+
+    .sr {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0)
+    }
+
+    @media (max-width:440px) {
+      .brand small {
+        display: none
+      }
+
+      .lang button {
+        padding: 6px 10px;
+        font-size: 14px
+      }
+
+      .brand {
+        font-size: 19px
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="wrap">
+      <div class="brand">
+        <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
+          <rect x="2" y="4" width="30" height="21" rx="6" fill="currentColor" opacity=".16" />
+          <path d="M9 25l-1 7 7-7" fill="currentColor" opacity=".16" />
+          <rect x="14" y="9" width="6" height="10" rx="3" fill="#E9A21B" />
+          <path d="M11 16a6 6 0 0 0 12 0" stroke="#E9A21B" stroke-width="2" fill="none" stroke-linecap="round" />
+        </svg>
+        <div>మీ మాట<small>Mee Maata · Teacher voices</small></div>
+      </div>
+      <div class="spacer"></div>
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="te" aria-pressed="true">తెలుగు</button>
+        <button type="button" data-lang="en" aria-pressed="false">English</button>
+      </div>
+    </div>
+    <div class="wrap">
+      <div id="status" class="status ok" aria-live="polite"><span class="dot"></span><span id="statusText"></span></div>
+    </div>
+  </header>
+  <div id="demo" class="demo" hidden></div>
+  <main class="wrap" id="app"></main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <input id="filepick" type="file" accept="audio/*" capture class="sr" tabindex="-1" aria-hidden="true">
+
+  <script>
+    /* ================= SETTINGS (edit these before sharing) ================= */
+    const CONFIG = {
+      ENDPOINT: "https://script.google.com/macros/s/AKfycbxLtinB1u96xLLm2fCskVVnnFp_8uZePBdJA53SvUYn1XV40mMd_GSsNhKuuDg95WpoIA/exec",              // Your Google Apps Script web-app URL. Empty = demo mode (nothing is sent).
+      KEY: "Vita_Educate_2026",    // Must match SHARED_KEY in Code.gs
+      CONTACT: "ramana@vitainspire.com",               // REQUIRED before sharing: WhatsApp number or email teachers can use to ask questions or delete answers
+      RETENTION_MONTHS: 1,      // How long recordings are kept after the study ends (shown to teachers)
+      AUDIO_BASE: "https://drive.google.com/drive/folders/18EuAcUjW2u0YC5LtRLaYZFNSA2nXXd_k",            // Optional: folder URL with recorded question audio named q01-te.mp3, q01-en.mp3 …
+      MAX_SECONDS: 240           // Longest single voice answer (4 minutes)
+    };
+
+    /* ================= QUESTIONS: 8 main + 4 optional ================= */
+    const QUESTIONS = [
+      {
+        id: "q01", tag: "last_class", core: true,
+        te: "మీరు ఇటీవల చెప్పిన గణితం లేదా సైన్స్ తరగతి గురించి చెప్పండి. ఏమి జరిగింది? ఏది బాగా జరిగింది, ఏది కష్టంగా అనిపించింది?",
+        en: "Tell us about the last maths or science class you taught. What happened? What went well, and what was hard?",
+        hte: "స్నేహితుడికి చెప్పినట్లు చెప్పండి.", hen: "Describe it the way you would tell a friend."
+      },
+      {
+        id: "q02", tag: "mixed_levels", core: true,
+        te: "ఒకే తరగతిలో పిల్లలు వేర్వేరు స్థాయిల్లో ఉంటారు. బాగా వెనుకబడిన ఒక పిల్లవాడిని, ముందున్న ఒక పిల్లవాడిని గుర్తు చేసుకోండి. ఒకే పీరియడ్‌లో ఇద్దరినీ ఎలా చూసుకుంటారు?",
+        en: "Children in one class are often at very different levels. Think of one child who is far behind and one who is ahead. How do you manage both in the same period?",
+        hte: "పేర్లు చెప్పవద్దు. వెనుకబడిన పిల్లల కోసం ప్రత్యేక సమయం ఏదైనా ఉందా?", hen: "Please don't say names. Is there any special time for children who are behind?"
+      },
+      {
+        id: "q03", tag: "hardest_topic", core: true,
+        te: "6–8 తరగతుల్లో పిల్లలకు ఏ పాఠం అత్యంత కష్టంగా ఉంటుంది? వాళ్ళు ఇరుక్కుపోయారని మీకు ఎలా తెలుస్తుంది? మీరు ఏమేమి ప్రయత్నించారు?",
+        en: "Which topic in classes 6–8 do students find hardest? How can you tell they are stuck? What have you tried?",
+        hte: "", hen: ""
+      },
+      {
+        id: "q04", tag: "curiosity", core: true,
+        te: "ఒక విద్యార్థి మీరు ఊహించని ప్రశ్న చివరిసారిగా ఎప్పుడు అడిగారు? ఆ ప్రశ్న ఏమిటి? ఇలా ఎంత తరచుగా జరుగుతుంది?",
+        en: "When did a student last ask you a question you did not expect? What was it? How often does this happen?",
+        hte: "", hen: ""
+      },
+      {
+        id: "q05", tag: "real_world", core: true,
+        te: "ఒక పాఠాన్ని రోజువారీ జీవితంతో — వ్యవసాయం, సంత, వంట, ఇల్లు — ముడిపెట్టిన సందర్భం గురించి చెప్పండి. పిల్లలు ఎలా స్పందించారు?",
+        en: "Tell us about a time you linked a lesson to daily life — farming, the market, cooking, home. How did the students react?",
+        hte: "అలా ఎప్పుడూ కుదరకపోతే, ఎందుకో చెప్పండి.", hen: "If it hasn't been possible, tell us why."
+      },
+      {
+        id: "q06", tag: "prep", core: true,
+        te: "ఈ వారం మీ తరగతులకు ఎలా సిద్ధమయ్యారో వివరించండి. ఎంత సమయం పట్టింది? ఏమి ఉపయోగించారు — పాఠ్యపుస్తకం, యూట్యూబ్, దీక్ష, వాట్సాప్ గ్రూపులు, లేదా ఇంకేదైనా?",
+        en: "Walk us through how you prepared your classes this week. How long did it take? What did you use — textbook, YouTube, DIKSHA, WhatsApp groups, anything else?",
+        hte: "", hen: ""
+      },
+      {
+        id: "q07", tag: "assessment", core: true,
+        te: "పిల్లలు నిజంగా ఏమి నేర్చుకున్నారో మీకు ఎలా తెలుస్తుంది? స్లిప్ టెస్టుల ఫలితాలతో (ఉదాహరణకు LEAP యాప్‌లో) మీరు ఏమి చేస్తారు?",
+        en: "How do you find out what students have really learned? What do you do with slip-test results, for example on the LEAP app?",
+        hte: "", hen: ""
+      },
+      {
+        id: "q08", tag: "helper", core: true,
+        te: "రోజూ ఒక గంట మీకు ఒక సహాయకుడు ఉంటే, ముందుగా వారిని ఏమి చేయమని అడుగుతారు?",
+        en: "If you had a helper for one hour every day, what would you ask them to do first?",
+        hte: "", hen: ""
+      },
+      {
+        id: "q09", tag: "language", core: false,
+        te: "తెలుగు, ఇంగ్లీషు లేదా రెండూ — భాష వల్ల పిల్లలు ఎక్కడ ఇబ్బంది పడతారు? ఏ పదాలు అత్యంత కష్టం?",
+        en: "Telugu, English or both — where do students struggle because of language? Which words or terms are hardest?",
+        hte: "", hen: ""
+      },
+      {
+        id: "q10", tag: "workload", core: false,
+        te: "బోధన కాకుండా మీ సమయం దేనికి ఎక్కువ పోతుంది — యాప్‌లు, డేటా ఎంట్రీ, రిజిస్టర్లు, సమావేశాలు? వారానికి సుమారు ఎన్ని గంటలు?",
+        en: "Apart from teaching, what takes up your time — apps, data entry, registers, meetings? Roughly how many hours a week?",
+        hte: "", hen: ""
+      },
+      {
+        id: "q11", tag: "tools_tried", core: false,
+        te: "బోధన కోసం ఏదైనా యాప్ లేదా AI సాధనం (ChatGPT, Gemini, దీక్ష లేదా ఇతరాలు) ప్రయత్నించారా? ఏమి జరిగింది? ఏదైనా వాడటం ఆపేశారా, ఎందుకు?",
+        en: "Have you tried any app or AI tool for teaching (ChatGPT, Gemini, DIKSHA or others)? What happened? Did you stop using any, and why?",
+        hte: "ఏదీ వాడకపోయినా పర్వాలేదు — అదీ చెప్పండి.", hen: "If you haven't used any, that's useful to know too."
+      },
+      {
+        id: "q12", tag: "open", core: false,
+        te: "ఉపాధ్యాయుల కోసం సాధనాలు తయారుచేసేవారు ఏమి అర్థం చేసుకోవాలి? మేము అడగనిది ఏదైనా చెప్పాలనుకుంటున్నారా?",
+        en: "What should people who build tools for teachers understand? Is there anything we didn't ask that you want to tell us?",
+        hte: "", hen: ""
+      }
+    ];
+    const CORE_N = QUESTIONS.filter(q => q.core).length;
+
+    /* ================= QUICK-TAP SCREENS ================= */
+    const PROFILE_SCREENS = [
+      {
+        id: "about", te: "మీ గురించి కొంచెం", en: "A little about you", district: true, groups: [
+          { id: "subject", te: "నేను బోధించేది", en: "I teach", opts: [["maths", "గణితం", "Maths"], ["science", "సైన్స్", "Science"], ["both", "రెండూ", "Both"], ["other", "ఇతరం", "Other"]] },
+          { id: "classes", multi: true, te: "తరగతులు", en: "Classes", opts: [["6", "6", "6"], ["7", "7", "7"], ["8", "8", "8"], ["other", "ఇతర తరగతులు", "Other classes"]] },
+          { id: "medium", te: "బోధనా మాధ్యమం", en: "Medium of teaching", opts: [["telugu", "తెలుగు", "Telugu"], ["english", "ఇంగ్లీషు", "English"], ["both", "రెండూ", "Both"]] },
+          { id: "years", te: "బోధనా అనుభవం", en: "Years of teaching", opts: [["lt2", "2 కంటే తక్కువ", "Under 2"], ["2-5", "2–5", "2–5"], ["6-10", "6–10", "6–10"], ["10+", "10 కంటే ఎక్కువ", "More than 10"]] }
+        ]
+      },
+      {
+        id: "school", te: "మీ బడి గురించి", en: "About your school", groups: [
+          { id: "school", te: "పాఠశాల రకం", en: "School type", opts: [["govt", "ప్రభుత్వ / జడ్‌పీ / మున్సిపల్", "Govt / ZP / Municipal"], ["aided", "ఎయిడెడ్", "Aided"], ["private", "ప్రైవేట్", "Private"], ["other", "ఇతరం", "Other"]] },
+          { id: "classsize", te: "మీ పెద్ద తరగతిలో పిల్లలు", en: "Children in your biggest class", opts: [["lt20", "20 లోపు", "Under 20"], ["20-40", "20–40", "20–40"], ["40+", "40 కంటే ఎక్కువ", "More than 40"]] },
+          { id: "print", te: "బడిలో వర్క్‌షీట్లు ప్రింట్ / జిరాక్స్ చేయగలరా?", en: "Can you print or photocopy worksheets at school?", opts: [["easy", "సులభంగా", "Easily"], ["sometimes", "అప్పుడప్పుడు", "Sometimes"], ["no", "కుదరదు", "No"]] },
+          { id: "screen", te: "తరగతిలో స్మార్ట్ బోర్డు / టీవీ", en: "Smart board or TV in your classroom", opts: [["works", "పనిచేస్తుంది", "Works"], ["broken", "పనిచేయడం లేదు", "Not working"], ["none", "లేదు", "None"]] },
+          { id: "internet", te: "మీ ఫోన్‌లో ఇంటర్నెట్", en: "Internet on your phone", opts: [["always", "ఎప్పుడూ ఉంటుంది", "Always"], ["sometimes", "అప్పుడప్పుడు", "Sometimes"], ["rarely", "అరుదుగా", "Rarely"]] },
+          { id: "leap", te: "LEAP యాప్ ఎంత తరచుగా వాడతారు?", en: "How often do you use the LEAP app?", opts: [["daily", "ప్రతిరోజూ", "Daily"], ["weekly", "వారానికి ఒకసారి", "Weekly"], ["rarely", "అరుదుగా", "Rarely"], ["never", "వాడను", "Never"]] },
+          { id: "wagroups", te: "బడి పనులకు వాట్సాప్ గ్రూపులు వాడతారా?", en: "Do you use WhatsApp groups for school work?", opts: [["yes", "అవును", "Yes"], ["no", "లేదు", "No"]] }
+        ]
+      }
+    ];
+
+    /* ================= WORDS ================= */
+    const T = {
+      te: {
+        h1: "మీ తరగతి గది కథ, మీ గొంతులో",
+        intro: "నమస్కారం! ఆంధ్రప్రదేశ్ ఉపాధ్యాయుల కోసం మేము ఉచిత బోధనా సాధనాలు తయారు చేస్తున్నాం. ఏదైనా తయారు చేసే ముందు మీ మాట వినాలనుకుంటున్నాం — మంచి రోజులు, కష్టమైన రోజులు రెండూ.",
+        p: ["సరైన లేదా తప్పు సమాధానాలు లేవు. నిజమైన అనుభవమే మాకు విలువైనది.", "మీ పేరు అవసరం లేదు.", "ఇది తనిఖీ కాదు. మీ సమాధానాలు విద్యాశాఖకు గానీ, ప్రధానోపాధ్యాయులకు గానీ పంపబడవు.", "తెలుగులో, ఇంగ్లీషులో లేదా రెండింటిలో — మీకు సౌకర్యంగా మాట్లాడండి."],
+        chips: ["సుమారు 15 నిమిషాలు", "8 ప్రశ్నలు + 4 ఐచ్ఛికం", "వాయిస్‌తో", "ఏ ప్రశ్ననైనా వదిలేయవచ్చు"],
+        privacyTitle: "మీ సమాధానాలను ఎలా ఉపయోగిస్తాం",
+        privacy: m => ["Vitainspire బృందం మాత్రమే మీ రికార్డింగ్‌లు వింటుంది. వాటిని ప్రభుత్వ అధికారులకు గానీ, బయటివారికి గానీ ఇవ్వం.", "మేము దాచేవి: మీ గొంతు/రాసిన సమాధానాలు, మీరు నొక్కిన ఎంపికలు, జిల్లా (ఇస్తే). పేరు, ఫోన్ నంబర్ అడగం.", "రికార్డింగ్‌లు మా ప్రైవేట్ Google Drive లో ఉంటాయి. అధ్యయనం ముగిసిన " + m + " నెలల్లోపు తొలగిస్తాం.", "మీ సమాధానాలు తొలగించాలంటే, చివర్లో వచ్చే మీ కోడ్‌తో మమ్మల్ని సంప్రదించండి."],
+        consent: "పై విషయాలు చదివాను. ఉపాధ్యాయుల కోసం ఉచిత సాధనాలు రూపొందించడానికి నా సమాధానాలను Vitainspire బృందం ఉపయోగించుకోవచ్చని అంగీకరిస్తున్నాను.",
+        start: "మొదలుపెడదాం", resume: "ఆపిన చోటు నుండి కొనసాగించండి", restart: "కొత్తగా మొదలుపెట్టండి",
+        contact: "సందేహాలకు / తొలగింపుకు:",
+        tapSub: "సరిపోయేవి నొక్కండి. అన్నీ ఐచ్ఛికం.", district: "జిల్లా / మండలం (ఐచ్ఛికం)", cont: "కొనసాగించండి",
+        qOf: (i, n) => `ప్రశ్న ${i} / ${n}`, bonusOf: (i, n) => `అదనపు ప్రశ్న ${i} / ${n}`, bonus: "ఐచ్ఛికం",
+        listen: "ప్రశ్న వినండి",
+        tip: "ప్రశాంతమైన చోటు చూసుకోండి. మీ పేరు, బడి పేరు, పిల్లల పేర్లు చెప్పకండి. ‘సాధారణంగా ఇలా’ కంటే ‘గత వారం ఇలా జరిగింది’ లాంటి నిజమైన సంఘటన ఎక్కువ ఉపయోగపడుతుంది.",
+        tap: "నొక్కి మాట్లాడండి", lenHint: "1–2 నిమిషాలు చాలు", recording: "రికార్డ్ అవుతోంది… పూర్తయ్యాక మళ్ళీ నొక్కండి", listenBack: "మీ సమాధానం వినండి",
+        again: "మళ్ళీ రికార్డ్", saveNext: "సేవ్ చేసి తర్వాతి ప్రశ్న →", saveFinish: "సేవ్ చేసి ముగించండి",
+        typeInstead: "టైప్ చేస్తాను", speakInstead: "మాట్లాడి చెబుతాను", skip: "ఈ ప్రశ్న వదిలేయండి", back: "← వెనక్కి",
+        typePh: "ఇక్కడ రాయండి…", maxReached: "4 నిమిషాలు పూర్తయ్యాయి. విని సేవ్ చేయండి, లేదా మళ్ళీ రికార్డ్ చేయండి.",
+        micBlocked: "మైక్రోఫోన్‌కు అనుమతి దొరకలేదు. పై అడ్రస్ బార్‌లోని తాళం గుర్తు నొక్కి మైక్రోఫోన్ అనుమతించండి, లేదా కింది మార్గం వాడండి.",
+        phoneRec: "ఫోన్ రికార్డర్‌తో రికార్డ్ చేయండి", noRecSupport: "ఈ బ్రౌజర్‌లో నేరుగా రికార్డ్ కాదు. ఫోన్ రికార్డర్ వాడండి లేదా టైప్ చేయండి.",
+        tooShort: "రికార్డింగ్ చాలా చిన్నది. మళ్ళీ ప్రయత్నించండి.",
+        cheers: ["ధన్యవాదాలు! ఇలాంటి నిజమైన అనుభవాలే మాకు ఎక్కువ ఉపయోగపడతాయి.", "సేవ్ అయింది. చాలా బాగా చెబుతున్నారు.", "మీరు చెప్పే ప్రతి సమస్యా మేము పరిష్కరించడానికి ప్రయత్నించగలిగేదే.", "అద్భుతం — ఇది చాలా స్పష్టంగా ఉంది.", "ధన్యవాదాలు. మీ అనుభవం ఇతర ఉపాధ్యాయులకూ సహాయపడుతుంది."],
+        half: "సగం పూర్తయింది! మీ సమయానికి ధన్యవాదాలు.", nearly: "ఇంకొక్కటే!", skipped: "సరే, తర్వాతి ప్రశ్నకు వెళ్దాం.",
+        cpTitle: "ముఖ్యమైన భాగం పూర్తయింది!", cpBody: "మీ సమయానికి హృదయపూర్వక ధన్యవాదాలు. ఇంకో 5–8 నిమిషాలు ఉంటే, 4 చిన్న అదనపు ప్రశ్నలు ఉన్నాయి: భాష, పని భారం, మీరు వాడిన యాప్‌లు, మరియు మీరు చెప్పాలనుకున్నది.",
+        cpYes: "సరే, కొనసాగిస్తాను", cpNo: "ఇప్పుడు ముగిస్తాను",
+        fuTitle: "సంప్రదింపులో ఉందామా? (ఐచ్ఛికం)", fuBody: "సాధనాలు సిద్ధమయ్యాక ఉచిత తెలుగు–ఇంగ్లీష్ కార్యాచరణ ప్యాక్ పంపుతాం, సాధనాలు ప్రయత్నించమని ఆహ్వానించవచ్చు. మీ నంబర్ మీ సమాధానాలతో కలపకుండా వేరుగా దాచబడుతుంది.",
+        fuPh: "వాట్సాప్ నంబర్ (10 అంకెలు)", fuConsent: "ఉపాధ్యాయుల ఉచిత సాధనాల గురించి Vitainspire నన్ను వాట్సాప్‌లో సంప్రదించవచ్చు.", fuSend: "పంపండి", fuSkip: "వద్దు, ధన్యవాదాలు", fuBad: "దయచేసి 10 అంకెల నంబర్ ఇవ్వండి.", fuThanks: "ధన్యవాదాలు! ప్యాక్ సిద్ధమయ్యాక పంపుతాం.",
+        saved: "అన్ని సమాధానాలు సేవ్ అయ్యాయి", sending: n => `${n} సమాధానాలు పంపుతోంది…`, offline: n => `నెట్ లేదు — ${n} సమాధానాలు నెట్ వచ్చాక పంపుతాం`, ready: "సిద్ధం",
+        demo: "డెమో మోడ్: సమాధానాలు ఎక్కడికీ పంపబడవు.",
+        doneTitle: "ధన్యవాదాలు, గురువుగారూ!", doneBody: "మీరు చెప్పిన ప్రతి మాట మేము శ్రద్ధగా వింటాం. మీలాంటి ఉపాధ్యాయుల అనుభవాలతోనే ఈ సాధనాలు తయారవుతాయి.",
+        answered: (a, m) => `మీరు ${a} ప్రశ్నలకు సమాధానం ఇచ్చారు${m ? ` · సుమారు ${m} నిమిషాల అనుభవం` : ''}`,
+        codeLabel: "మీ సమాధానాల కోడ్", codeHelp: "మీ సమాధానాలు తొలగించాలంటే ఈ కోడ్‌తో మమ్మల్ని సంప్రదించండి.",
+        keepOpen: "అన్నీ పంపేవరకు దయచేసి ఈ పేజీ మూసివేయకండి.", allSent: "అన్నీ చేరాయి. ఇప్పుడు పేజీ మూసివేయవచ్చు.",
+        share: "మరో ఉపాధ్యాయునికి WhatsApp లో పంపండి", copy: "లింక్ కాపీ చేయండి", copied: "లింక్ కాపీ అయింది",
+        shareMsg: "నేను ‘మీ మాట’ లో నా తరగతి అనుభవాలు చెప్పాను. ఉపాధ్యాయుల కోసం ఉచిత సాధనాలు తయారు చేయడానికి ఇది. సుమారు 15 నిమిషాలు, వాయిస్‌తో, పేరు అవసరం లేదు: ",
+        foot: "Vitainspire · ఉపాధ్యాయుల కోసం ఉచిత సాధనాలు"
+      },
+      en: {
+        h1: "Your classroom, in your own voice",
+        intro: "Namaste! We are building free teaching tools for teachers in Andhra Pradesh. Before we build anything, we want to hear from you — the good days and the hard ones.",
+        p: ["There are no right or wrong answers. Your real experience is what helps us.", "Your name is not needed.", "This is not an inspection. Your answers do not go to the department or your headmaster.", "Speak in Telugu, English or both — whatever is comfortable."],
+        chips: ["About 15 minutes", "8 questions + 4 optional", "By voice", "Skip any question"],
+        privacyTitle: "How we use your answers",
+        privacy: m => ["Only the Vitainspire team listens to your recordings. We do not give them to government officials or anyone outside the team.", "We keep: your voice or written answers, the options you tap, and your district if you give it. We don't ask for your name or phone number.", "Recordings are kept in our private Google Drive and deleted within " + m + " months after the study ends.", "To delete your answers, contact us with the code you get at the end."],
+        consent: "I have read the above. I agree that the Vitainspire team may use my answers to design free tools for teachers.",
+        start: "Let's begin", resume: "Continue where you left off", restart: "Start over",
+        contact: "Questions or deletion requests:",
+        tapSub: "Tap what fits. Everything is optional.", district: "District / mandal (optional)", cont: "Continue",
+        qOf: (i, n) => `Question ${i} of ${n}`, bonusOf: (i, n) => `Extra question ${i} of ${n}`, bonus: "Optional",
+        listen: "Listen to the question",
+        tip: "Find a quiet spot. Please don't say your name, your school's name or children's names. A real example (‘last week this happened’) helps us more than ‘usually’.",
+        tap: "Tap and speak", lenHint: "1–2 minutes is perfect", recording: "Recording… tap again when you're done", listenBack: "Listen to your answer",
+        again: "Record again", saveNext: "Save & next question →", saveFinish: "Save & finish",
+        typeInstead: "I'll type instead", speakInstead: "I'll speak instead", skip: "Skip this question", back: "← Back",
+        typePh: "Write here…", maxReached: "That's 4 minutes. Listen and save, or record again.",
+        micBlocked: "We couldn't use the microphone. Tap the lock icon in the address bar and allow the microphone, or use the option below.",
+        phoneRec: "Record with phone recorder", noRecSupport: "This browser can't record here. Use your phone's recorder or type your answer.",
+        tooShort: "That recording was very short. Please try again.",
+        cheers: ["Thank you! Real stories like this help us the most.", "Saved. You're explaining this really well.", "Every problem you name is one we can try to solve.", "Wonderful — that was very clear.", "Thank you. Your experience will help other teachers too."],
+        half: "Halfway there! Thank you for your time.", nearly: "Just one more!", skipped: "No problem, let's go to the next one.",
+        cpTitle: "The main part is done!", cpBody: "Thank you so much for your time. If you have 5–8 more minutes, there are 4 short extra questions: language, workload, apps you've tried, and anything else you want to say.",
+        cpYes: "Yes, I'll continue", cpNo: "Finish now",
+        fuTitle: "Stay in touch? (optional)", fuBody: "When the tools are ready we'll send you a free Telugu–English activity pack, and we may invite you to try them. Your number is stored separately and is not linked to your answers.",
+        fuPh: "WhatsApp number (10 digits)", fuConsent: "Vitainspire may contact me on WhatsApp about free tools for teachers.", fuSend: "Send", fuSkip: "No, thanks", fuBad: "Please enter a 10-digit number.", fuThanks: "Thank you! We'll send the pack when it's ready.",
+        saved: "All answers saved", sending: n => `Sending ${n} answer${n > 1 ? 's' : ''}…`, offline: n => `Offline — ${n} answer${n > 1 ? 's' : ''} will send when you're connected`, ready: "Ready",
+        demo: "Demo mode: answers are not sent anywhere.",
+        doneTitle: "Thank you, teacher!", doneBody: "We will listen carefully to every word. These tools will be built from experiences like yours.",
+        answered: (a, m) => `You answered ${a} question${a === 1 ? '' : 's'}${m ? ` · about ${m} minutes of your experience` : ''}`,
+        codeLabel: "Your answer code", codeHelp: "Quote this code if you ever want your answers deleted.",
+        keepOpen: "Please keep this page open until everything is sent.", allSent: "Everything has arrived. You can close this page now.",
+        share: "Share with another teacher on WhatsApp", copy: "Copy link", copied: "Link copied",
+        shareMsg: "I shared my classroom experience on ‘Mee Maata’ to help build free tools for teachers. About 15 minutes, by voice, no name needed: ",
+        foot: "Vitainspire · Free tools for teachers"
+      }
+    };
+
+    /* ================= STATE ================= */
+    const LS = {
+      get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d } catch (e) { return d } },
+      set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)) } catch (e) { } }
+    };
+    const uid = () => (crypto.randomUUID ? crypto.randomUUID() : 'xxxxxxxx-xxxx-4xxx-8xxx-xxxxxxxxxxxx'.replace(/x/g, () => (Math.random() * 16 | 0).toString(16)));
+    const params = new URLSearchParams(location.search);
+    const REF = (params.get('ref') || '').replace(/[^\w.-]/g, '').slice(0, 40);
+
+    let S = LS.get('mm_state', null);
+    const fresh = () => ({ sessionId: uid(), step: 'welcome', screen: 0, idx: 0, lang: (params.get('lang') === 'en' ? 'en' : 'te'), consent: false, profile: {}, answers: {}, seconds: 0, ref: REF, completed: false, bonus: null, followup: null });
+    let resumable = !!(S && S.step && S.step !== 'welcome' && !S.completed);
+    if (!S || !S.sessionId) S = fresh();
+    if (S.completed) { const keepLang = S.lang; S = fresh(); S.lang = keepLang; }
+    if (REF && !S.ref) S.ref = REF;
+    if (resumable) { S._resumeFrom = S.step; S.step = 'welcome'; }
+    const save = () => LS.set('mm_state', S);
+    const t = () => T[S.lang];
+    const code = () => S.sessionId.replace(/-/g, '').slice(0, 6).toUpperCase();
+
+    /* ================= UPLOAD QUEUE (survives reloads & bad network) ================= */
+    const Q = (() => {
+      const mem = new Map(); let dbp = null;
+      function open() {
+        if (dbp) return dbp;
+        dbp = new Promise((res) => {
+          try {
+            const r = indexedDB.open('meemaata', 1);
+            r.onupgradeneeded = () => r.result.createObjectStore('q', { keyPath: 'answerId' });
+            r.onsuccess = () => res(r.result); r.onerror = () => res(null);
+          } catch (e) { res(null); }
+        });
+        return dbp;
+      }
+      async function tx(mode, fn) {
+        const db = await open(); if (!db) return null;
+        return new Promise((res) => {
+          try { const r = fn(db.transaction('q', mode).objectStore('q')); r.onsuccess = () => res(r.result); r.onerror = () => res(null); }
+          catch (e) { res(null); }
+        });
+      }
+      return {
+        async put(item) { mem.set(item.answerId, item); await tx('readwrite', s => s.put(item)); },
+        async all() { const fromDb = await tx('readonly', s => s.getAll()); if (Array.isArray(fromDb)) fromDb.forEach(i => { if (!mem.has(i.answerId)) mem.set(i.answerId, i); }); return [...mem.values()].sort((a, b) => a.ts < b.ts ? -1 : 1); },
+        async del(id) { mem.delete(id); await tx('readwrite', s => s.delete(id)); }
+      };
+    })();
+    let pending = 0, pumping = false;
+    function blobToB64(blob) { return new Promise((res, rej) => { const fr = new FileReader(); fr.onload = () => res(String(fr.result).split(',')[1] || ''); fr.onerror = () => rej(fr.error); fr.readAsDataURL(blob); }); }
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
+    async function send(item) {
+      const body = Object.assign({}, item.meta, { key: CONFIG.KEY, answerId: item.answerId });
+      if (item.blob) { body.audioBase64 = await blobToB64(item.blob); body.mime = item.blob.type || 'audio/webm'; }
+      if (!CONFIG.ENDPOINT) { await sleep(300); return; }
+      const r = await fetch(CONFIG.ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(body), redirect: 'follow' });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      let j = null; try { j = await r.json(); } catch (e) { }
+      if (j && j.ok === false) throw new Error(j.error || 'server error');
+    }
+    async function pump() {
+      if (pumping) return; pumping = true;
+      try {
+        const items = await Q.all(); pending = items.length; showStatus();
+        for (const it of items) {
+          if (navigator.onLine === false) break;
+          try { await send(it); await Q.del(it.answerId); }
+          catch (e) { console.warn('Mee Maata upload will retry:', e.message || e); break; }
+          pending = Math.max(0, pending - 1); showStatus();
+        }
+        pending = (await Q.all()).length;
+      } finally { pumping = false; showStatus(); renderDoneStatus(); }
+    }
+    async function enqueue(meta, blob) {
+      const item = { answerId: uid(), ts: new Date().toISOString(), meta, blob: blob || null };
+      await Q.put(item); pending++; showStatus(); pump();
+    }
+    setInterval(pump, 15000);
+    addEventListener('online', pump);
+    addEventListener('offline', showStatus);
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') pump(); });
+    function baseMeta(type) { return { type, sessionId: S.sessionId, ref: S.ref || '', lang: S.lang, clientTime: new Date().toISOString(), ua: navigator.userAgent.slice(0, 180) }; }
+
+    /* ================= UI HELPERS ================= */
+    const $ = s => document.querySelector(s);
+    const app = $('#app');
+    const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    function toast(msg) { const el = $('#toast'); el.textContent = msg; el.classList.add('show'); clearTimeout(toast._t); toast._t = setTimeout(() => el.classList.remove('show'), 2800); }
+    function showStatus() {
+      const el = $('#status'), tx = $('#statusText');
+      el.classList.remove('ok', 'wait');
+      if (pending > 0) { el.classList.add('wait'); tx.textContent = navigator.onLine === false ? t().offline(pending) : t().sending(pending); }
+      else { el.classList.add('ok'); tx.textContent = Object.keys(S.answers).length ? t().saved : t().ready; }
+    }
+    function go(step) { S.step = step; save(); render(); scrollTo(0, 0); const h = app.querySelector('h1,h2,.qtext'); if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); } }
+    function setLang(l) {
+      S.lang = l; save(); document.documentElement.lang = l;
+      document.querySelectorAll('.lang button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === l)));
+      $('#demo').textContent = t().demo; $('#demo').hidden = !!CONFIG.ENDPOINT;
+      stopSpeaking(); render();
+    }
+    document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => { if (rec.state === 'recording' || rec.state === 'stopping') return; setLang(b.dataset.lang); }));
+    const ICON = {
+      check: '<svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6 10.5l2.6 2.6L14 7.6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+      mic: '<svg width="44" height="44" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>',
+      stop: '<svg width="40" height="40" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2.5" fill="currentColor"/></svg>',
+      speaker: '<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>',
+      star: '<svg width="36" height="36" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 16.8l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z" fill="currentColor"/></svg>',
+      wa: '<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.6-2-1-1 .9c-1-.4-2.4-1.8-2.8-2.8l.9-1-1-2-1.6 1z" fill="currentColor"/></svg>'
+    };
+
+    /* ================= HEAR THE QUESTION (recorded audio, else the phone's voice) ================= */
+    let voices = [], qAudio = null;
+    function loadVoices() { try { voices = speechSynthesis.getVoices() || []; } catch (e) { voices = []; } }
+    if ('speechSynthesis' in window) { loadVoices(); speechSynthesis.onvoiceschanged = () => { const had = !!voiceFor(S.lang); loadVoices(); if (S.step === 'q' && !had && voiceFor(S.lang) && rec.state === 'idle') renderQ(); }; }
+    function voiceFor(l) { const want = l === 'te' ? ['te'] : ['en-in', 'en']; for (const w of want) { const v = voices.find(v => v.lang && v.lang.replace('_', '-').toLowerCase().startsWith(w)); if (v) return v; } return null; }
+    function canListen() { return !!CONFIG.AUDIO_BASE || !!voiceFor(S.lang); }
+    function speak(q) {
+      stopSpeaking();
+      if (CONFIG.AUDIO_BASE) {
+        qAudio = new Audio(CONFIG.AUDIO_BASE.replace(/\/$/, '') + '/' + q.id + '-' + S.lang + '.mp3');
+        qAudio.play().catch(() => ttsSpeak(q[S.lang])); return;
+      }
+      ttsSpeak(q[S.lang]);
+    }
+    function ttsSpeak(text) { try { const v = voiceFor(S.lang); if (!v) return; const u = new SpeechSynthesisUtterance(text); u.voice = v; u.lang = v.lang; u.rate = 0.95; speechSynthesis.speak(u); } catch (e) { } }
+    function stopSpeaking() { try { speechSynthesis.cancel(); } catch (e) { } try { if (qAudio) { qAudio.pause(); qAudio = null; } } catch (e) { } }
+
+    /* ================= RECORDER ================= */
+    const rec = { state: 'idle', mr: null, stream: null, chunks: [], blob: null, url: null, secs: 0, timer: null, raf: null, ctx: null, mode: 'voice', err: '', wake: null };
+    const canRecord = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder);
+    function pickMime() { for (const m of ['audio/webm;codecs=opus', 'audio/mp4', 'audio/ogg;codecs=opus', 'audio/webm', 'audio/aac']) { try { if (MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(m)) return m; } catch (e) { } } return ''; }
+    function resetRec() { if (rec.url) URL.revokeObjectURL(rec.url); Object.assign(rec, { state: 'idle', chunks: [], blob: null, url: null, secs: 0, err: '' }); }
+    async function startRec() {
+      stopSpeaking(); rec.err = '';
+      if (!canRecord) { rec.err = t().noRecSupport; renderQ(); return; }
+      try { rec.stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } }); }
+      catch (e) { rec.err = t().micBlocked; renderQ(); return; }
+      const mime = pickMime();
+      try { rec.mr = new MediaRecorder(rec.stream, mime ? { mimeType: mime, audioBitsPerSecond: 32000 } : undefined); }
+      catch (e) { rec.mr = new MediaRecorder(rec.stream); }
+      rec.chunks = []; rec.secs = 0; rec.state = 'recording';
+      rec.mr.ondataavailable = e => { if (e.data && e.data.size) rec.chunks.push(e.data); };
+      rec.mr.onstop = () => {
+        const type = rec.mr.mimeType || mime || 'audio/webm';
+        rec.blob = new Blob(rec.chunks, { type });
+        stopStream();
+        if (rec.secs < 2 || rec.blob.size < 1500) { resetRec(); rec.err = t().tooShort; renderQ(); return; }
+        rec.url = URL.createObjectURL(rec.blob); rec.state = 'review'; renderQ();
+      };
+      rec.mr.start(1000);
+      try { if (navigator.wakeLock) rec.wake = await navigator.wakeLock.request('screen'); } catch (e) { }
+      rec.timer = setInterval(() => { rec.secs++; const el = $('#timer'); if (el) el.textContent = fmt(rec.secs) + ' / ' + fmt(CONFIG.MAX_SECONDS); if (rec.secs >= CONFIG.MAX_SECONDS) { stopRec(); toast(t().maxReached); } }, 1000);
+      renderQ(); startMeter();
+    }
+    function stopRec() { clearInterval(rec.timer); if (rec.mr && rec.state === 'recording') { rec.state = 'stopping'; try { rec.mr.stop(); } catch (e) { } } }
+    function stopStream() {
+      cancelAnimationFrame(rec.raf);
+      try { rec.stream && rec.stream.getTracks().forEach(tr => tr.stop()); } catch (e) { }
+      try { rec.ctx && rec.ctx.close(); } catch (e) { }
+      try { rec.wake && rec.wake.release(); } catch (e) { }
+      rec.stream = null; rec.ctx = null; rec.wake = null;
+    }
+    function startMeter() {
+      try {
+        const AC = window.AudioContext || window.webkitAudioContext; if (!AC || !rec.stream) return;
+        rec.ctx = new AC(); try { rec.ctx.resume(); } catch (e) { }
+        const an = rec.ctx.createAnalyser(); an.fftSize = 256; rec.ctx.createMediaStreamSource(rec.stream).connect(an);
+        const data = new Uint8Array(an.frequencyBinCount);
+        const loop = () => {
+          const bars = document.querySelectorAll('#meter span');
+          if (bars.length) {
+            an.getByteTimeDomainData(data);
+            let sum = 0; for (let i = 0; i < data.length; i++) { const v = (data[i] - 128) / 128; sum += v * v; }
+            const lvl = Math.min(1, Math.sqrt(sum / data.length) * 5);
+            bars.forEach((b, i) => { const w = 0.45 + 0.55 * Math.abs(Math.sin((i + 1) * 1.7 + performance.now() / 180)); b.style.height = (4 + Math.round(lvl * w * 30)) + 'px'; });
+          }
+          rec.raf = requestAnimationFrame(loop);
+        };
+        loop();
+      } catch (e) { }
+    }
+    const fmt = s => Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+    $('#filepick').addEventListener('change', e => {
+      const f = e.target.files && e.target.files[0]; e.target.value = '';
+      if (!f) return; resetRec(); rec.blob = f; rec.url = URL.createObjectURL(f); rec.state = 'review'; rec.mode = 'voice';
+      const a = new Audio(); a.preload = 'metadata'; a.src = rec.url; a.onloadedmetadata = () => { if (isFinite(a.duration)) rec.secs = Math.round(a.duration); };
+      renderQ();
+    });
+
+    /* ================= SCREENS ================= */
+    function render() {
+      showStatus();
+      ({ welcome: renderWelcome, profile: renderProfile, q: renderQ, checkpoint: renderCheckpoint, followup: renderFollowup, done: renderDone }[S.step] || renderWelcome)();
+    }
+    function renderWelcome() {
+      const x = t();
+      app.innerHTML = `
+    <h1>${x.h1}</h1>
+    <p>${x.intro}</p>
+    <ul class="promises">${x.p.map(s => `<li>${ICON.check}<span>${s}</span></li>`).join('')}</ul>
+    <div class="chips-row">${x.chips.map(c => `<span class="pill">${c}</span>`).join('')}</div>
+    <details class="card"><summary>${x.privacyTitle}</summary><ul>${x.privacy(CONFIG.RETENTION_MONTHS).map(s => `<li>${s}</li>`).join('')}${CONFIG.CONTACT ? `<li>${x.contact} <span style="user-select:all">${esc(CONFIG.CONTACT)}</span></li>` : ''}</ul></details>
+    <label class="card consent" for="consent"><input type="checkbox" id="consent" ${S.consent ? 'checked' : ''}><span>${x.consent}</span></label>
+    <div class="stack" style="margin-top:16px">
+      ${resumable ? `<button class="btn btn-gold btn-block" id="resume" ${S.consent ? '' : 'disabled'}>${x.resume}</button><button class="link" id="restart">${x.restart}</button>`
+          : `<button class="btn btn-primary btn-block" id="start" ${S.consent ? '' : 'disabled'}>${x.start}</button>`}
+    </div>
+    ${CONFIG.CONTACT ? `<p class="foot">${x.contact} <span style="user-select:all">${esc(CONFIG.CONTACT)}</span></p>` : ''}
+    <p class="foot">${x.foot}</p>`;
+      $('#consent').addEventListener('change', e => { S.consent = e.target.checked; save(); const b = $('#start') || $('#resume'); if (b) b.disabled = !S.consent; });
+      if ($('#start')) $('#start').addEventListener('click', () => { S.screen = 0; go('profile'); });
+      if ($('#resume')) $('#resume').addEventListener('click', () => { const to = S._resumeFrom || 'profile'; delete S._resumeFrom; resumable = false; go(to); });
+      if ($('#restart')) $('#restart').addEventListener('click', () => { const l = S.lang; S = fresh(); S.lang = l; resumable = false; save(); render(); });
+    }
+    function renderProfile() {
+      const x = t(), L = S.lang, scr = PROFILE_SCREENS[S.screen || 0];
+      app.innerHTML = `
+    <div class="progress"><span>${(S.screen || 0) + 1} / ${PROFILE_SCREENS.length}</span><div class="bar"><i style="width:${Math.round(((S.screen || 0) + 1) / PROFILE_SCREENS.length * 100)}%"></i></div></div>
+    <h2>${scr[L]}</h2><p class="muted small">${x.tapSub}</p>
+    ${scr.groups.map(g => `<div class="chipgroup" role="group" aria-label="${esc(g[L])}"><h3>${g[L]}</h3><div class="opts">${g.opts.map(o => { const v = S.profile[g.id]; const on = g.multi ? (Array.isArray(v) && v.includes(o[0])) : v === o[0]; return `<button type="button" class="opt" data-g="${g.id}" data-v="${o[0]}" aria-pressed="${on}">${L === 'te' ? o[1] : o[2]}</button>`; }).join('')}</div></div>`).join('')}
+    ${scr.district ? `<div class="chipgroup"><h3><label for="district">${x.district}</label></h3><input type="text" id="district" maxlength="60" autocomplete="off" value="${esc(S.profile.district || '')}"></div>` : ''}
+    <button class="btn btn-primary btn-block" id="pnext">${x.cont}</button>
+    <div class="links"><button class="link" id="pback">${x.back}</button></div>`;
+      app.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => {
+        const g = scr.groups.find(p => p.id === b.dataset.g), v = b.dataset.v;
+        if (g.multi) { const arr = Array.isArray(S.profile[g.id]) ? S.profile[g.id] : []; S.profile[g.id] = arr.includes(v) ? arr.filter(a => a !== v) : [...arr, v]; }
+        else S.profile[g.id] = S.profile[g.id] === v ? undefined : v;
+        save();
+        b.parentNode.querySelectorAll('.opt').forEach(o => { const cur = S.profile[g.id]; o.setAttribute('aria-pressed', String(g.multi ? (Array.isArray(cur) && cur.includes(o.dataset.v)) : cur === o.dataset.v)); });
+      }));
+      const d = $('#district'); if (d) d.addEventListener('input', e => { S.profile.district = e.target.value.slice(0, 60); save(); });
+      $('#pnext').addEventListener('click', () => {
+        if ((S.screen || 0) < PROFILE_SCREENS.length - 1) { S.screen = (S.screen || 0) + 1; go('profile'); return; }
+        enqueue(Object.assign(baseMeta('profile'), { profile: S.profile }));
+        resetRec(); rec.mode = 'voice'; S.idx = S.idx || 0; go('q');
+      });
+      $('#pback').addEventListener('click', () => { if ((S.screen || 0) > 0) { S.screen--; go('profile'); } else go('welcome'); });
+    }
+    function renderQ() {
+      const x = t(), L = S.lang, q = QUESTIONS[S.idx];
+      const isBonus = !q.core, pos = isBonus ? S.idx - CORE_N + 1 : S.idx + 1, tot = isBonus ? QUESTIONS.length - CORE_N : CORE_N;
+      const lastOfPart = isBonus ? S.idx === QUESTIONS.length - 1 : S.idx === CORE_N - 1;
+      const hint = L === 'te' ? q.hte : q.hen;
+      const busy = rec.state === 'recording' || rec.state === 'stopping';
+      let zone = '';
+      if (rec.mode === 'text') {
+        zone = `<textarea id="ta" placeholder="${x.typePh}" aria-label="${x.typePh}">${esc((S._draft && S._draft[q.id]) || '')}</textarea>
+      <button class="btn btn-primary btn-block" id="saveText" style="margin-top:12px">${lastOfPart ? x.saveFinish : x.saveNext}</button>`;
+      } else if (rec.state === 'review') {
+        zone = `<div class="card"><div class="small muted">${x.listenBack}${rec.secs ? ` · ${fmt(rec.secs)}` : ''}</div><audio controls src="${rec.url}"></audio></div>
+      <div class="stack" style="margin-top:12px"><button class="btn btn-gold btn-block" id="saveVoice">${lastOfPart ? x.saveFinish : x.saveNext}</button>
+      <button class="btn btn-ghost btn-block" id="again">${x.again}</button></div>`;
+      } else {
+        zone = `<div class="reczone">
+        <button class="recbtn ${busy ? 'on' : ''}" id="recbtn" aria-label="${busy ? x.recording : x.tap}">${busy ? ICON.stop : ICON.mic}</button>
+        <div class="reclabel">${busy ? x.recording : x.tap}</div>
+        ${busy ? `<div class="meter" id="meter" aria-hidden="true">${'<span></span>'.repeat(22)}</div><div class="timer" id="timer">${fmt(rec.secs)} / ${fmt(CONFIG.MAX_SECONDS)}</div>` : `<div class="small muted">${x.lenHint}</div>`}
+      </div>
+      ${rec.err ? `<div class="alert" role="alert">${rec.err}<div class="stack" style="margin-top:10px"><button class="btn btn-ghost btn-block" id="phoneRec">${x.phoneRec}</button></div></div>` : ''}`;
+      }
+      app.innerHTML = `
+    <div class="progress">${isBonus ? `<span class="badge">${x.bonus}</span>` : ''}<span>${isBonus ? x.bonusOf(pos, tot) : x.qOf(pos, tot)}</span><div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="${tot}" aria-valuenow="${pos - 1}"><i style="width:${Math.round((pos - 1) / tot * 100)}%"></i></div></div>
+    <p class="qtext" id="qtext">${q[L]}</p>
+    ${hint ? `<div class="hint">${hint}</div>` : ''}
+    ${canListen() && !busy ? `<button class="listen" id="listen">${ICON.speaker}<span>${x.listen}</span></button>` : ''}
+    ${S.idx === 0 && rec.state === 'idle' && rec.mode === 'voice' ? `<div class="tip">${x.tip}</div>` : ''}
+    ${zone}
+    ${busy ? '' : `<div class="links">
+      <button class="link" id="qback">${x.back}</button>
+      <button class="link" id="mode">${rec.mode === 'text' ? x.speakInstead : x.typeInstead}</button>
+      <button class="link" id="skip">${x.skip}</button>
+    </div>`}`;
+      const on = (id, fn) => { const el = $('#' + id); if (el) el.addEventListener('click', fn); };
+      on('listen', () => speak(q));
+      on('recbtn', () => { if (rec.state === 'recording') stopRec(); else if (rec.state === 'idle') startRec(); });
+      on('again', () => { resetRec(); startRec(); });
+      on('phoneRec', () => $('#filepick').click());
+      on('saveVoice', () => saveAnswer('voice'));
+      on('saveText', () => saveAnswer('text'));
+      on('skip', () => saveAnswer('skipped'));
+      on('mode', () => { rec.mode = rec.mode === 'text' ? 'voice' : 'text'; resetRec(); renderQ(); });
+      on('qback', () => {
+        stopSpeaking(); resetRec(); rec.mode = 'voice';
+        if (S.idx === 0) { S.screen = PROFILE_SCREENS.length - 1; go('profile'); }
+        else if (S.idx === CORE_N) { go('checkpoint'); }
+        else { S.idx--; go('q'); }
+      });
+      const ta = $('#ta'); if (ta) { ta.addEventListener('input', e => { S._draft = S._draft || {}; S._draft[q.id] = e.target.value; save(); }); }
+    }
+    function answeredCount() { return Object.values(S.answers).filter(v => v !== 'skipped').length; }
+    function saveAnswer(kind) {
+      stopSpeaking();
+      const q = QUESTIONS[S.idx], x = t();
+      let text = '';
+      if (kind === 'text') { const ta = $('#ta'); text = (ta && ta.value || '').trim(); if (!text) { ta && ta.focus(); return; } }
+      if (kind === 'voice' && !rec.blob) return;
+      const meta = Object.assign(baseMeta('answer'), { qid: q.id, qno: S.idx + 1, tag: q.tag, core: q.core, question: q.en, answerType: kind, text, durationSec: kind === 'voice' ? rec.secs : 0 });
+      const replacing = S.answers[q.id] === 'voice';
+      enqueue(meta, kind === 'voice' ? rec.blob : null);
+      if (kind === 'voice' && !replacing) S.seconds += rec.secs || 0;
+      S.answers[q.id] = kind;
+      if (S._draft) delete S._draft[q.id];
+      resetRec(); rec.mode = 'voice';
+      if (S.idx === CORE_N - 1 && S.bonus === null) { go('checkpoint'); return; }
+      if (S.idx >= QUESTIONS.length - 1 || (S.idx === CORE_N - 1 && S.bonus === false)) { finish(); return; }
+      S.idx++; go('q');
+      if (kind === 'skipped') toast(x.skipped);
+      else if (S.idx === Math.floor(CORE_N / 2)) toast(x.half);
+      else if (S.idx === CORE_N - 1 || S.idx === QUESTIONS.length - 1) toast(x.nearly);
+      else toast(x.cheers[S.idx % x.cheers.length]);
+    }
+    function renderCheckpoint() {
+      const x = t();
+      app.innerHTML = `
+    <div class="celebrate">${ICON.star}</div>
+    <h2>${x.cpTitle}</h2>
+    <p>${x.cpBody}</p>
+    <div class="stack" style="margin-top:18px">
+      <button class="btn btn-gold btn-block" id="cpYes">${x.cpYes}</button>
+      <button class="btn btn-ghost btn-block" id="cpNo">${x.cpNo}</button>
+    </div>
+    <div class="links"><button class="link" id="cpBack">${x.back}</button></div>`;
+      $('#cpYes').addEventListener('click', () => { S.bonus = true; S.idx = CORE_N; resetRec(); rec.mode = 'voice'; go('q'); });
+      $('#cpNo').addEventListener('click', () => { S.bonus = false; finish(); });
+      $('#cpBack').addEventListener('click', () => { S.idx = CORE_N - 1; go('q'); });
+    }
+    function finish() {
+      enqueue(Object.assign(baseMeta('complete'), { answered: answeredCount(), voiceSeconds: S.seconds, bonus: !!S.bonus, profile: S.profile }));
+      go('followup');
+    }
+    function renderFollowup() {
+      const x = t();
+      app.innerHTML = `
+    <h2>${x.fuTitle}</h2>
+    <p>${x.fuBody}</p>
+    <label class="sr" for="phone">${x.fuPh}</label>
+    <input type="tel" id="phone" inputmode="numeric" autocomplete="tel" placeholder="${x.fuPh}" maxlength="14">
+    <label class="card consent" for="fuc" style="margin-top:12px"><input type="checkbox" id="fuc"><span>${x.fuConsent}</span></label>
+    <div id="fuErr" class="alert" role="alert" hidden></div>
+    <div class="stack" style="margin-top:16px">
+      <button class="btn btn-primary btn-block" id="fuSend" disabled>${x.fuSend}</button>
+      <button class="btn btn-ghost btn-block" id="fuSkip">${x.fuSkip}</button>
+    </div>`;
+      const upd = () => { $('#fuSend').disabled = !($('#fuc').checked && $('#phone').value.trim()); };
+      $('#phone').addEventListener('input', upd); $('#fuc').addEventListener('change', upd);
+      $('#fuSend').addEventListener('click', () => {
+        const digits = $('#phone').value.replace(/\D/g, '').replace(/^(91|0)(?=\d{10}$)/, '');
+        if (!/^[6-9]\d{9}$/.test(digits)) { const e = $('#fuErr'); e.textContent = x.fuBad; e.hidden = false; return; }
+        // Sent WITHOUT the session id, so the number cannot be linked to the answers.
+        enqueue({ type: 'followup', phone: digits, district: S.profile.district || '', ref: S.ref || '', lang: S.lang, clientTime: new Date().toISOString(), sessionId: 'contact' });
+        S.followup = true; toast(x.fuThanks); doneNow();
+      });
+      $('#fuSkip').addEventListener('click', () => { S.followup = false; doneNow(); });
+    }
+    function doneNow() { S.completed = true; go('done'); }
+    function shareUrl() { const u = new URL(location.href); u.hash = ''; u.searchParams.delete('lang'); return u.toString(); }
+    function renderDone() {
+      const x = t();
+      const mins = Math.round(S.seconds / 60);
+      const link = shareUrl();
+      app.innerHTML = `
+    <div class="celebrate">${ICON.star}</div>
+    <h1>${x.doneTitle}</h1>
+    <p>${x.doneBody}</p>
+    <div class="note">${x.answered(answeredCount(), mins)}</div>
+    <div class="card"><div class="small muted">${x.codeLabel}</div><div class="code">${code()}</div><div class="small muted">${x.codeHelp}${CONFIG.CONTACT ? ` · <span style="user-select:all">${esc(CONFIG.CONTACT)}</span>` : ''}</div></div>
+    <div id="doneStatus" class="alert" aria-live="polite"></div>
+    <div class="stack" style="margin-top:18px">
+      <a class="btn btn-gold btn-block" id="wa" href="https://wa.me/?text=${encodeURIComponent(x.shareMsg + link)}" target="_blank" rel="noopener">${ICON.wa}<span>${x.share}</span></a>
+      <button class="btn btn-ghost btn-block" id="copy">${x.copy}</button>
+    </div>
+    <p class="foot">${x.foot}</p>`;
+      $('#copy').addEventListener('click', async () => { try { await navigator.clipboard.writeText(link); toast(x.copied); } catch (e) { toast(link); } });
+      renderDoneStatus();
+    }
+    function renderDoneStatus() { const el = $('#doneStatus'); if (!el) return; el.textContent = pending > 0 ? t().keepOpen : t().allSent; }
+
+    /* ================= START ================= */
+    if (!CONFIG.CONTACT) console.warn('Mee Maata: set CONFIG.CONTACT before sharing — teachers need it to ask questions or delete answers.');
+    setLang(S.lang);
+    pump();
+    addEventListener('beforeunload', e => { if (pending > 0 || rec.state === 'recording') { e.preventDefault(); e.returnValue = ''; } });
+  </script>
+</body>
+
+</html>
