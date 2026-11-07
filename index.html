@@ -748,8 +748,8 @@
       },
       {
         id: "q07", tag: "assessment", core: true,
-        te: "పిల్లలు నిజంగా ఏమి నేర్చుకున్నారో మీకు ఎలా తెలుస్తుంది? స్లిప్ టెస్టుల ఫలితాలతో (ఉదాహరణకు LEAP యాప్‌లో) మీరు ఏమి చేస్తారు?",
-        en: "How do you find out what students have really learned? What do you do with slip-test results, for example on the LEAP app?",
+        te: "పిల్లలు నిజంగా ఏమి నేర్చుకున్నారో మీకు ఎలా తెలుస్తుంది? స్లిప్ టెస్టుల ఫలితాలతో (ఉదాహరణకు విద్యాశాఖ యాప్‌లో) మీరు ఏమి చేస్తారు?",
+        en: "How do you find out what students have really learned? What do you do with slip-test results, for example on the department's app?",
         hte: "", hen: ""
       },
       {
@@ -789,6 +789,7 @@
     const PROFILE_SCREENS = [
       {
         id: "about", te: "మీ గురించి కొంచెం", en: "A little about you", district: true, groups: [
+          { id: "state", te: "రాష్ట్రం", en: "State", opts: [["andhra_pradesh", "ఆంధ్రప్రదేశ్", "Andhra Pradesh"], ["telangana", "తెలంగాణ", "Telangana"]] },
           { id: "subject", te: "నేను బోధించేది", en: "I teach", opts: [["maths", "గణితం", "Maths"], ["science", "సైన్స్", "Science"], ["both", "రెండూ", "Both"], ["other", "ఇతరం", "Other"]] },
           { id: "classes", multi: true, te: "తరగతులు", en: "Classes", opts: [["6", "6", "6"], ["7", "7", "7"], ["8", "8", "8"], ["other", "ఇతర తరగతులు", "Other classes"]] },
           { id: "medium", te: "బోధనా మాధ్యమం", en: "Medium of teaching", opts: [["telugu", "తెలుగు", "Telugu"], ["english", "ఇంగ్లీషు", "English"], ["both", "రెండూ", "Both"]] },
@@ -802,7 +803,7 @@
           { id: "print", te: "బడిలో వర్క్‌షీట్లు ప్రింట్ / జిరాక్స్ చేయగలరా?", en: "Can you print or photocopy worksheets at school?", opts: [["easy", "సులభంగా", "Easily"], ["sometimes", "అప్పుడప్పుడు", "Sometimes"], ["no", "కుదరదు", "No"]] },
           { id: "screen", te: "తరగతిలో స్మార్ట్ బోర్డు / టీవీ", en: "Smart board or TV in your classroom", opts: [["works", "పనిచేస్తుంది", "Works"], ["broken", "పనిచేయడం లేదు", "Not working"], ["none", "లేదు", "None"]] },
           { id: "internet", te: "మీ ఫోన్‌లో ఇంటర్నెట్", en: "Internet on your phone", opts: [["always", "ఎప్పుడూ ఉంటుంది", "Always"], ["sometimes", "అప్పుడప్పుడు", "Sometimes"], ["rarely", "అరుదుగా", "Rarely"]] },
-          { id: "leap", te: "LEAP యాప్ ఎంత తరచుగా వాడతారు?", en: "How often do you use the LEAP app?", opts: [["daily", "ప్రతిరోజూ", "Daily"], ["weekly", "వారానికి ఒకసారి", "Weekly"], ["rarely", "అరుదుగా", "Rarely"], ["never", "వాడను", "Never"]] },
+          { id: "leap", te: "విద్యాశాఖ ఉపాధ్యాయ యాప్ (ఉదా: ఏపీలో LEAP) ఎంత తరచుగా వాడతారు?", en: "How often do you use the education department's teacher app (e.g. LEAP in AP)?", opts: [["daily", "ప్రతిరోజూ", "Daily"], ["weekly", "వారానికి ఒకసారి", "Weekly"], ["rarely", "అరుదుగా", "Rarely"], ["never", "వాడను", "Never"]] },
           { id: "wagroups", te: "బడి పనులకు వాట్సాప్ గ్రూపులు వాడతారా?", en: "Do you use WhatsApp groups for school work?", opts: [["yes", "అవును", "Yes"], ["no", "లేదు", "No"]] }
         ]
       }
@@ -812,7 +813,7 @@
     const T = {
       te: {
         h1: "మీ తరగతి గది కథ, మీ గొంతులో",
-        intro: "నమస్కారం! ఆంధ్రప్రదేశ్ / తెలంగాణ ఉపాధ్యాయుల కోసం మేము ఉచిత బోధనా సాధనాలు తయారు చేస్తున్నాం. ఏదైనా తయారు చేసే ముందు మీ మాట వినాలనుకుంటున్నాం — మంచి రోజులు, కష్టమైన రోజులు రెండూ.",
+        intro: "నమస్కారం! ఆంధ్రప్రదేశ్, తెలంగాణ ఉపాధ్యాయుల కోసం మేము ఉచిత బోధనా సాధనాలు తయారు చేస్తున్నాం. ఏదైనా తయారు చేసే ముందు మీ మాట వినాలనుకుంటున్నాం — మంచి రోజులు, కష్టమైన రోజులు రెండూ.",
         p: ["సరైన లేదా తప్పు సమాధానాలు లేవు. నిజమైన అనుభవమే మాకు విలువైనది.", "మీ పేరు అవసరం లేదు.", "ఇది తనిఖీ కాదు. మీ సమాధానాలు విద్యాశాఖకు గానీ, ప్రధానోపాధ్యాయులకు గానీ పంపబడవు.", "తెలుగులో, ఇంగ్లీషులో లేదా రెండింటిలో — మీకు సౌకర్యంగా మాట్లాడండి."],
         chips: ["సుమారు 15 నిమిషాలు", "8 ప్రశ్నలు + 4 ఐచ్ఛికం", "వాయిస్‌తో", "ఏ ప్రశ్ననైనా వదిలేయవచ్చు"],
         privacyTitle: "మీ సమాధానాలను ఎలా ఉపయోగిస్తాం",
@@ -849,7 +850,7 @@
       },
       en: {
         h1: "Your classroom, in your own voice",
-        intro: "Namaste! We are building free teaching tools for teachers in Andhra Pradesh / Telangana. Before we build anything, we want to hear from you — the good days and the hard ones.",
+        intro: "Namaste! We are building free teaching tools for teachers in Andhra Pradesh and Telangana. Before we build anything, we want to hear from you — the good days and the hard ones.",
         p: ["There are no right or wrong answers. Your real experience is what helps us.", "Your name is not needed.", "This is not an inspection. Your answers do not go to the department or your headmaster.", "Speak in Telugu, English or both — whatever is comfortable."],
         chips: ["About 15 minutes", "8 questions + 4 optional", "By voice", "Skip any question"],
         privacyTitle: "How we use your answers",
