@@ -6,10 +6,10 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <title>Mee Maata · మీ మాట</title>
   <meta name="description"
-    content="మీ తరగతి గది అనుభవాలు మీ గొంతులో చెప్పండి. సుమారు 15 నిమిషాలు, వాయిస్‌తో, పేరు అవసరం లేదు.">
+    content="మీ తరగతి గది అనుభవాలు మాట్లాడి లేదా టైప్ చేసి చెప్పండి. సుమారు 15 నిమిషాలు, పేరు అవసరం లేదు.">
   <meta property="og:title" content="మీ మాట · Mee Maata — ఉపాధ్యాయుల గొంతు">
   <meta property="og:description"
-    content="ఉపాధ్యాయుల కోసం ఉచిత సాధనాలు తయారు చేసే ముందు, మీ మాట వినాలనుకుంటున్నాం. సుమారు 15 నిమిషాలు, వాయిస్‌తో.">
+    content="ఉపాధ్యాయుల కోసం ఉచిత సాధనాలు తయారు చేసే ముందు, మీ మాట వినాలనుకుంటున్నాం. సుమారు 15 నిమిషాలు, మాట్లాడి లేదా టైప్ చేసి.">
   <!-- For a picture in the WhatsApp preview, host og.png next to this file and replace with its FULL https address -->
   <meta property="og:image" content="og.png">
   <meta name="theme-color" content="#1E5A44">
@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anek+Telugu:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    /* Layout: one calm column, chalkboard-green header band, a single big marigold record button as the hero of every question. */
+    /* Layout: one calm column, chalkboard-green header band, a big marigold mic button that turns speech into editable text. */
     :root {
       --bg: #F1F5F1;
       --surface: #FFFFFF;
@@ -143,7 +143,8 @@
       flex: 1
     }
 
-    .lang {
+    .lang,
+    .seg {
       display: flex;
       border: 1px solid var(--board-muted);
       border-radius: 999px;
@@ -164,6 +165,25 @@
     .lang button[aria-pressed="true"] {
       background: var(--board-ink);
       color: var(--board)
+    }
+
+    .seg {
+      border-color: var(--line)
+    }
+
+    .seg button {
+      background: transparent;
+      border: 0;
+      color: var(--ink);
+      padding: 4px 12px;
+      font-size: 15px;
+      cursor: pointer;
+      min-height: 36px
+    }
+
+    .seg button[aria-pressed="true"] {
+      background: var(--board);
+      color: var(--board-ink)
     }
 
     .status {
@@ -442,17 +462,17 @@
       min-height: 40px
     }
 
-    .reczone {
-      display: grid;
-      justify-items: center;
-      gap: 10px;
-      margin: 22px 0 6px;
-      text-align: center
+    .microw {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 18px 0 10px;
+      flex-wrap: wrap
     }
 
-    .recbtn {
-      width: 132px;
-      height: 132px;
+    .micbtn {
+      width: 84px;
+      height: 84px;
       border-radius: 50%;
       border: 0;
       background: var(--marigold);
@@ -460,29 +480,35 @@
       display: grid;
       place-items: center;
       cursor: pointer;
-      box-shadow: 0 0 0 10px var(--marigold-soft);
-      transition: transform .15s, background .2s
+      box-shadow: 0 0 0 8px var(--marigold-soft);
+      transition: transform .15s, background .2s;
+      flex: none
     }
 
-    .recbtn:active {
+    .micbtn:active {
       transform: scale(.96)
     }
 
-    .recbtn.on {
+    .micbtn.on {
       background: var(--rec);
       color: #fff;
-      box-shadow: 0 0 0 10px color-mix(in srgb, var(--rec) 22%, transparent);
+      box-shadow: 0 0 0 8px color-mix(in srgb, var(--rec) 22%, transparent);
       animation: pulse 1.6s ease-in-out infinite
+    }
+
+    .micbtn.busy {
+      opacity: .6;
+      cursor: progress
     }
 
     @keyframes pulse {
       50% {
-        box-shadow: 0 0 0 18px color-mix(in srgb, var(--rec) 10%, transparent)
+        box-shadow: 0 0 0 14px color-mix(in srgb, var(--rec) 10%, transparent)
       }
     }
 
     @media (prefers-reduced-motion:reduce) {
-      .recbtn.on {
+      .micbtn.on {
         animation: none
       }
 
@@ -491,45 +517,61 @@
       }
     }
 
-    .reclabel {
-      font-weight: 600
+    .micside {
+      display: grid;
+      gap: 6px;
+      min-width: 0;
+      flex: 1
+    }
+
+    .miclabel {
+      font-weight: 600;
+      line-height: 1.35
     }
 
     .timer {
       font-variant-numeric: tabular-nums;
       color: var(--muted);
-      font-size: 16px
+      font-size: 15px
     }
 
     .meter {
       display: flex;
       align-items: center;
       gap: 3px;
-      height: 36px
+      height: 22px
     }
 
     .meter span {
-      width: 5px;
-      border-radius: 3px;
+      width: 4px;
+      border-radius: 2px;
       background: var(--rec);
-      height: 4px;
+      height: 3px;
       transition: height .08s
-    }
-
-    audio {
-      width: 100%;
-      margin: 6px 0
     }
 
     textarea {
       width: 100%;
-      min-height: 160px;
+      min-height: 170px;
       border: 1px solid var(--line);
       border-radius: 12px;
       padding: 12px;
       background: var(--surface);
       resize: vertical;
-      font-size: 18px
+      font-size: 18px;
+      line-height: 1.55
+    }
+
+    textarea.live {
+      border-color: var(--rec)
+    }
+
+    .interim {
+      color: var(--muted);
+      font-style: italic;
+      min-height: 1.6em;
+      font-size: 16px;
+      margin-top: 6px
     }
 
     .tip {
@@ -695,18 +737,21 @@
   <div id="demo" class="demo" hidden></div>
   <main class="wrap" id="app"></main>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <input id="filepick" type="file" accept="audio/*" capture class="sr" tabindex="-1" aria-hidden="true">
 
   <script>
     /* ================= SETTINGS (edit these before sharing) ================= */
     const CONFIG = {
-      ENDPOINT: "https://script.google.com/macros/s/AKfycbxLtinB1u96xLLm2fCskVVnnFp_8uZePBdJA53SvUYn1XV40mMd_GSsNhKuuDg95WpoIA/exec",              // Your Google Apps Script web-app URL. Empty = demo mode (nothing is sent).
-      KEY: "Vita_Educate_2026",    // Must match SHARED_KEY in Code.gs
-      CONTACT: "ramana@vitainspire.com",               // REQUIRED before sharing: WhatsApp number or email teachers can use to ask questions or delete answers
-      RETENTION_MONTHS: 1,      // How long recordings are kept after the study ends (shown to teachers)
-      AUDIO_BASE: "https://drive.google.com/drive/folders/18EuAcUjW2u0YC5LtRLaYZFNSA2nXXd_k",            // Optional: folder URL with recorded question audio named q01-te.mp3, q01-en.mp3 …
-      MAX_SECONDS: 240           // Longest single voice answer (4 minutes)
+      ENDPOINT: "https://script.google.com/macros/s/AKfycbxP0iTjRjE7ROrEA7vkEaRDtiE3Ih9nh_YnFmT_obE2nNCEk32HYhJqBUV_LIz54JDnPQ/exec",              // Your Google Apps Script web-app URL. Empty = demo mode (nothing is sent).
+      KEY: "Edu_Vita_2026",    // Must match SHARED_KEY in Code.gs
+      CONTACT: "teacher@vitainspire.com",               // REQUIRED before sharing: WhatsApp number or email for questions and deletion requests
+      RETENTION_MONTHS: 12,      // How long answers are kept after the study ends (shown to teachers)
+      SERVER_STT: false,         // true = use Bhashini (via your Apps Script) when the phone's own speech-to-text is unavailable.
+      //        Only set true after adding your Bhashini keys in Apps Script (see SETUP.md).
+      AUDIO_BASE: "https://drive.google.com/drive/folders/18EuAcUjW2u0YC5LtRLaYZFNSA2nXXd_k",            // Optional: folder URL with recorded QUESTION audio named q01-te.mp3, q01-en.mp3 …
+      SERVER_CHUNK_SECONDS: 28   // Bhashini works best with short clips; teachers tap again to keep talking
     };
+    /* Teachers' voices are never recorded or stored. Speech is turned into text, the teacher checks/edits it,
+       and only the saved text is sent. */
 
     /* ================= QUESTIONS: 8 main + 4 optional ================= */
     const QUESTIONS = [
@@ -789,7 +834,7 @@
     const PROFILE_SCREENS = [
       {
         id: "about", te: "మీ గురించి కొంచెం", en: "A little about you", district: true, groups: [
-          { id: "state", te: "రాష్ట్రం", en: "State", opts: [["andhra_pradesh", "ఆంధ్రప్రదేశ్", "Andhra Pradesh"], ["telangana", "తెలంగాణ", "Telangana"]] },
+          { id: "state", te: "రాష్ట్రం", en: "State", opts: [["ap", "ఆంధ్రప్రదేశ్", "Andhra Pradesh"], ["ts", "తెలంగాణ", "Telangana"]] },
           { id: "subject", te: "నేను బోధించేది", en: "I teach", opts: [["maths", "గణితం", "Maths"], ["science", "సైన్స్", "Science"], ["both", "రెండూ", "Both"], ["other", "ఇతరం", "Other"]] },
           { id: "classes", multi: true, te: "తరగతులు", en: "Classes", opts: [["6", "6", "6"], ["7", "7", "7"], ["8", "8", "8"], ["other", "ఇతర తరగతులు", "Other classes"]] },
           { id: "medium", te: "బోధనా మాధ్యమం", en: "Medium of teaching", opts: [["telugu", "తెలుగు", "Telugu"], ["english", "ఇంగ్లీషు", "English"], ["both", "రెండూ", "Both"]] },
@@ -803,7 +848,7 @@
           { id: "print", te: "బడిలో వర్క్‌షీట్లు ప్రింట్ / జిరాక్స్ చేయగలరా?", en: "Can you print or photocopy worksheets at school?", opts: [["easy", "సులభంగా", "Easily"], ["sometimes", "అప్పుడప్పుడు", "Sometimes"], ["no", "కుదరదు", "No"]] },
           { id: "screen", te: "తరగతిలో స్మార్ట్ బోర్డు / టీవీ", en: "Smart board or TV in your classroom", opts: [["works", "పనిచేస్తుంది", "Works"], ["broken", "పనిచేయడం లేదు", "Not working"], ["none", "లేదు", "None"]] },
           { id: "internet", te: "మీ ఫోన్‌లో ఇంటర్నెట్", en: "Internet on your phone", opts: [["always", "ఎప్పుడూ ఉంటుంది", "Always"], ["sometimes", "అప్పుడప్పుడు", "Sometimes"], ["rarely", "అరుదుగా", "Rarely"]] },
-          { id: "leap", te: "విద్యాశాఖ ఉపాధ్యాయ యాప్ (ఉదా: ఏపీలో LEAP) ఎంత తరచుగా వాడతారు?", en: "How often do you use the education department's teacher app (e.g. LEAP in AP)?", opts: [["daily", "ప్రతిరోజూ", "Daily"], ["weekly", "వారానికి ఒకసారి", "Weekly"], ["rarely", "అరుదుగా", "Rarely"], ["never", "వాడను", "Never"]] },
+          { id: "dept_app", te: "విద్యాశాఖ ఉపాధ్యాయ యాప్ (ఉదా: AP లో LEAP) ఎంత తరచుగా వాడతారు?", en: "How often do you use the education department's teacher app (e.g. LEAP in AP)?", opts: [["daily", "ప్రతిరోజూ", "Daily"], ["weekly", "వారానికి ఒకసారి", "Weekly"], ["rarely", "అరుదుగా", "Rarely"], ["never", "వాడను", "Never"]] },
           { id: "wagroups", te: "బడి పనులకు వాట్సాప్ గ్రూపులు వాడతారా?", en: "Do you use WhatsApp groups for school work?", opts: [["yes", "అవును", "Yes"], ["no", "లేదు", "No"]] }
         ]
       }
@@ -812,12 +857,12 @@
     /* ================= WORDS ================= */
     const T = {
       te: {
-        h1: "మీ తరగతి గది కథ, మీ గొంతులో",
+        h1: "మీ తరగతి గది కథ, మీ మాటల్లో",
         intro: "నమస్కారం! ఆంధ్రప్రదేశ్, తెలంగాణ ఉపాధ్యాయుల కోసం మేము ఉచిత బోధనా సాధనాలు తయారు చేస్తున్నాం. ఏదైనా తయారు చేసే ముందు మీ మాట వినాలనుకుంటున్నాం — మంచి రోజులు, కష్టమైన రోజులు రెండూ.",
-        p: ["సరైన లేదా తప్పు సమాధానాలు లేవు. నిజమైన అనుభవమే మాకు విలువైనది.", "మీ పేరు అవసరం లేదు.", "ఇది తనిఖీ కాదు. మీ సమాధానాలు విద్యాశాఖకు గానీ, ప్రధానోపాధ్యాయులకు గానీ పంపబడవు.", "తెలుగులో, ఇంగ్లీషులో లేదా రెండింటిలో — మీకు సౌకర్యంగా మాట్లాడండి."],
-        chips: ["సుమారు 15 నిమిషాలు", "8 ప్రశ్నలు + 4 ఐచ్ఛికం", "వాయిస్‌తో", "ఏ ప్రశ్ననైనా వదిలేయవచ్చు"],
+        p: ["సరైన లేదా తప్పు సమాధానాలు లేవు. నిజమైన అనుభవమే మాకు విలువైనది.", "మీ పేరు అవసరం లేదు.", "ఇది తనిఖీ కాదు. మీ సమాధానాలు విద్యాశాఖకు గానీ, ప్రధానోపాధ్యాయులకు గానీ పంపబడవు.", "మాట్లాడండి లేదా టైప్ చేయండి — తెలుగులో, ఇంగ్లీషులో లేదా రెండింటిలో. మీ గొంతును రికార్డ్ చేయం; మీరు సేవ్ చేసే రాత మాత్రమే మా దగ్గర ఉంటుంది."],
+        chips: ["సుమారు 15 నిమిషాలు", "8 ప్రశ్నలు + 4 ఐచ్ఛికం", "మాట్లాడండి లేదా టైప్ చేయండి", "ఏ ప్రశ్ననైనా వదిలేయవచ్చు"],
         privacyTitle: "మీ సమాధానాలను ఎలా ఉపయోగిస్తాం",
-        privacy: m => ["Vitainspire బృందం మాత్రమే మీ రికార్డింగ్‌లు వింటుంది. వాటిని ప్రభుత్వ అధికారులకు గానీ, బయటివారికి గానీ ఇవ్వం.", "మేము దాచేవి: మీ గొంతు/రాసిన సమాధానాలు, మీరు నొక్కిన ఎంపికలు, జిల్లా (ఇస్తే). పేరు, ఫోన్ నంబర్ అడగం.", "రికార్డింగ్‌లు మా ప్రైవేట్ Google Drive లో ఉంటాయి. అధ్యయనం ముగిసిన " + m + " నెలల్లోపు తొలగిస్తాం.", "మీ సమాధానాలు తొలగించాలంటే, చివర్లో వచ్చే మీ కోడ్‌తో మమ్మల్ని సంప్రదించండి."],
+        privacy: (m, server) => ["Vitainspire బృందం మాత్రమే మీ సమాధానాలు చదువుతుంది. వాటిని ప్రభుత్వ అధికారులకు గానీ, బయటివారికి గానీ ఇవ్వం.", "మీ గొంతును రికార్డ్ చేయం, దాచం. మైక్ నొక్కినప్పుడు మీ ఫోన్ స్పీచ్ సేవ (ఉదా: Google) మాటను రాతగా మారుస్తుంది." + (server ? " ఆ సేవ లేని ఫోన్లలో భారత ప్రభుత్వ భాషా సేవ ‘భాషిణి’ ఈ పని చేస్తుంది; ఆడియోను మేము దాచం." : ""), "మేము దాచేవి: మీరు చూసి సేవ్ చేసిన రాత సమాధానాలు, మీరు నొక్కిన ఎంపికలు, జిల్లా (ఇస్తే). పేరు, ఫోన్ నంబర్ అడగం.", "సమాధానాలు మా ప్రైవేట్ Google Sheet లో ఉంటాయి. అధ్యయనం ముగిసిన " + m + " నెలల్లోపు తొలగిస్తాం.", "మీ సమాధానాలు తొలగించాలంటే, చివర్లో వచ్చే మీ కోడ్‌తో మమ్మల్ని సంప్రదించండి."],
         consent: "పై విషయాలు చదివాను. ఉపాధ్యాయుల కోసం ఉచిత సాధనాలు రూపొందించడానికి నా సమాధానాలను Vitainspire బృందం ఉపయోగించుకోవచ్చని అంగీకరిస్తున్నాను.",
         start: "మొదలుపెడదాం", resume: "ఆపిన చోటు నుండి కొనసాగించండి", restart: "కొత్తగా మొదలుపెట్టండి",
         contact: "సందేహాలకు / తొలగింపుకు:",
@@ -825,13 +870,18 @@
         qOf: (i, n) => `ప్రశ్న ${i} / ${n}`, bonusOf: (i, n) => `అదనపు ప్రశ్న ${i} / ${n}`, bonus: "ఐచ్ఛికం",
         listen: "ప్రశ్న వినండి",
         tip: "ప్రశాంతమైన చోటు చూసుకోండి. మీ పేరు, బడి పేరు, పిల్లల పేర్లు చెప్పకండి. ‘సాధారణంగా ఇలా’ కంటే ‘గత వారం ఇలా జరిగింది’ లాంటి నిజమైన సంఘటన ఎక్కువ ఉపయోగపడుతుంది.",
-        tap: "నొక్కి మాట్లాడండి", lenHint: "1–2 నిమిషాలు చాలు", recording: "రికార్డ్ అవుతోంది… పూర్తయ్యాక మళ్ళీ నొక్కండి", listenBack: "మీ సమాధానం వినండి",
-        again: "మళ్ళీ రికార్డ్", saveNext: "సేవ్ చేసి తర్వాతి ప్రశ్న →", saveFinish: "సేవ్ చేసి ముగించండి",
-        typeInstead: "టైప్ చేస్తాను", speakInstead: "మాట్లాడి చెబుతాను", skip: "ఈ ప్రశ్న వదిలేయండి", back: "← వెనక్కి",
-        typePh: "ఇక్కడ రాయండి…", maxReached: "4 నిమిషాలు పూర్తయ్యాయి. విని సేవ్ చేయండి, లేదా మళ్ళీ రికార్డ్ చేయండి.",
-        micBlocked: "మైక్రోఫోన్‌కు అనుమతి దొరకలేదు. పై అడ్రస్ బార్‌లోని తాళం గుర్తు నొక్కి మైక్రోఫోన్ అనుమతించండి, లేదా కింది మార్గం వాడండి.",
-        phoneRec: "ఫోన్ రికార్డర్‌తో రికార్డ్ చేయండి", noRecSupport: "ఈ బ్రౌజర్‌లో నేరుగా రికార్డ్ కాదు. ఫోన్ రికార్డర్ వాడండి లేదా టైప్ చేయండి.",
-        tooShort: "రికార్డింగ్ చాలా చిన్నది. మళ్ళీ ప్రయత్నించండి.",
+        tap: "మైక్ నొక్కి మాట్లాడండి — మీ మాటలు కింద రాతగా వస్తాయి", listening: "వింటున్నాం… పూర్తయ్యాక మళ్ళీ నొక్కండి", transcribing: "మాటను రాతగా మారుస్తోంది…",
+        chunkHint: s => `${s} సెకన్ల వరకు మాట్లాడండి; కొనసాగించడానికి మళ్ళీ నొక్కండి.`,
+        speaking: "మాట్లాడే భాష", answerPh: "ఇక్కడ మాట్లాడండి లేదా టైప్ చేయండి…",
+        checkHint: "1–2 నిమిషాలు చాలు. సేవ్ చేసే ముందు రాతను ఒకసారి చూసి తప్పులు సరిచేయండి.",
+        kbTip: "చిట్కా: మీ కీబోర్డ్‌లోని మైక్ (Gboard వాయిస్ టైపింగ్) తో కూడా తెలుగులో మాట్లాడి రాయవచ్చు.",
+        saveNext: "సేవ్ చేసి తర్వాతి ప్రశ్న →", saveFinish: "సేవ్ చేసి ముగించండి", skip: "ఈ ప్రశ్న వదిలేయండి", back: "← వెనక్కి",
+        noSpeech: "ఈ బ్రౌజర్‌లో ఇక్కడి మైక్ పనిచేయదు. టైప్ చేయండి, లేదా మీ కీబోర్డ్ మైక్ వాడండి.",
+        micBlocked: "మైక్రోఫోన్‌కు అనుమతి దొరకలేదు. పై అడ్రస్ బార్‌లోని తాళం గుర్తు నొక్కి మైక్రోఫోన్ అనుమతించండి, లేదా టైప్ చేయండి.",
+        sttFail: "మాటను రాతగా మార్చలేకపోయాం. మళ్ళీ ప్రయత్నించండి లేదా టైప్ చేయండి.",
+        needNet: "మాట నుంచి రాతకు ఇంటర్నెట్ అవసరం. టైప్ చేయండి, లేదా నెట్ వచ్చాక ప్రయత్నించండి.",
+        switched: "ఇప్పుడు వేరే సేవతో ప్రయత్నిస్తాం. మళ్ళీ మైక్ నొక్కండి.",
+        empty: "సేవ్ చేయడానికి ముందు సమాధానం చెప్పండి లేదా రాయండి — లేదా ఈ ప్రశ్న వదిలేయండి.",
         cheers: ["ధన్యవాదాలు! ఇలాంటి నిజమైన అనుభవాలే మాకు ఎక్కువ ఉపయోగపడతాయి.", "సేవ్ అయింది. చాలా బాగా చెబుతున్నారు.", "మీరు చెప్పే ప్రతి సమస్యా మేము పరిష్కరించడానికి ప్రయత్నించగలిగేదే.", "అద్భుతం — ఇది చాలా స్పష్టంగా ఉంది.", "ధన్యవాదాలు. మీ అనుభవం ఇతర ఉపాధ్యాయులకూ సహాయపడుతుంది."],
         half: "సగం పూర్తయింది! మీ సమయానికి ధన్యవాదాలు.", nearly: "ఇంకొక్కటే!", skipped: "సరే, తర్వాతి ప్రశ్నకు వెళ్దాం.",
         cpTitle: "ముఖ్యమైన భాగం పూర్తయింది!", cpBody: "మీ సమయానికి హృదయపూర్వక ధన్యవాదాలు. ఇంకో 5–8 నిమిషాలు ఉంటే, 4 చిన్న అదనపు ప్రశ్నలు ఉన్నాయి: భాష, పని భారం, మీరు వాడిన యాప్‌లు, మరియు మీరు చెప్పాలనుకున్నది.",
@@ -840,21 +890,21 @@
         fuPh: "వాట్సాప్ నంబర్ (10 అంకెలు)", fuConsent: "ఉపాధ్యాయుల ఉచిత సాధనాల గురించి Vitainspire నన్ను వాట్సాప్‌లో సంప్రదించవచ్చు.", fuSend: "పంపండి", fuSkip: "వద్దు, ధన్యవాదాలు", fuBad: "దయచేసి 10 అంకెల నంబర్ ఇవ్వండి.", fuThanks: "ధన్యవాదాలు! ప్యాక్ సిద్ధమయ్యాక పంపుతాం.",
         saved: "అన్ని సమాధానాలు సేవ్ అయ్యాయి", sending: n => `${n} సమాధానాలు పంపుతోంది…`, offline: n => `నెట్ లేదు — ${n} సమాధానాలు నెట్ వచ్చాక పంపుతాం`, ready: "సిద్ధం",
         demo: "డెమో మోడ్: సమాధానాలు ఎక్కడికీ పంపబడవు.",
-        doneTitle: "ధన్యవాదాలు, గురువుగారూ!", doneBody: "మీరు చెప్పిన ప్రతి మాట మేము శ్రద్ధగా వింటాం. మీలాంటి ఉపాధ్యాయుల అనుభవాలతోనే ఈ సాధనాలు తయారవుతాయి.",
-        answered: (a, m) => `మీరు ${a} ప్రశ్నలకు సమాధానం ఇచ్చారు${m ? ` · సుమారు ${m} నిమిషాల అనుభవం` : ''}`,
+        doneTitle: "ధన్యవాదాలు, గురువుగారూ!", doneBody: "మీరు చెప్పిన ప్రతి మాట మేము శ్రద్ధగా చదువుతాం. మీలాంటి ఉపాధ్యాయుల అనుభవాలతోనే ఈ సాధనాలు తయారవుతాయి.",
+        answered: a => `మీరు ${a} ప్రశ్నలకు సమాధానం ఇచ్చారు`,
         codeLabel: "మీ సమాధానాల కోడ్", codeHelp: "మీ సమాధానాలు తొలగించాలంటే ఈ కోడ్‌తో మమ్మల్ని సంప్రదించండి.",
         keepOpen: "అన్నీ పంపేవరకు దయచేసి ఈ పేజీ మూసివేయకండి.", allSent: "అన్నీ చేరాయి. ఇప్పుడు పేజీ మూసివేయవచ్చు.",
         share: "మరో ఉపాధ్యాయునికి WhatsApp లో పంపండి", copy: "లింక్ కాపీ చేయండి", copied: "లింక్ కాపీ అయింది",
-        shareMsg: "నేను ‘మీ మాట’ లో నా తరగతి అనుభవాలు చెప్పాను. ఉపాధ్యాయుల కోసం ఉచిత సాధనాలు తయారు చేయడానికి ఇది. సుమారు 15 నిమిషాలు, వాయిస్‌తో, పేరు అవసరం లేదు: ",
+        shareMsg: "నేను ‘మీ మాట’ లో నా తరగతి అనుభవాలు చెప్పాను. ఉపాధ్యాయుల కోసం ఉచిత సాధనాలు తయారు చేయడానికి ఇది. సుమారు 15 నిమిషాలు, మాట్లాడి లేదా టైప్ చేసి, పేరు అవసరం లేదు: ",
         foot: "Vitainspire · ఉపాధ్యాయుల కోసం ఉచిత సాధనాలు"
       },
       en: {
-        h1: "Your classroom, in your own voice",
+        h1: "Your classroom, in your own words",
         intro: "Namaste! We are building free teaching tools for teachers in Andhra Pradesh and Telangana. Before we build anything, we want to hear from you — the good days and the hard ones.",
-        p: ["There are no right or wrong answers. Your real experience is what helps us.", "Your name is not needed.", "This is not an inspection. Your answers do not go to the department or your headmaster.", "Speak in Telugu, English or both — whatever is comfortable."],
-        chips: ["About 15 minutes", "8 questions + 4 optional", "By voice", "Skip any question"],
+        p: ["There are no right or wrong answers. Your real experience is what helps us.", "Your name is not needed.", "This is not an inspection. Your answers do not go to the department or your headmaster.", "Speak or type — in Telugu, English or both. We don't record your voice; we keep only the text you save."],
+        chips: ["About 15 minutes", "8 questions + 4 optional", "Speak or type", "Skip any question"],
         privacyTitle: "How we use your answers",
-        privacy: m => ["Only the Vitainspire team listens to your recordings. We do not give them to government officials or anyone outside the team.", "We keep: your voice or written answers, the options you tap, and your district if you give it. We don't ask for your name or phone number.", "Recordings are kept in our private Google Drive and deleted within " + m + " months after the study ends.", "To delete your answers, contact us with the code you get at the end."],
+        privacy: (m, server) => ["Only the Vitainspire team reads your answers. We do not give them to government officials or anyone outside the team.", "We never record or keep your voice. When you tap the mic, your phone's speech service (for example Google) turns your speech into text." + (server ? " On phones without it, Bhashini, the Government of India's language service, does this; we don't keep the audio." : ""), "We keep: the text answers you check and save, the options you tap, and your district if you give it. We don't ask for your name or phone number.", "Answers are kept in our private Google Sheet and deleted within " + m + " months after the study ends.", "To delete your answers, contact us with the code you get at the end."],
         consent: "I have read the above. I agree that the Vitainspire team may use my answers to design free tools for teachers.",
         start: "Let's begin", resume: "Continue where you left off", restart: "Start over",
         contact: "Questions or deletion requests:",
@@ -862,13 +912,18 @@
         qOf: (i, n) => `Question ${i} of ${n}`, bonusOf: (i, n) => `Extra question ${i} of ${n}`, bonus: "Optional",
         listen: "Listen to the question",
         tip: "Find a quiet spot. Please don't say your name, your school's name or children's names. A real example (‘last week this happened’) helps us more than ‘usually’.",
-        tap: "Tap and speak", lenHint: "1–2 minutes is perfect", recording: "Recording… tap again when you're done", listenBack: "Listen to your answer",
-        again: "Record again", saveNext: "Save & next question →", saveFinish: "Save & finish",
-        typeInstead: "I'll type instead", speakInstead: "I'll speak instead", skip: "Skip this question", back: "← Back",
-        typePh: "Write here…", maxReached: "That's 4 minutes. Listen and save, or record again.",
-        micBlocked: "We couldn't use the microphone. Tap the lock icon in the address bar and allow the microphone, or use the option below.",
-        phoneRec: "Record with phone recorder", noRecSupport: "This browser can't record here. Use your phone's recorder or type your answer.",
-        tooShort: "That recording was very short. Please try again.",
+        tap: "Tap the mic and speak — your words appear as text below", listening: "Listening… tap again when you're done", transcribing: "Turning your speech into text…",
+        chunkHint: s => `Speak for up to ${s} seconds, then tap again to continue.`,
+        speaking: "I'm speaking", answerPh: "Speak or type your answer here…",
+        checkHint: "1–2 minutes is perfect. Read the text and fix any mistakes before saving.",
+        kbTip: "Tip: you can also use the mic on your keyboard (e.g. Gboard voice typing) to speak in Telugu.",
+        saveNext: "Save & next question →", saveFinish: "Save & finish", skip: "Skip this question", back: "← Back",
+        noSpeech: "The mic here doesn't work in this browser. Please type, or use the mic on your keyboard.",
+        micBlocked: "We couldn't use the microphone. Tap the lock icon in the address bar and allow the microphone, or type your answer.",
+        sttFail: "We couldn't turn that into text. Please try again or type.",
+        needNet: "Speech-to-text needs internet. Please type, or try again when you're connected.",
+        switched: "Let's try another service. Tap the mic again.",
+        empty: "Please speak or type an answer before saving — or skip this question.",
         cheers: ["Thank you! Real stories like this help us the most.", "Saved. You're explaining this really well.", "Every problem you name is one we can try to solve.", "Wonderful — that was very clear.", "Thank you. Your experience will help other teachers too."],
         half: "Halfway there! Thank you for your time.", nearly: "Just one more!", skipped: "No problem, let's go to the next one.",
         cpTitle: "The main part is done!", cpBody: "Thank you so much for your time. If you have 5–8 more minutes, there are 4 short extra questions: language, workload, apps you've tried, and anything else you want to say.",
@@ -877,12 +932,12 @@
         fuPh: "WhatsApp number (10 digits)", fuConsent: "Vitainspire may contact me on WhatsApp about free tools for teachers.", fuSend: "Send", fuSkip: "No, thanks", fuBad: "Please enter a 10-digit number.", fuThanks: "Thank you! We'll send the pack when it's ready.",
         saved: "All answers saved", sending: n => `Sending ${n} answer${n > 1 ? 's' : ''}…`, offline: n => `Offline — ${n} answer${n > 1 ? 's' : ''} will send when you're connected`, ready: "Ready",
         demo: "Demo mode: answers are not sent anywhere.",
-        doneTitle: "Thank you, teacher!", doneBody: "We will listen carefully to every word. These tools will be built from experiences like yours.",
-        answered: (a, m) => `You answered ${a} question${a === 1 ? '' : 's'}${m ? ` · about ${m} minutes of your experience` : ''}`,
+        doneTitle: "Thank you, teacher!", doneBody: "We will read every word carefully. These tools will be built from experiences like yours.",
+        answered: a => `You answered ${a} question${a === 1 ? '' : 's'}`,
         codeLabel: "Your answer code", codeHelp: "Quote this code if you ever want your answers deleted.",
         keepOpen: "Please keep this page open until everything is sent.", allSent: "Everything has arrived. You can close this page now.",
         share: "Share with another teacher on WhatsApp", copy: "Copy link", copied: "Link copied",
-        shareMsg: "I shared my classroom experience on ‘Mee Maata’ to help build free tools for teachers. About 15 minutes, by voice, no name needed: ",
+        shareMsg: "I shared my classroom experience on ‘Mee Maata’ to help build free tools for teachers. About 15 minutes, speak or type, no name needed: ",
         foot: "Vitainspire · Free tools for teachers"
       }
     };
@@ -897,7 +952,8 @@
     const REF = (params.get('ref') || '').replace(/[^\w.-]/g, '').slice(0, 40);
 
     let S = LS.get('mm_state', null);
-    const fresh = () => ({ sessionId: uid(), step: 'welcome', screen: 0, idx: 0, lang: (params.get('lang') === 'en' ? 'en' : 'te'), consent: false, profile: {}, answers: {}, seconds: 0, ref: REF, completed: false, bonus: null, followup: null });
+    const fresh = () => ({ v: 2, sessionId: uid(), step: 'welcome', screen: 0, idx: 0, lang: (params.get('lang') === 'en' ? 'en' : 'te'), sttLang: null, consent: false, profile: {}, answers: {}, ref: REF, completed: false, bonus: null, followup: null, drafts: {}, spoken: {} });
+    if (S && S.v !== 2) S = null;   // older app version on this phone: start clean
     let resumable = !!(S && S.step && S.step !== 'welcome' && !S.completed);
     if (!S || !S.sessionId) S = fresh();
     if (S.completed) { const keepLang = S.lang; S = fresh(); S.lang = keepLang; }
@@ -907,7 +963,7 @@
     const t = () => T[S.lang];
     const code = () => S.sessionId.replace(/-/g, '').slice(0, 6).toUpperCase();
 
-    /* ================= UPLOAD QUEUE (survives reloads & bad network) ================= */
+    /* ================= UPLOAD QUEUE (text only; survives reloads & bad network) ================= */
     const Q = (() => {
       const mem = new Map(); let dbp = null;
       function open() {
@@ -930,20 +986,21 @@
       }
       return {
         async put(item) { mem.set(item.answerId, item); await tx('readwrite', s => s.put(item)); },
-        async all() { const fromDb = await tx('readonly', s => s.getAll()); if (Array.isArray(fromDb)) fromDb.forEach(i => { if (!mem.has(i.answerId)) mem.set(i.answerId, i); }); return [...mem.values()].sort((a, b) => a.ts < b.ts ? -1 : 1); },
+        async all() { const fromDb = await tx('readonly', s => s.getAll()); if (Array.isArray(fromDb)) fromDb.forEach(i => { if (!mem.has(i.answerId)) mem.set(i.answerId, i); }); return [...mem.values()].filter(i => !i.blob).sort((a, b) => a.ts < b.ts ? -1 : 1); },
         async del(id) { mem.delete(id); await tx('readwrite', s => s.delete(id)); }
       };
     })();
     let pending = 0, pumping = false;
-    function blobToB64(blob) { return new Promise((res, rej) => { const fr = new FileReader(); fr.onload = () => res(String(fr.result).split(',')[1] || ''); fr.onerror = () => rej(fr.error); fr.readAsDataURL(blob); }); }
     const sleep = ms => new Promise(r => setTimeout(r, ms));
-    async function send(item) {
-      const body = Object.assign({}, item.meta, { key: CONFIG.KEY, answerId: item.answerId });
-      if (item.blob) { body.audioBase64 = await blobToB64(item.blob); body.mime = item.blob.type || 'audio/webm'; }
-      if (!CONFIG.ENDPOINT) { await sleep(300); return; }
+    async function post(body) {
       const r = await fetch(CONFIG.ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(body), redirect: 'follow' });
       if (!r.ok) throw new Error('HTTP ' + r.status);
       let j = null; try { j = await r.json(); } catch (e) { }
+      return j;
+    }
+    async function send(item) {
+      if (!CONFIG.ENDPOINT) { await sleep(300); return; }
+      const j = await post(Object.assign({}, item.meta, { key: CONFIG.KEY, answerId: item.answerId }));
       if (j && j.ok === false) throw new Error(j.error || 'server error');
     }
     async function pump() {
@@ -959,8 +1016,8 @@
         pending = (await Q.all()).length;
       } finally { pumping = false; showStatus(); renderDoneStatus(); }
     }
-    async function enqueue(meta, blob) {
-      const item = { answerId: uid(), ts: new Date().toISOString(), meta, blob: blob || null };
+    async function enqueue(meta) {
+      const item = { answerId: uid(), ts: new Date().toISOString(), meta };
       await Q.put(item); pending++; showStatus(); pump();
     }
     setInterval(pump, 15000);
@@ -987,11 +1044,12 @@
       $('#demo').textContent = t().demo; $('#demo').hidden = !!CONFIG.ENDPOINT;
       stopSpeaking(); render();
     }
-    document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => { if (rec.state === 'recording' || rec.state === 'stopping') return; setLang(b.dataset.lang); }));
+    document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => { if (dict.state !== 'idle') return; setLang(b.dataset.lang); }));
     const ICON = {
       check: '<svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6 10.5l2.6 2.6L14 7.6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-      mic: '<svg width="44" height="44" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>',
-      stop: '<svg width="40" height="40" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2.5" fill="currentColor"/></svg>',
+      mic: '<svg width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>',
+      stop: '<svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2.5" fill="currentColor"/></svg>',
+      dots: '<svg width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="12" r="2" fill="currentColor"/><circle cx="12" cy="12" r="2" fill="currentColor"/><circle cx="18" cy="12" r="2" fill="currentColor"/></svg>',
       speaker: '<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>',
       star: '<svg width="36" height="36" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 16.8l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z" fill="currentColor"/></svg>',
       wa: '<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.6-2-1-1 .9c-1-.4-2.4-1.8-2.8-2.8l.9-1-1-2-1.6 1z" fill="currentColor"/></svg>'
@@ -1000,7 +1058,7 @@
     /* ================= HEAR THE QUESTION (recorded audio, else the phone's voice) ================= */
     let voices = [], qAudio = null;
     function loadVoices() { try { voices = speechSynthesis.getVoices() || []; } catch (e) { voices = []; } }
-    if ('speechSynthesis' in window) { loadVoices(); speechSynthesis.onvoiceschanged = () => { const had = !!voiceFor(S.lang); loadVoices(); if (S.step === 'q' && !had && voiceFor(S.lang) && rec.state === 'idle') renderQ(); }; }
+    if ('speechSynthesis' in window) { loadVoices(); speechSynthesis.onvoiceschanged = () => { const had = !!voiceFor(S.lang); loadVoices(); if (S.step === 'q' && !had && voiceFor(S.lang) && dict.state === 'idle') renderQ(); }; }
     function voiceFor(l) { const want = l === 'te' ? ['te'] : ['en-in', 'en']; for (const w of want) { const v = voices.find(v => v.lang && v.lang.replace('_', '-').toLowerCase().startsWith(w)); if (v) return v; } return null; }
     function canListen() { return !!CONFIG.AUDIO_BASE || !!voiceFor(S.lang); }
     function speak(q) {
@@ -1014,67 +1072,158 @@
     function ttsSpeak(text) { try { const v = voiceFor(S.lang); if (!v) return; const u = new SpeechSynthesisUtterance(text); u.voice = v; u.lang = v.lang; u.rate = 0.95; speechSynthesis.speak(u); } catch (e) { } }
     function stopSpeaking() { try { speechSynthesis.cancel(); } catch (e) { } try { if (qAudio) { qAudio.pause(); qAudio = null; } } catch (e) { } }
 
-    /* ================= RECORDER ================= */
-    const rec = { state: 'idle', mr: null, stream: null, chunks: [], blob: null, url: null, secs: 0, timer: null, raf: null, ctx: null, mode: 'voice', err: '', wake: null };
-    const canRecord = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder);
-    function pickMime() { for (const m of ['audio/webm;codecs=opus', 'audio/mp4', 'audio/ogg;codecs=opus', 'audio/webm', 'audio/aac']) { try { if (MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(m)) return m; } catch (e) { } } return ''; }
-    function resetRec() { if (rec.url) URL.revokeObjectURL(rec.url); Object.assign(rec, { state: 'idle', chunks: [], blob: null, url: null, secs: 0, err: '' }); }
-    async function startRec() {
-      stopSpeaking(); rec.err = '';
-      if (!canRecord) { rec.err = t().noRecSupport; renderQ(); return; }
-      try { rec.stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } }); }
-      catch (e) { rec.err = t().micBlocked; renderQ(); return; }
-      const mime = pickMime();
-      try { rec.mr = new MediaRecorder(rec.stream, mime ? { mimeType: mime, audioBitsPerSecond: 32000 } : undefined); }
-      catch (e) { rec.mr = new MediaRecorder(rec.stream); }
-      rec.chunks = []; rec.secs = 0; rec.state = 'recording';
-      rec.mr.ondataavailable = e => { if (e.data && e.data.size) rec.chunks.push(e.data); };
-      rec.mr.onstop = () => {
-        const type = rec.mr.mimeType || mime || 'audio/webm';
-        rec.blob = new Blob(rec.chunks, { type });
-        stopStream();
-        if (rec.secs < 2 || rec.blob.size < 1500) { resetRec(); rec.err = t().tooShort; renderQ(); return; }
-        rec.url = URL.createObjectURL(rec.blob); rec.state = 'review'; renderQ();
-      };
-      rec.mr.start(1000);
-      try { if (navigator.wakeLock) rec.wake = await navigator.wakeLock.request('screen'); } catch (e) { }
-      rec.timer = setInterval(() => { rec.secs++; const el = $('#timer'); if (el) el.textContent = fmt(rec.secs) + ' / ' + fmt(CONFIG.MAX_SECONDS); if (rec.secs >= CONFIG.MAX_SECONDS) { stopRec(); toast(t().maxReached); } }, 1000);
-      renderQ(); startMeter();
+    /* ================= DICTATION: speech -> editable text. Voice is never stored. ================= */
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const canServer = () => !!(CONFIG.SERVER_STT && CONFIG.ENDPOINT && navigator.mediaDevices && navigator.mediaDevices.getUserMedia && (window.AudioContext || window.webkitAudioContext));
+    const dict = {
+      state: 'idle', engine: (SR ? 'browser' : (canServer() ? 'server' : null)), rec: null, wantOn: false, interim: '', err: '', secs: 0, timer: null,
+      stream: null, ctx: null, proc: null, bufs: [], rate: 48000, raf: null, level: 0
+    };
+    const sttLang = () => S.sttLang || S.lang;
+    function ta() { return $('#answer'); }
+    function appendText(txt) {
+      txt = String(txt || '').trim(); if (!txt) return;
+      const el = ta(); if (!el) return;
+      const cur = el.value.replace(/\s+$/, '');
+      el.value = cur ? cur + ' ' + txt : txt;
+      draftFromBox(); S.spoken[QUESTIONS[S.idx].id] = true; save();
+      el.scrollTop = el.scrollHeight;
     }
-    function stopRec() { clearInterval(rec.timer); if (rec.mr && rec.state === 'recording') { rec.state = 'stopping'; try { rec.mr.stop(); } catch (e) { } } }
-    function stopStream() {
-      cancelAnimationFrame(rec.raf);
-      try { rec.stream && rec.stream.getTracks().forEach(tr => tr.stop()); } catch (e) { }
-      try { rec.ctx && rec.ctx.close(); } catch (e) { }
-      try { rec.wake && rec.wake.release(); } catch (e) { }
-      rec.stream = null; rec.ctx = null; rec.wake = null;
+    function draftFromBox() { const el = ta(); if (!el) return; S.drafts[QUESTIONS[S.idx].id] = el.value; save(); updateSaveBtn(); }
+    function setDictUI() {
+      const btn = $('#micbtn'), lab = $('#miclabel'), side = $('#micextra'), box = ta();
+      const er = $('#dictErr'); if (er) { er.textContent = dict.err; er.hidden = !dict.err; }
+      if (!btn) return;
+      btn.classList.toggle('on', dict.state === 'listening');
+      btn.classList.toggle('busy', dict.state === 'transcribing');
+      btn.innerHTML = dict.state === 'listening' ? ICON.stop : dict.state === 'transcribing' ? ICON.dots : ICON.mic;
+      btn.setAttribute('aria-label', dict.state === 'listening' ? t().listening : t().tap);
+      lab.textContent = dict.state === 'listening' ? t().listening : dict.state === 'transcribing' ? t().transcribing : t().tap;
+      side.innerHTML = dict.state === 'listening'
+        ? `<div class="meter" id="meter" aria-hidden="true">${'<span></span>'.repeat(18)}</div>${dict.engine === 'server' ? `<div class="timer" id="timer">0:${String(dict.secs).padStart(2, '0')} / 0:${CONFIG.SERVER_CHUNK_SECONDS}</div>` : ''}`
+        : (dict.engine === 'server' ? `<div class="small muted">${t().chunkHint(CONFIG.SERVER_CHUNK_SECONDS)}</div>` : '');
+      if (box) box.classList.toggle('live', dict.state === 'listening');
+      const im = $('#interim'); if (im) im.textContent = dict.interim;
+      const e = $('#dictErr'); if (e) { e.textContent = dict.err; e.hidden = !dict.err; }
+      document.querySelectorAll('.lockwhilebusy').forEach(b => b.disabled = dict.state !== 'idle');
     }
-    function startMeter() {
+    function dictError(msg) { dict.err = msg; setDictUI(); }
+    async function toggleDictation() {
+      stopSpeaking();
+      if (dict.state === 'listening') { stopDictation(); return; }
+      if (dict.state !== 'idle') return;
+      dict.err = ''; dict.interim = '';
+      if (!dict.engine) { dictError(t().noSpeech); return; }
+      if (navigator.onLine === false) { dictError(t().needNet); return; }
+      if (dict.engine === 'browser') startBrowser(); else startServer();
+    }
+    function stopDictation() {
+      if (dict.engine === 'browser') { dict.wantOn = false; try { dict.rec && dict.rec.stop(); } catch (e) { } }
+      else finishServer();
+    }
+    /* --- the phone's built-in speech service (Chrome / Safari) --- */
+    function startBrowser() {
       try {
-        const AC = window.AudioContext || window.webkitAudioContext; if (!AC || !rec.stream) return;
-        rec.ctx = new AC(); try { rec.ctx.resume(); } catch (e) { }
-        const an = rec.ctx.createAnalyser(); an.fftSize = 256; rec.ctx.createMediaStreamSource(rec.stream).connect(an);
-        const data = new Uint8Array(an.frequencyBinCount);
-        const loop = () => {
-          const bars = document.querySelectorAll('#meter span');
-          if (bars.length) {
-            an.getByteTimeDomainData(data);
-            let sum = 0; for (let i = 0; i < data.length; i++) { const v = (data[i] - 128) / 128; sum += v * v; }
-            const lvl = Math.min(1, Math.sqrt(sum / data.length) * 5);
-            bars.forEach((b, i) => { const w = 0.45 + 0.55 * Math.abs(Math.sin((i + 1) * 1.7 + performance.now() / 180)); b.style.height = (4 + Math.round(lvl * w * 30)) + 'px'; });
+        const r = new SR(); dict.rec = r;
+        r.lang = sttLang() === 'te' ? 'te-IN' : 'en-IN';
+        r.continuous = true; r.interimResults = true; r.maxAlternatives = 1;
+        r.onresult = e => {
+          let interim = '';
+          for (let i = e.resultIndex; i < e.results.length; i++) {
+            const res = e.results[i];
+            if (res.isFinal) appendText(res[0].transcript); else interim += res[0].transcript;
           }
-          rec.raf = requestAnimationFrame(loop);
+          dict.interim = interim; const im = $('#interim'); if (im) im.textContent = interim;
         };
-        loop();
-      } catch (e) { }
+        r.onerror = e => {
+          const c = e.error || '';
+          if (c === 'no-speech' || c === 'aborted') return;
+          dict.wantOn = false;
+          if (c === 'not-allowed') { dict.err = t().micBlocked; return; }
+          if (c === 'network' && navigator.onLine === false) { dict.err = t().needNet; return; }
+          if (canServer()) { dict.engine = 'server'; dict.err = t().switched; }   // service unavailable here: fall back to Bhashini
+          else { dict.engine = null; dict.err = t().noSpeech; }
+        };
+        r.onend = () => {
+          if (dict.interim) { appendText(dict.interim); dict.interim = ''; }
+          if (dict.wantOn) { try { r.start(); return; } catch (e) { } }   // Android stops after pauses; keep listening until the teacher taps stop
+          dict.state = 'idle'; dict.rec = null;
+          if (!dict.engine) renderQ(); else setDictUI();   // no speech service at all: hide the mic, keep typing
+        };
+        // Some browsers expose the API but never start the mic (e.g. builds without Google's speech service): fall back after 5 s.
+        r.onaudiostart = () => { dict.gotAudio = true; };
+        dict.gotAudio = false;
+        clearTimeout(dict.watch);
+        dict.watch = setTimeout(() => {
+          if (dict.state === 'listening' && dict.engine === 'browser' && !dict.gotAudio) {
+            dict.wantOn = false; try { r.abort(); } catch (e) { }
+            if (canServer()) { dict.engine = 'server'; dict.err = t().switched; } else { dict.engine = null; dict.err = t().noSpeech; }
+            dict.state = 'idle'; dict.rec = null; if (!dict.engine) renderQ(); else setDictUI();
+          }
+        }, 5000);
+        dict.wantOn = true; dict.state = 'listening'; setDictUI();
+        r.start();
+      } catch (e) {
+        dict.state = 'idle';
+        if (canServer()) { dict.engine = 'server'; dictError(t().switched); } else { dict.engine = null; dict.err = t().noSpeech; renderQ(); }
+      }
     }
-    const fmt = s => Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
-    $('#filepick').addEventListener('change', e => {
-      const f = e.target.files && e.target.files[0]; e.target.value = '';
-      if (!f) return; resetRec(); rec.blob = f; rec.url = URL.createObjectURL(f); rec.state = 'review'; rec.mode = 'voice';
-      const a = new Audio(); a.preload = 'metadata'; a.src = rec.url; a.onloadedmetadata = () => { if (isFinite(a.duration)) rec.secs = Math.round(a.duration); };
-      renderQ();
-    });
+    /* --- fallback: short WAV clip -> your Apps Script -> Bhashini -> text (audio is not kept) --- */
+    async function startServer() {
+      try { dict.stream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true, autoGainControl: true } }); }
+      catch (e) { dictError(t().micBlocked); return; }
+      try {
+        const AC = window.AudioContext || window.webkitAudioContext;
+        dict.ctx = new AC(); try { await dict.ctx.resume(); } catch (e) { }
+        dict.rate = dict.ctx.sampleRate; dict.bufs = [];
+        const src = dict.ctx.createMediaStreamSource(dict.stream);
+        dict.proc = dict.ctx.createScriptProcessor(4096, 1, 1);
+        dict.proc.onaudioprocess = e => { const d = e.inputBuffer.getChannelData(0); dict.bufs.push(new Float32Array(d)); let s = 0; for (let i = 0; i < d.length; i += 8) s += d[i] * d[i]; dict.level = Math.min(1, Math.sqrt(s / (d.length / 8)) * 5); };
+        src.connect(dict.proc); dict.proc.connect(dict.ctx.destination);
+      } catch (e) { cleanupServer(); dictError(t().sttFail); return; }
+      dict.secs = 0; dict.state = 'listening'; setDictUI(); meterLoop();
+      dict.timer = setInterval(() => { dict.secs++; const el = $('#timer'); if (el) el.textContent = `0:${String(dict.secs).padStart(2, '0')} / 0:${CONFIG.SERVER_CHUNK_SECONDS}`; if (dict.secs >= CONFIG.SERVER_CHUNK_SECONDS) finishServer(); }, 1000);
+    }
+    function meterLoop() {
+      const bars = document.querySelectorAll('#meter span');
+      bars.forEach((b, i) => { const w = 0.45 + 0.55 * Math.abs(Math.sin((i + 1) * 1.7 + performance.now() / 180)); b.style.height = (3 + Math.round(dict.level * w * 18)) + 'px'; });
+      if (dict.state === 'listening') dict.raf = requestAnimationFrame(meterLoop);
+    }
+    function cleanupServer() {
+      clearInterval(dict.timer); cancelAnimationFrame(dict.raf);
+      try { dict.proc && dict.proc.disconnect(); } catch (e) { }
+      try { dict.stream && dict.stream.getTracks().forEach(tr => tr.stop()); } catch (e) { }
+      try { dict.ctx && dict.ctx.close(); } catch (e) { }
+      dict.proc = null; dict.stream = null; dict.ctx = null;
+    }
+    async function finishServer() {
+      if (dict.state !== 'listening') return;
+      const bufs = dict.bufs, rate = dict.rate; dict.bufs = [];
+      cleanupServer();
+      if (dict.secs < 1) { dict.state = 'idle'; setDictUI(); return; }
+      dict.state = 'transcribing'; setDictUI();
+      try {
+        const wav = encodeWav16k(bufs, rate);
+        const j = await post({ type: 'transcribe', key: CONFIG.KEY, sessionId: S.sessionId, sttLang: sttLang(), audioBase64: wav });
+        if (!j || j.ok === false || typeof j.text !== 'string') throw new Error((j && j.error) || 'no text');
+        if (j.text.trim()) appendText(j.text); else dict.err = t().sttFail;
+      } catch (e) { console.warn('transcribe failed', e); dict.err = navigator.onLine === false ? t().needNet : t().sttFail; }
+      dict.state = 'idle'; setDictUI();
+    }
+    function encodeWav16k(bufs, inRate) {
+      let len = 0; bufs.forEach(b => len += b.length);
+      const all = new Float32Array(len); let o = 0; bufs.forEach(b => { all.set(b, o); o += b.length; });
+      const ratio = inRate / 16000, outLen = Math.floor(len / ratio), pcm = new Int16Array(outLen);
+      for (let i = 0; i < outLen; i++) { const s = Math.floor(i * ratio), e = Math.min(len, Math.floor((i + 1) * ratio)); let sum = 0, c = 0; for (let j = s; j < e; j++) { sum += all[j]; c++; } const v = Math.max(-1, Math.min(1, c ? sum / c : 0)); pcm[i] = v < 0 ? v * 0x8000 : v * 0x7FFF; }
+      const buf = new ArrayBuffer(44 + pcm.length * 2), dv = new DataView(buf);
+      const w = (p, s) => { for (let i = 0; i < s.length; i++) dv.setUint8(p + i, s.charCodeAt(i)); };
+      w(0, 'RIFF'); dv.setUint32(4, 36 + pcm.length * 2, true); w(8, 'WAVE'); w(12, 'fmt '); dv.setUint32(16, 16, true); dv.setUint16(20, 1, true); dv.setUint16(22, 1, true);
+      dv.setUint32(24, 16000, true); dv.setUint32(28, 32000, true); dv.setUint16(32, 2, true); dv.setUint16(34, 16, true); w(36, 'data'); dv.setUint32(40, pcm.length * 2, true);
+      new Int16Array(buf, 44).set(pcm);
+      let bin = ''; const bytes = new Uint8Array(buf); for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+      return btoa(bin);
+    }
+    function abortDictation() { dict.wantOn = false; try { dict.rec && dict.rec.abort(); } catch (e) { } if (dict.engine === 'server') cleanupServer(); dict.state = 'idle'; dict.interim = ''; dict.err = ''; }
 
     /* ================= SCREENS ================= */
     function render() {
@@ -1088,7 +1237,7 @@
     <p>${x.intro}</p>
     <ul class="promises">${x.p.map(s => `<li>${ICON.check}<span>${s}</span></li>`).join('')}</ul>
     <div class="chips-row">${x.chips.map(c => `<span class="pill">${c}</span>`).join('')}</div>
-    <details class="card"><summary>${x.privacyTitle}</summary><ul>${x.privacy(CONFIG.RETENTION_MONTHS).map(s => `<li>${s}</li>`).join('')}${CONFIG.CONTACT ? `<li>${x.contact} <span style="user-select:all">${esc(CONFIG.CONTACT)}</span></li>` : ''}</ul></details>
+    <details class="card"><summary>${x.privacyTitle}</summary><ul>${x.privacy(CONFIG.RETENTION_MONTHS, !!CONFIG.SERVER_STT).map(s => `<li>${s}</li>`).join('')}${CONFIG.CONTACT ? `<li>${x.contact} <span style="user-select:all">${esc(CONFIG.CONTACT)}</span></li>` : ''}</ul></details>
     <label class="card consent" for="consent"><input type="checkbox" id="consent" ${S.consent ? 'checked' : ''}><span>${x.consent}</span></label>
     <div class="stack" style="margin-top:16px">
       ${resumable ? `<button class="btn btn-gold btn-block" id="resume" ${S.consent ? '' : 'disabled'}>${x.resume}</button><button class="link" id="restart">${x.restart}</button>`
@@ -1121,75 +1270,62 @@
       $('#pnext').addEventListener('click', () => {
         if ((S.screen || 0) < PROFILE_SCREENS.length - 1) { S.screen = (S.screen || 0) + 1; go('profile'); return; }
         enqueue(Object.assign(baseMeta('profile'), { profile: S.profile }));
-        resetRec(); rec.mode = 'voice'; S.idx = S.idx || 0; go('q');
+        S.idx = S.idx || 0; go('q');
       });
       $('#pback').addEventListener('click', () => { if ((S.screen || 0) > 0) { S.screen--; go('profile'); } else go('welcome'); });
     }
+    function updateSaveBtn() { const b = $('#saveAns'), el = ta(); if (b && el) b.disabled = !el.value.trim() || dict.state !== 'idle'; }
     function renderQ() {
       const x = t(), L = S.lang, q = QUESTIONS[S.idx];
       const isBonus = !q.core, pos = isBonus ? S.idx - CORE_N + 1 : S.idx + 1, tot = isBonus ? QUESTIONS.length - CORE_N : CORE_N;
       const lastOfPart = isBonus ? S.idx === QUESTIONS.length - 1 : S.idx === CORE_N - 1;
       const hint = L === 'te' ? q.hte : q.hen;
-      const busy = rec.state === 'recording' || rec.state === 'stopping';
-      let zone = '';
-      if (rec.mode === 'text') {
-        zone = `<textarea id="ta" placeholder="${x.typePh}" aria-label="${x.typePh}">${esc((S._draft && S._draft[q.id]) || '')}</textarea>
-      <button class="btn btn-primary btn-block" id="saveText" style="margin-top:12px">${lastOfPart ? x.saveFinish : x.saveNext}</button>`;
-      } else if (rec.state === 'review') {
-        zone = `<div class="card"><div class="small muted">${x.listenBack}${rec.secs ? ` · ${fmt(rec.secs)}` : ''}</div><audio controls src="${rec.url}"></audio></div>
-      <div class="stack" style="margin-top:12px"><button class="btn btn-gold btn-block" id="saveVoice">${lastOfPart ? x.saveFinish : x.saveNext}</button>
-      <button class="btn btn-ghost btn-block" id="again">${x.again}</button></div>`;
-      } else {
-        zone = `<div class="reczone">
-        <button class="recbtn ${busy ? 'on' : ''}" id="recbtn" aria-label="${busy ? x.recording : x.tap}">${busy ? ICON.stop : ICON.mic}</button>
-        <div class="reclabel">${busy ? x.recording : x.tap}</div>
-        ${busy ? `<div class="meter" id="meter" aria-hidden="true">${'<span></span>'.repeat(22)}</div><div class="timer" id="timer">${fmt(rec.secs)} / ${fmt(CONFIG.MAX_SECONDS)}</div>` : `<div class="small muted">${x.lenHint}</div>`}
-      </div>
-      ${rec.err ? `<div class="alert" role="alert">${rec.err}<div class="stack" style="margin-top:10px"><button class="btn btn-ghost btn-block" id="phoneRec">${x.phoneRec}</button></div></div>` : ''}`;
-      }
+      const sl = sttLang();
       app.innerHTML = `
     <div class="progress">${isBonus ? `<span class="badge">${x.bonus}</span>` : ''}<span>${isBonus ? x.bonusOf(pos, tot) : x.qOf(pos, tot)}</span><div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="${tot}" aria-valuenow="${pos - 1}"><i style="width:${Math.round((pos - 1) / tot * 100)}%"></i></div></div>
     <p class="qtext" id="qtext">${q[L]}</p>
     ${hint ? `<div class="hint">${hint}</div>` : ''}
-    ${canListen() && !busy ? `<button class="listen" id="listen">${ICON.speaker}<span>${x.listen}</span></button>` : ''}
-    ${S.idx === 0 && rec.state === 'idle' && rec.mode === 'voice' ? `<div class="tip">${x.tip}</div>` : ''}
-    ${zone}
-    ${busy ? '' : `<div class="links">
-      <button class="link" id="qback">${x.back}</button>
-      <button class="link" id="mode">${rec.mode === 'text' ? x.speakInstead : x.typeInstead}</button>
-      <button class="link" id="skip">${x.skip}</button>
-    </div>`}`;
+    ${canListen() ? `<button class="listen lockwhilebusy" id="listen">${ICON.speaker}<span>${x.listen}</span></button>` : ''}
+    ${S.idx === 0 ? `<div class="tip">${x.tip}</div>` : ''}
+    ${dict.engine ? `<div class="microw">
+        <button class="micbtn" id="micbtn"></button>
+        <div class="micside"><div class="miclabel" id="miclabel"></div><div id="micextra"></div>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span class="small muted">${x.speaking}:</span>
+          <div class="seg" role="group" aria-label="${x.speaking}"><button type="button" class="lockwhilebusy" data-stt="te" aria-pressed="${sl === 'te'}">తెలుగు</button><button type="button" class="lockwhilebusy" data-stt="en" aria-pressed="${sl === 'en'}">English</button></div></div>
+        </div>
+      </div>`: ''}
+    <label class="sr" for="answer">${x.answerPh}</label>
+    <textarea id="answer" placeholder="${x.answerPh}">${esc(S.drafts[q.id] || '')}</textarea>
+    <div class="interim" id="interim" aria-live="polite"></div>
+    <div id="dictErr" class="alert" role="alert" hidden></div>
+    <p class="small muted" style="margin-top:8px">${x.checkHint}</p>
+    <p class="small muted">${x.kbTip}</p>
+    <button class="btn btn-gold btn-block" id="saveAns" style="margin-top:6px">${lastOfPart ? x.saveFinish : x.saveNext}</button>
+    <div class="links">
+      <button class="link lockwhilebusy" id="qback">${x.back}</button>
+      <button class="link lockwhilebusy" id="skip">${x.skip}</button>
+    </div>`;
       const on = (id, fn) => { const el = $('#' + id); if (el) el.addEventListener('click', fn); };
       on('listen', () => speak(q));
-      on('recbtn', () => { if (rec.state === 'recording') stopRec(); else if (rec.state === 'idle') startRec(); });
-      on('again', () => { resetRec(); startRec(); });
-      on('phoneRec', () => $('#filepick').click());
-      on('saveVoice', () => saveAnswer('voice'));
-      on('saveText', () => saveAnswer('text'));
+      on('micbtn', toggleDictation);
+      app.querySelectorAll('[data-stt]').forEach(b => b.addEventListener('click', () => { S.sttLang = b.dataset.stt; save(); app.querySelectorAll('[data-stt]').forEach(o => o.setAttribute('aria-pressed', String(o.dataset.stt === S.sttLang))); }));
+      ta().addEventListener('input', draftFromBox);
+      on('saveAns', () => saveAnswer('answer'));
       on('skip', () => saveAnswer('skipped'));
-      on('mode', () => { rec.mode = rec.mode === 'text' ? 'voice' : 'text'; resetRec(); renderQ(); });
-      on('qback', () => {
-        stopSpeaking(); resetRec(); rec.mode = 'voice';
-        if (S.idx === 0) { S.screen = PROFILE_SCREENS.length - 1; go('profile'); }
-        else if (S.idx === CORE_N) { go('checkpoint'); }
-        else { S.idx--; go('q'); }
-      });
-      const ta = $('#ta'); if (ta) { ta.addEventListener('input', e => { S._draft = S._draft || {}; S._draft[q.id] = e.target.value; save(); }); }
+      on('qback', () => { stopSpeaking(); abortDictation(); if (S.idx === 0) { S.screen = PROFILE_SCREENS.length - 1; go('profile'); } else if (S.idx === CORE_N) { go('checkpoint'); } else { S.idx--; go('q'); } });
+      setDictUI(); updateSaveBtn();
     }
     function answeredCount() { return Object.values(S.answers).filter(v => v !== 'skipped').length; }
     function saveAnswer(kind) {
       stopSpeaking();
+      if (dict.state !== 'idle') return;
       const q = QUESTIONS[S.idx], x = t();
       let text = '';
-      if (kind === 'text') { const ta = $('#ta'); text = (ta && ta.value || '').trim(); if (!text) { ta && ta.focus(); return; } }
-      if (kind === 'voice' && !rec.blob) return;
-      const meta = Object.assign(baseMeta('answer'), { qid: q.id, qno: S.idx + 1, tag: q.tag, core: q.core, question: q.en, answerType: kind, text, durationSec: kind === 'voice' ? rec.secs : 0 });
-      const replacing = S.answers[q.id] === 'voice';
-      enqueue(meta, kind === 'voice' ? rec.blob : null);
-      if (kind === 'voice' && !replacing) S.seconds += rec.secs || 0;
-      S.answers[q.id] = kind;
-      if (S._draft) delete S._draft[q.id];
-      resetRec(); rec.mode = 'voice';
+      if (kind === 'answer') { text = (ta() && ta().value || '').trim(); if (!text) { dictError(x.empty); return; } }
+      const how = kind === 'skipped' ? 'skipped' : (S.spoken[q.id] ? 'spoken' : 'typed');
+      enqueue(Object.assign(baseMeta('answer'), { qid: q.id, qno: S.idx + 1, tag: q.tag, core: q.core, question: q.en, answerType: how, sttLang: S.spoken[q.id] ? sttLang() : '', text }));
+      S.answers[q.id] = how; delete S.drafts[q.id];
+      abortDictation();
       if (S.idx === CORE_N - 1 && S.bonus === null) { go('checkpoint'); return; }
       if (S.idx >= QUESTIONS.length - 1 || (S.idx === CORE_N - 1 && S.bonus === false)) { finish(); return; }
       S.idx++; go('q');
@@ -1209,12 +1345,12 @@
       <button class="btn btn-ghost btn-block" id="cpNo">${x.cpNo}</button>
     </div>
     <div class="links"><button class="link" id="cpBack">${x.back}</button></div>`;
-      $('#cpYes').addEventListener('click', () => { S.bonus = true; S.idx = CORE_N; resetRec(); rec.mode = 'voice'; go('q'); });
+      $('#cpYes').addEventListener('click', () => { S.bonus = true; S.idx = CORE_N; go('q'); });
       $('#cpNo').addEventListener('click', () => { S.bonus = false; finish(); });
       $('#cpBack').addEventListener('click', () => { S.idx = CORE_N - 1; go('q'); });
     }
     function finish() {
-      enqueue(Object.assign(baseMeta('complete'), { answered: answeredCount(), voiceSeconds: S.seconds, bonus: !!S.bonus, profile: S.profile }));
+      enqueue(Object.assign(baseMeta('complete'), { answered: answeredCount(), bonus: !!S.bonus, profile: S.profile }));
       go('followup');
     }
     function renderFollowup() {
@@ -1245,13 +1381,12 @@
     function shareUrl() { const u = new URL(location.href); u.hash = ''; u.searchParams.delete('lang'); return u.toString(); }
     function renderDone() {
       const x = t();
-      const mins = Math.round(S.seconds / 60);
       const link = shareUrl();
       app.innerHTML = `
     <div class="celebrate">${ICON.star}</div>
     <h1>${x.doneTitle}</h1>
     <p>${x.doneBody}</p>
-    <div class="note">${x.answered(answeredCount(), mins)}</div>
+    <div class="note">${x.answered(answeredCount())}</div>
     <div class="card"><div class="small muted">${x.codeLabel}</div><div class="code">${code()}</div><div class="small muted">${x.codeHelp}${CONFIG.CONTACT ? ` · <span style="user-select:all">${esc(CONFIG.CONTACT)}</span>` : ''}</div></div>
     <div id="doneStatus" class="alert" aria-live="polite"></div>
     <div class="stack" style="margin-top:18px">
@@ -1268,7 +1403,7 @@
     if (!CONFIG.CONTACT) console.warn('Mee Maata: set CONFIG.CONTACT before sharing — teachers need it to ask questions or delete answers.');
     setLang(S.lang);
     pump();
-    addEventListener('beforeunload', e => { if (pending > 0 || rec.state === 'recording') { e.preventDefault(); e.returnValue = ''; } });
+    addEventListener('beforeunload', e => { if (pending > 0 || dict.state !== 'idle') { e.preventDefault(); e.returnValue = ''; } });
   </script>
 </body>
 
