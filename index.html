@@ -1241,7 +1241,9 @@
     async function send(it) {
       if (!CONFIG.ENDPOINT) { await sleep(300); return; }
       const j = await post(Object.assign({}, it.meta, { key: CONFIG.KEY, answerId: it.answerId }));
-      if (j && j.ok === false) throw new Error(j.error || 'server error');
+      // Only count an answer as sent when the backend confirms it. Anything else (an error page, a sign-in page,
+      // a cold-start hiccup) is retried; the backend ignores duplicates, so retrying is safe.
+      if (!j || j.ok !== true) throw new Error((j && j.error) || 'no confirmation from server');
     }
     async function pump() {
       if (pumping) return; pumping = true;
