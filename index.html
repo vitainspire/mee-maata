@@ -2,1468 +2,1499 @@
 <html lang="te">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <title>Mee Maata · మీ మాట</title>
-  <meta name="description"
-    content="ఉపాధ్యాయుల కోసం ఉచిత AI సాధనాలు — ఏవి తయారు చేయాలో మీరే చెప్పండి. సుమారు 10 నిమిషాలు, ఎక్కువగా నొక్కితే చాలు.">
-  <meta property="og:title" content="మీ మాట · Mee Maata — ఉపాధ్యాయుల కోసం, ఉపాధ్యాయులతో">
-  <meta property="og:description"
-    content="ఉపాధ్యాయుల కోసం ఉచిత సాధనాలు తయారు చేస్తున్నాం. ఏవి ముందు కావాలో మీరే చెప్పండి. సుమారు 10 నిమిషాలు, పేరు అవసరం లేదు.">
-  <!-- For a picture in the WhatsApp preview, host og.png next to this file and replace with its FULL https address -->
-  <meta property="og:image" content="og.png">
-  <meta name="theme-color" content="#1E5A44">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anek+Telugu:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    /* Layout: one calm column, chalkboard-green header band; each screen is one quick question, mostly taps, with an optional speak-or-type box. */
-    :root {
-      --bg: #F1F5F1;
-      --surface: #FFFFFF;
-      --ink: #15241C;
-      --muted: #56665C;
-      --line: #D5DED7;
-      --board: #1E5A44;
-      --board-ink: #F2F8F4;
-      --board-muted: #B9D3C6;
-      --marigold: #E9A21B;
-      --marigold-ink: #271A00;
-      --marigold-soft: #FBEFD3;
-      --rec: #D4452A;
-      --ok: #2E7D4F;
-      --kid-off: #CBD6CE;
-      --font: "Anek Telugu", "Noto Sans Telugu", "Nirmala UI", "Gautami", "Vani", system-ui, sans-serif;
-      --r: 14px;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root:not([data-theme="light"]) {
-        --bg: #0E1813;
-        --surface: #15221B;
-        --ink: #E7F0EA;
-        --muted: #A1B2A7;
-        --line: #2A3B31;
-        --board: #173F31;
-        --board-ink: #EAF4EE;
-        --board-muted: #98BBA9;
-        --marigold: #F1B23C;
-        --marigold-ink: #241800;
-        --marigold-soft: #3A2E14;
-        --rec: #F0694B;
-        --ok: #62BE8A;
-        --kid-off: #33463B;
-        color-scheme: dark;
-      }
-    }
-
-    :root[data-theme="dark"] {
-      --bg: #0E1813;
-      --surface: #15221B;
-      --ink: #E7F0EA;
-      --muted: #A1B2A7;
-      --line: #2A3B31;
-      --board: #173F31;
-      --board-ink: #EAF4EE;
-      --board-muted: #98BBA9;
-      --marigold: #F1B23C;
-      --marigold-ink: #241800;
-      --marigold-soft: #3A2E14;
-      --rec: #F0694B;
-      --ok: #62BE8A;
-      --kid-off: #33463B;
-      color-scheme: dark;
-    }
-
-    * {
-      box-sizing: border-box
-    }
-
-    html,
-    body {
-      margin: 0
-    }
-
-    body {
-      background: var(--bg);
-      color: var(--ink);
-      font-family: var(--font);
-      font-size: 18px;
-      line-height: 1.6;
-      -webkit-text-size-adjust: 100%
-    }
-
-    button,
-    input,
-    textarea {
-      font: inherit;
-      color: inherit
-    }
-
-    .wrap {
-      max-width: 560px;
-      margin: 0 auto;
-      padding-left: max(16px, env(safe-area-inset-left, 0px));
-      padding-right: max(16px, env(safe-area-inset-right, 0px))
-    }
-
-    header {
-      background: var(--board);
-      color: var(--board-ink);
-      padding-top: env(safe-area-inset-top, 0px)
-    }
-
-    header .wrap {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding-block: 12px
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 700;
-      font-size: 20px
-    }
-
-    .brand small {
-      display: block;
-      font-weight: 500;
-      font-size: 12px;
-      color: var(--board-muted);
-      letter-spacing: .6px;
-      text-transform: uppercase;
-      line-height: 1.1
-    }
-
-    .brand svg {
-      flex: none
-    }
-
-    .spacer {
-      flex: 1
-    }
-
-    .lang,
-    .seg {
-      display: flex;
-      border: 1px solid var(--board-muted);
-      border-radius: 999px;
-      overflow: hidden;
-      flex: none
-    }
-
-    .lang button {
-      background: transparent;
-      border: 0;
-      color: var(--board-ink);
-      padding: 6px 12px;
-      font-size: 15px;
-      cursor: pointer;
-      min-height: 36px
-    }
-
-    .lang button[aria-pressed="true"] {
-      background: var(--board-ink);
-      color: var(--board)
-    }
-
-    .seg {
-      border-color: var(--line)
-    }
-
-    .seg button {
-      background: transparent;
-      border: 0;
-      color: var(--ink);
-      padding: 4px 12px;
-      font-size: 15px;
-      cursor: pointer;
-      min-height: 36px
-    }
-
-    .seg button[aria-pressed="true"] {
-      background: var(--board);
-      color: var(--board-ink)
-    }
-
-    .status {
-      font-size: 14px;
-      padding: 0 0 10px;
-      color: var(--board-muted);
-      display: flex;
-      align-items: center;
-      gap: 8px
-    }
-
-    .status .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--board-muted);
-      flex: none
-    }
-
-    .status.ok .dot {
-      background: #7FD3A2
-    }
-
-    .status.wait .dot {
-      background: var(--marigold)
-    }
-
-    .demo {
-      background: var(--marigold-soft);
-      color: var(--ink);
-      font-size: 14px;
-      text-align: center;
-      padding: 6px 16px
-    }
-
-    main {
-      padding-block: 20px 48px
-    }
-
-    h1 {
-      font-size: 28px;
-      line-height: 1.3;
-      margin: 4px 0 12px;
-      text-wrap: balance
-    }
-
-    h2 {
-      font-size: 23px;
-      line-height: 1.35;
-      margin: 0 0 6px;
-      text-wrap: balance
-    }
-
-    p {
-      margin: 0 0 12px
-    }
-
-    .muted {
-      color: var(--muted)
-    }
-
-    .small {
-      font-size: 15px
-    }
-
-    .promises {
-      list-style: none;
-      padding: 0;
-      margin: 16px 0;
-      display: grid;
-      gap: 10px
-    }
-
-    .promises li {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start
-    }
-
-    .promises svg {
-      flex: none;
-      margin-top: 5px;
-      color: var(--ok)
-    }
-
-    .chips-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin: 8px 0 14px
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 4px 12px;
-      font-size: 15px;
-      background: var(--surface)
-    }
-
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: var(--r);
-      padding: 16px
-    }
-
-    details.card {
-      padding: 0;
-      margin: 0 0 14px
-    }
-
-    details.card summary {
-      padding: 12px 16px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 16px;
-      min-height: 44px
-    }
-
-    details.card ul {
-      margin: 0;
-      padding: 0 16px 14px 34px;
-      font-size: 15px;
-      display: grid;
-      gap: 6px
-    }
-
-    .consent {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      cursor: pointer
-    }
-
-    .consent input {
-      width: 24px;
-      height: 24px;
-      margin-top: 3px;
-      accent-color: var(--board);
-      flex: none
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      border-radius: 12px;
-      border: 0;
-      padding: 14px 20px;
-      min-height: 52px;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 18px;
-      text-decoration: none;
-      text-align: center
-    }
-
-    .btn-primary {
-      background: var(--board);
-      color: var(--board-ink)
-    }
-
-    .btn:disabled {
-      opacity: .45;
-      cursor: not-allowed
-    }
-
-    .btn-gold {
-      background: var(--marigold);
-      color: var(--marigold-ink)
-    }
-
-    .btn-ghost {
-      background: transparent;
-      color: var(--ink);
-      border: 1px solid var(--line)
-    }
-
-    .btn-block {
-      width: 100%
-    }
-
-    .stack {
-      display: grid;
-      gap: 12px
-    }
-
-    .links {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 8px;
-      margin-top: 14px
-    }
-
-    .link {
-      background: none;
-      border: 0;
-      color: var(--muted);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      padding: 10px 4px;
-      cursor: pointer;
-      font-size: 16px;
-      min-height: 44px
-    }
-
-    :focus-visible {
-      outline: 3px solid var(--marigold);
-      outline-offset: 2px
-    }
-
-    .progress {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 15px;
-      color: var(--muted);
-      margin-bottom: 14px
-    }
-
-    .bar {
-      flex: 1;
-      height: 6px;
-      border-radius: 99px;
-      background: var(--line);
-      overflow: hidden
-    }
-
-    .bar i {
-      display: block;
-      height: 100%;
-      background: var(--marigold);
-      border-radius: 99px;
-      transition: width .4s
-    }
-
-    .secchip {
-      background: var(--marigold-soft);
-      color: var(--ink);
-      border-radius: 999px;
-      padding: 2px 10px;
-      font-size: 14px;
-      font-weight: 600;
-      white-space: nowrap
-    }
-
-    .qtext {
-      font-size: 22px;
-      line-height: 1.5;
-      font-weight: 600;
-      margin: 0 0 6px;
-      text-wrap: pretty
-    }
-
-    .hint {
-      font-size: 16px;
-      color: var(--muted);
-      margin-bottom: 10px
-    }
-
-    .listen {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: none;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 6px 12px;
-      font-size: 15px;
-      cursor: pointer;
-      color: var(--ink);
-      min-height: 40px;
-      margin-bottom: 10px
-    }
-
-    .opts {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px
-    }
-
-    .opts.col {
-      flex-direction: column
-    }
-
-    .opt {
-      border: 1px solid var(--line);
-      background: var(--surface);
-      border-radius: 14px;
-      padding: 10px 16px;
-      min-height: 48px;
-      cursor: pointer;
-      font-size: 17px;
-      text-align: left;
-      line-height: 1.4
-    }
-
-    .opts:not(.col) .opt {
-      border-radius: 999px;
-      padding: 8px 16px;
-      min-height: 44px
-    }
-
-    .opt[aria-pressed="true"] {
-      background: var(--board);
-      border-color: var(--board);
-      color: var(--board-ink)
-    }
-
-    .opt:disabled {
-      opacity: .4
-    }
-
-    .counter {
-      font-size: 14px;
-      color: var(--muted);
-      margin: 8px 0 0
-    }
-
-    /* count-of-10 rows */
-    .krow {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: var(--r);
-      padding: 12px 12px 10px;
-      margin-bottom: 10px
-    }
-
-    .krow .lab {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      align-items: baseline;
-      font-size: 17px;
-      line-height: 1.4
-    }
-
-    .krow .val {
-      font-weight: 700;
-      font-variant-numeric: tabular-nums;
-      white-space: nowrap;
-      color: var(--board)
-    }
-
-    :root[data-theme="dark"] .krow .val {
-      color: var(--marigold)
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root:not([data-theme="light"]) .krow .val {
-        color: var(--marigold)
-      }
-    }
-
-    .kids {
-      display: flex;
-      gap: 3px;
-      margin-top: 8px;
-      flex-wrap: nowrap
-    }
-
-    .kid {
-      flex: 1 1 0;
-      min-width: 0;
-      max-width: 34px;
-      aspect-ratio: 3/4;
-      border: 0;
-      background: none;
-      padding: 0;
-      cursor: pointer;
-      color: var(--kid-off)
-    }
-
-    .kid.on {
-      color: var(--marigold)
-    }
-
-    .kid svg {
-      width: 100%;
-      height: 100%;
-      display: block
-    }
-
-    .kextra {
-      display: flex;
-      gap: 8px;
-      margin-top: 8px
-    }
-
-    .mini {
-      border: 1px solid var(--line);
-      background: transparent;
-      border-radius: 999px;
-      padding: 2px 12px;
-      font-size: 14px;
-      cursor: pointer;
-      min-height: 34px
-    }
-
-    .mini[aria-pressed="true"] {
-      background: var(--board);
-      color: var(--board-ink);
-      border-color: var(--board)
-    }
-
-    /* concept cards */
-    .concept {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: var(--r);
-      padding: 12px 14px;
-      margin-bottom: 10px
-    }
-
-    .concept p {
-      margin: 0 0 8px;
-      font-size: 17px;
-      line-height: 1.45
-    }
-
-    .concept .opts {
-      gap: 6px
-    }
-
-    .concept .opt {
-      font-size: 15px;
-      min-height: 40px;
-      padding: 6px 12px
-    }
-
-    /* speak-or-type box */
-    .more {
-      background: none;
-      border: 1px dashed var(--line);
-      border-radius: 12px;
-      width: 100%;
-      padding: 12px;
-      color: var(--muted);
-      cursor: pointer;
-      font-size: 16px;
-      margin-top: 12px;
-      text-align: left;
-      min-height: 48px
-    }
-
-    .dictbox {
-      margin-top: 14px
-    }
-
-    .microw {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin: 4px 0 10px;
-      flex-wrap: wrap
-    }
-
-    .micbtn {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      border: 0;
-      background: var(--marigold);
-      color: var(--marigold-ink);
-      display: grid;
-      place-items: center;
-      cursor: pointer;
-      box-shadow: 0 0 0 6px var(--marigold-soft);
-      transition: transform .15s, background .2s;
-      flex: none
-    }
-
-    .micbtn:active {
-      transform: scale(.96)
-    }
-
-    .micbtn.on {
-      background: var(--rec);
-      color: #fff;
-      box-shadow: 0 0 0 6px color-mix(in srgb, var(--rec) 22%, transparent);
-      animation: pulse 1.6s ease-in-out infinite
-    }
-
-    .micbtn.busy {
-      opacity: .6;
-      cursor: progress
-    }
-
-    @keyframes pulse {
-      50% {
-        box-shadow: 0 0 0 12px color-mix(in srgb, var(--rec) 10%, transparent)
-      }
-    }
-
-    @media (prefers-reduced-motion:reduce) {
-      .micbtn.on {
-        animation: none
-      }
-
-      .bar i {
-        transition: none
-      }
-    }
-
-    .micside {
-      display: grid;
-      gap: 4px;
-      min-width: 0;
-      flex: 1
-    }
-
-    .miclabel {
-      font-weight: 600;
-      line-height: 1.35;
-      font-size: 16px
-    }
-
-    .timer {
-      font-variant-numeric: tabular-nums;
-      color: var(--muted);
-      font-size: 15px
-    }
-
-    .meter {
-      display: flex;
-      align-items: center;
-      gap: 3px;
-      height: 20px
-    }
-
-    .meter span {
-      width: 4px;
-      border-radius: 2px;
-      background: var(--rec);
-      height: 3px;
-      transition: height .08s
-    }
-
-    textarea {
-      width: 100%;
-      min-height: 130px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 12px;
-      background: var(--surface);
-      resize: vertical;
-      font-size: 18px;
-      line-height: 1.55
-    }
-
-    textarea.live {
-      border-color: var(--rec)
-    }
-
-    .interim {
-      color: var(--muted);
-      font-style: italic;
-      font-size: 16px;
-      margin-top: 4px
-    }
-
-    .interim:empty {
-      display: none
-    }
-
-    .tip {
-      background: var(--marigold-soft);
-      border-radius: 12px;
-      padding: 10px 14px;
-      font-size: 16px;
-      margin: 0 0 14px
-    }
-
-    .chipgroup {
-      margin: 0 0 18px
-    }
-
-    .chipgroup h3 {
-      font-size: 17px;
-      margin: 0 0 8px;
-      font-weight: 600
-    }
-
-    input[type=text],
-    input[type=tel] {
-      width: 100%;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 12px;
-      background: var(--surface);
-      min-height: 48px
-    }
-
-    .toast {
-      position: fixed;
-      left: 50%;
-      bottom: calc(20px + env(safe-area-inset-bottom, 0px));
-      transform: translateX(-50%) translateY(20px);
-      background: var(--ink);
-      color: var(--bg);
-      padding: 12px 18px;
-      border-radius: 12px;
-      font-size: 16px;
-      opacity: 0;
-      transition: .3s;
-      max-width: calc(100% - 32px);
-      text-align: center;
-      pointer-events: none;
-      z-index: 20
-    }
-
-    .toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0)
-    }
-
-    .note {
-      border-left: 4px solid var(--marigold);
-      padding: 4px 0 4px 12px;
-      margin: 14px 0
-    }
-
-    .alert {
-      background: var(--marigold-soft);
-      border-radius: 12px;
-      padding: 12px 14px;
-      margin-top: 10px;
-      font-size: 16px
-    }
-
-    .code {
-      font-variant-numeric: tabular-nums;
-      letter-spacing: 2px;
-      font-weight: 700;
-      font-size: 22px;
-      user-select: all
-    }
-
-    .celebrate {
-      display: grid;
-      place-items: center;
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      background: var(--marigold-soft);
-      color: var(--marigold);
-      margin: 4px 0 12px
-    }
-
-    .foot {
-      margin-top: 28px;
-      font-size: 14px;
-      color: var(--muted);
-      text-align: center
-    }
-
-    .sr {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      overflow: hidden;
-      clip: rect(0 0 0 0)
-    }
-
-    .nav {
-      position: sticky;
-      bottom: 0;
-      background: linear-gradient(to bottom, transparent, var(--bg) 24%);
-      padding-top: 18px;
-      padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
-      margin-top: 8px
-    }
-
-    @media (max-width:440px) {
-      .brand small {
-        display: none
-      }
-
-      .lang button {
-        padding: 6px 10px;
-        font-size: 14px
-      }
-
-      .brand {
-        font-size: 19px
-      }
-    }
-  </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <title>Mee Maata · మీ మాట</title>
+    <meta name="description"
+        content="ఉపాధ్యాయుల కోసం ఉచిత AI సాధనాలు — ఏవి తయారు చేయాలో మీరే చెప్పండి. సుమారు 10 నిమిషాలు, ఎక్కువగా నొక్కితే చాలు.">
+    <meta property="og:title" content="మీ మాట · Mee Maata — ఉపాధ్యాయుల కోసం, ఉపాధ్యాయులతో">
+    <meta property="og:description"
+        content="ఉపాధ్యాయుల కోసం ఉచిత సాధనాలు తయారు చేస్తున్నాం. ఏవి ముందు కావాలో మీరే చెప్పండి. సుమారు 10 నిమిషాలు, పేరు అవసరం లేదు.">
+    <!-- For a picture in the WhatsApp preview, host og.png next to this file and replace with its FULL https address -->
+    <meta property="og:image" content="og.png">
+    <meta name="theme-color" content="#1E5A44">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Telugu:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Layout: one calm column, chalkboard-green header band; each screen is one quick question, mostly taps, with an optional speak-or-type box. */
+        :root {
+            --bg: #F1F5F1;
+            --surface: #FFFFFF;
+            --ink: #15241C;
+            --muted: #56665C;
+            --line: #D5DED7;
+            --board: #1E5A44;
+            --board-ink: #F2F8F4;
+            --board-muted: #B9D3C6;
+            --marigold: #E9A21B;
+            --marigold-ink: #271A00;
+            --marigold-soft: #FBEFD3;
+            --rec: #D4452A;
+            --ok: #2E7D4F;
+            --kid-off: #CBD6CE;
+            --font: "Anek Telugu", "Noto Sans Telugu", "Nirmala UI", "Gautami", "Vani", system-ui, sans-serif;
+            --r: 14px;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+                --bg: #0E1813;
+                --surface: #15221B;
+                --ink: #E7F0EA;
+                --muted: #A1B2A7;
+                --line: #2A3B31;
+                --board: #173F31;
+                --board-ink: #EAF4EE;
+                --board-muted: #98BBA9;
+                --marigold: #F1B23C;
+                --marigold-ink: #241800;
+                --marigold-soft: #3A2E14;
+                --rec: #F0694B;
+                --ok: #62BE8A;
+                --kid-off: #33463B;
+                color-scheme: dark;
+            }
+        }
+
+        :root[data-theme="dark"] {
+            --bg: #0E1813;
+            --surface: #15221B;
+            --ink: #E7F0EA;
+            --muted: #A1B2A7;
+            --line: #2A3B31;
+            --board: #173F31;
+            --board-ink: #EAF4EE;
+            --board-muted: #98BBA9;
+            --marigold: #F1B23C;
+            --marigold-ink: #241800;
+            --marigold-soft: #3A2E14;
+            --rec: #F0694B;
+            --ok: #62BE8A;
+            --kid-off: #33463B;
+            color-scheme: dark;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html,
+        body {
+            margin: 0
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--ink);
+            font-family: var(--font);
+            font-size: 18px;
+            line-height: 1.6;
+            -webkit-text-size-adjust: 100%
+        }
+
+        button,
+        input,
+        textarea {
+            font: inherit;
+            color: inherit
+        }
+
+        .wrap {
+            max-width: 560px;
+            margin: 0 auto;
+            padding-left: max(16px, env(safe-area-inset-left, 0px));
+            padding-right: max(16px, env(safe-area-inset-right, 0px))
+        }
+
+        header {
+            background: var(--board);
+            color: var(--board-ink);
+            padding-top: env(safe-area-inset-top, 0px)
+        }
+
+        header .wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-block: 12px
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 20px
+        }
+
+        .brand small {
+            display: block;
+            font-weight: 500;
+            font-size: 12px;
+            color: var(--board-muted);
+            letter-spacing: .6px;
+            text-transform: uppercase;
+            line-height: 1.1
+        }
+
+        .brand svg {
+            flex: none
+        }
+
+        .spacer {
+            flex: 1
+        }
+
+        .lang,
+        .seg {
+            display: flex;
+            border: 1px solid var(--board-muted);
+            border-radius: 999px;
+            overflow: hidden;
+            flex: none
+        }
+
+        .lang button {
+            background: transparent;
+            border: 0;
+            color: var(--board-ink);
+            padding: 6px 12px;
+            font-size: 15px;
+            cursor: pointer;
+            min-height: 36px
+        }
+
+        .lang button[aria-pressed="true"] {
+            background: var(--board-ink);
+            color: var(--board)
+        }
+
+        .seg {
+            border-color: var(--line)
+        }
+
+        .seg button {
+            background: transparent;
+            border: 0;
+            color: var(--ink);
+            padding: 4px 12px;
+            font-size: 15px;
+            cursor: pointer;
+            min-height: 36px
+        }
+
+        .seg button[aria-pressed="true"] {
+            background: var(--board);
+            color: var(--board-ink)
+        }
+
+        .status {
+            font-size: 14px;
+            padding: 0 0 10px;
+            color: var(--board-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .status .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--board-muted);
+            flex: none
+        }
+
+        .status.ok .dot {
+            background: #7FD3A2
+        }
+
+        .status.wait .dot {
+            background: var(--marigold)
+        }
+
+        .demo {
+            background: var(--marigold-soft);
+            color: var(--ink);
+            font-size: 14px;
+            text-align: center;
+            padding: 6px 16px
+        }
+
+        main {
+            padding-block: 20px 48px
+        }
+
+        h1 {
+            font-size: 28px;
+            line-height: 1.3;
+            margin: 4px 0 12px;
+            text-wrap: balance
+        }
+
+        h2 {
+            font-size: 23px;
+            line-height: 1.35;
+            margin: 0 0 6px;
+            text-wrap: balance
+        }
+
+        p {
+            margin: 0 0 12px
+        }
+
+        .muted {
+            color: var(--muted)
+        }
+
+        .small {
+            font-size: 15px
+        }
+
+        .promises {
+            list-style: none;
+            padding: 0;
+            margin: 16px 0;
+            display: grid;
+            gap: 10px
+        }
+
+        .promises li {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start
+        }
+
+        .promises svg {
+            flex: none;
+            margin-top: 5px;
+            color: var(--ok)
+        }
+
+        .chips-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 8px 0 14px
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            padding: 4px 12px;
+            font-size: 15px;
+            background: var(--surface)
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: var(--r);
+            padding: 16px
+        }
+
+        details.card {
+            padding: 0;
+            margin: 0 0 14px
+        }
+
+        details.card summary {
+            padding: 12px 16px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            min-height: 44px
+        }
+
+        details.card ul {
+            margin: 0;
+            padding: 0 16px 14px 34px;
+            font-size: 15px;
+            display: grid;
+            gap: 6px
+        }
+
+        .consent {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            cursor: pointer
+        }
+
+        .consent input {
+            width: 24px;
+            height: 24px;
+            margin-top: 3px;
+            accent-color: var(--board);
+            flex: none
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border-radius: 12px;
+            border: 0;
+            padding: 14px 20px;
+            min-height: 52px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 18px;
+            text-decoration: none;
+            text-align: center
+        }
+
+        .btn-primary {
+            background: var(--board);
+            color: var(--board-ink)
+        }
+
+        .btn:disabled {
+            opacity: .45;
+            cursor: not-allowed
+        }
+
+        .btn-gold {
+            background: var(--marigold);
+            color: var(--marigold-ink)
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--ink);
+            border: 1px solid var(--line)
+        }
+
+        .btn-block {
+            width: 100%
+        }
+
+        .stack {
+            display: grid;
+            gap: 12px
+        }
+
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 8px;
+            margin-top: 14px
+        }
+
+        .link {
+            background: none;
+            border: 0;
+            color: var(--muted);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            padding: 10px 4px;
+            cursor: pointer;
+            font-size: 16px;
+            min-height: 44px
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--marigold);
+            outline-offset: 2px
+        }
+
+        .progress {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+            color: var(--muted);
+            margin-bottom: 14px
+        }
+
+        .bar {
+            flex: 1;
+            height: 6px;
+            border-radius: 99px;
+            background: var(--line);
+            overflow: hidden
+        }
+
+        .bar i {
+            display: block;
+            height: 100%;
+            background: var(--marigold);
+            border-radius: 99px;
+            transition: width .4s
+        }
+
+        .secchip {
+            background: var(--marigold-soft);
+            color: var(--ink);
+            border-radius: 999px;
+            padding: 2px 10px;
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap
+        }
+
+        .qtext {
+            font-size: 22px;
+            line-height: 1.5;
+            font-weight: 600;
+            margin: 0 0 6px;
+            text-wrap: pretty
+        }
+
+        .hint {
+            font-size: 16px;
+            color: var(--muted);
+            margin-bottom: 10px
+        }
+
+        .listen {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: none;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            padding: 6px 12px;
+            font-size: 15px;
+            cursor: pointer;
+            color: var(--ink);
+            min-height: 40px;
+            margin-bottom: 10px
+        }
+
+        .opts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px
+        }
+
+        .opts.col {
+            flex-direction: column
+        }
+
+        .opt {
+            border: 1px solid var(--line);
+            background: var(--surface);
+            border-radius: 14px;
+            padding: 10px 16px;
+            min-height: 48px;
+            cursor: pointer;
+            font-size: 17px;
+            text-align: left;
+            line-height: 1.4
+        }
+
+        .opts:not(.col) .opt {
+            border-radius: 999px;
+            padding: 8px 16px;
+            min-height: 44px
+        }
+
+        .opt[aria-pressed="true"] {
+            background: var(--board);
+            border-color: var(--board);
+            color: var(--board-ink)
+        }
+
+        .opt:disabled {
+            opacity: .4
+        }
+
+        .counter {
+            font-size: 14px;
+            color: var(--muted);
+            margin: 8px 0 0
+        }
+
+        /* count-of-10 rows */
+        .krow {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: var(--r);
+            padding: 12px 12px 10px;
+            margin-bottom: 10px
+        }
+
+        .krow .lab {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            align-items: baseline;
+            font-size: 17px;
+            line-height: 1.4
+        }
+
+        .krow .val {
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+            color: var(--board)
+        }
+
+        :root[data-theme="dark"] .krow .val {
+            color: var(--marigold)
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) .krow .val {
+                color: var(--marigold)
+            }
+        }
+
+        .kids {
+            display: flex;
+            gap: 3px;
+            margin-top: 8px;
+            flex-wrap: nowrap
+        }
+
+        .kid {
+            flex: 1 1 0;
+            min-width: 0;
+            max-width: 34px;
+            aspect-ratio: 3/4;
+            border: 0;
+            background: none;
+            padding: 0;
+            cursor: pointer;
+            color: var(--kid-off)
+        }
+
+        .kid.on {
+            color: var(--marigold)
+        }
+
+        .kid svg {
+            width: 100%;
+            height: 100%;
+            display: block
+        }
+
+        .kextra {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px
+        }
+
+        .mini {
+            border: 1px solid var(--line);
+            background: transparent;
+            border-radius: 999px;
+            padding: 2px 12px;
+            font-size: 14px;
+            cursor: pointer;
+            min-height: 34px
+        }
+
+        .mini[aria-pressed="true"] {
+            background: var(--board);
+            color: var(--board-ink);
+            border-color: var(--board)
+        }
+
+        /* concept cards */
+        .concept {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: var(--r);
+            padding: 12px 14px;
+            margin-bottom: 10px
+        }
+
+        .concept p {
+            margin: 0 0 8px;
+            font-size: 17px;
+            line-height: 1.45
+        }
+
+        .concept .opts {
+            gap: 6px
+        }
+
+        .concept .opt {
+            font-size: 15px;
+            min-height: 40px;
+            padding: 6px 12px
+        }
+
+        /* speak-or-type box */
+        .more {
+            background: none;
+            border: 1px dashed var(--line);
+            border-radius: 12px;
+            width: 100%;
+            padding: 12px;
+            color: var(--muted);
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 12px;
+            text-align: left;
+            min-height: 48px
+        }
+
+        .dictbox {
+            margin-top: 14px
+        }
+
+        .microw {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 4px 0 10px;
+            flex-wrap: wrap
+        }
+
+        .micbtn {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            border: 0;
+            background: var(--marigold);
+            color: var(--marigold-ink);
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            box-shadow: 0 0 0 6px var(--marigold-soft);
+            transition: transform .15s, background .2s;
+            flex: none
+        }
+
+        .micbtn:active {
+            transform: scale(.96)
+        }
+
+        .micbtn.on {
+            background: var(--rec);
+            color: #fff;
+            box-shadow: 0 0 0 6px color-mix(in srgb, var(--rec) 22%, transparent);
+            animation: pulse 1.6s ease-in-out infinite
+        }
+
+        .micbtn.busy {
+            opacity: .6;
+            cursor: progress
+        }
+
+        @keyframes pulse {
+            50% {
+                box-shadow: 0 0 0 12px color-mix(in srgb, var(--rec) 10%, transparent)
+            }
+        }
+
+        @media (prefers-reduced-motion:reduce) {
+            .micbtn.on {
+                animation: none
+            }
+
+            .bar i {
+                transition: none
+            }
+        }
+
+        .micside {
+            display: grid;
+            gap: 4px;
+            min-width: 0;
+            flex: 1
+        }
+
+        .miclabel {
+            font-weight: 600;
+            line-height: 1.35;
+            font-size: 16px
+        }
+
+        .timer {
+            font-variant-numeric: tabular-nums;
+            color: var(--muted);
+            font-size: 15px
+        }
+
+        .meter {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            height: 20px
+        }
+
+        .meter span {
+            width: 4px;
+            border-radius: 2px;
+            background: var(--rec);
+            height: 3px;
+            transition: height .08s
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 130px;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 12px;
+            background: var(--surface);
+            resize: vertical;
+            font-size: 18px;
+            line-height: 1.55
+        }
+
+        textarea.live {
+            border-color: var(--rec)
+        }
+
+        .interim {
+            color: var(--muted);
+            font-style: italic;
+            font-size: 16px;
+            margin-top: 4px
+        }
+
+        .interim:empty {
+            display: none
+        }
+
+        .tip {
+            background: var(--marigold-soft);
+            border-radius: 12px;
+            padding: 10px 14px;
+            font-size: 16px;
+            margin: 0 0 14px
+        }
+
+        .chipgroup {
+            margin: 0 0 18px
+        }
+
+        .chipgroup h3 {
+            font-size: 17px;
+            margin: 0 0 8px;
+            font-weight: 600
+        }
+
+        input[type=text],
+        input[type=tel] {
+            width: 100%;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 12px;
+            background: var(--surface);
+            min-height: 48px
+        }
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+            transform: translateX(-50%) translateY(20px);
+            background: var(--ink);
+            color: var(--bg);
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-size: 16px;
+            opacity: 0;
+            transition: .3s;
+            max-width: calc(100% - 32px);
+            text-align: center;
+            pointer-events: none;
+            z-index: 20
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0)
+        }
+
+        .note {
+            border-left: 4px solid var(--marigold);
+            padding: 4px 0 4px 12px;
+            margin: 14px 0
+        }
+
+        .alert {
+            background: var(--marigold-soft);
+            border-radius: 12px;
+            padding: 12px 14px;
+            margin-top: 10px;
+            font-size: 16px
+        }
+
+        .code {
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 2px;
+            font-weight: 700;
+            font-size: 22px;
+            user-select: all
+        }
+
+        .celebrate {
+            display: grid;
+            place-items: center;
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: var(--marigold-soft);
+            color: var(--marigold);
+            margin: 4px 0 12px
+        }
+
+        .foot {
+            margin-top: 28px;
+            font-size: 14px;
+            color: var(--muted);
+            text-align: center
+        }
+
+        .sr {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(0 0 0 0)
+        }
+
+        .nav {
+            position: sticky;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent, var(--bg) 24%);
+            padding-top: 18px;
+            padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+            margin-top: 8px
+        }
+
+        @media (max-width:440px) {
+            .brand small {
+                display: none
+            }
+
+            .lang button {
+                padding: 6px 10px;
+                font-size: 14px
+            }
+
+            .brand {
+                font-size: 19px
+            }
+        }
+    </style>
 </head>
 
 <body>
-  <header>
-    <div class="wrap">
-      <div class="brand">
-        <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
-          <rect x="2" y="4" width="30" height="21" rx="6" fill="currentColor" opacity=".16" />
-          <path d="M9 25l-1 7 7-7" fill="currentColor" opacity=".16" />
-          <rect x="14" y="9" width="6" height="10" rx="3" fill="#E9A21B" />
-          <path d="M11 16a6 6 0 0 0 12 0" stroke="#E9A21B" stroke-width="2" fill="none" stroke-linecap="round" />
-        </svg>
-        <div>మీ మాట<small>Mee Maata · Teacher voices</small></div>
-      </div>
-      <div class="spacer"></div>
-      <div class="lang" role="group" aria-label="Language">
-        <button type="button" data-lang="te" aria-pressed="true">తెలుగు</button>
-        <button type="button" data-lang="en" aria-pressed="false">English</button>
-      </div>
-    </div>
-    <div class="wrap">
-      <div id="status" class="status ok" aria-live="polite"><span class="dot"></span><span id="statusText"></span></div>
-    </div>
-  </header>
-  <div id="demo" class="demo" hidden></div>
-  <main class="wrap" id="app"></main>
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <header>
+        <div class="wrap">
+            <div class="brand">
+                <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
+                    <rect x="2" y="4" width="30" height="21" rx="6" fill="currentColor" opacity=".16" />
+                    <path d="M9 25l-1 7 7-7" fill="currentColor" opacity=".16" />
+                    <rect x="14" y="9" width="6" height="10" rx="3" fill="#E9A21B" />
+                    <path d="M11 16a6 6 0 0 0 12 0" stroke="#E9A21B" stroke-width="2" fill="none"
+                        stroke-linecap="round" />
+                </svg>
+                <div>మీ మాట<small>Mee Maata · Teacher voices</small></div>
+            </div>
+            <div class="spacer"></div>
+            <div class="lang" role="group" aria-label="Language">
+                <button type="button" data-lang="te" aria-pressed="true">తెలుగు</button>
+                <button type="button" data-lang="en" aria-pressed="false">English</button>
+            </div>
+        </div>
+        <div class="wrap">
+            <div id="status" class="status ok" aria-live="polite"><span class="dot"></span><span id="statusText"></span>
+            </div>
+        </div>
+    </header>
+    <div id="demo" class="demo" hidden></div>
+    <main class="wrap" id="app"></main>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-  <script>
-    /* ================= SETTINGS (edit these before sharing) ================= */
-    const CONFIG = {
-      ENDPOINT: "https://script.google.com/macros/s/AKfycbzPSs7xLI7VplZCS13-J6YUDRr5SOAG-BECAFohiuiSimfw2XWnjDurQbPT5YOTvNZX8Q/exec",              // Your Google Apps Script web-app URL. Empty = demo mode (nothing is sent).
-      KEY: "VitaEdu2026",    // Must match SHARED_KEY in Code.gs
-      CONTACT: "teacher@vitainspire.com",               // REQUIRED before sharing: WhatsApp number or email for questions and deletion requests
-      RETENTION_MONTHS: 12,      // How long answers are kept after the study ends (shown to teachers)
-      SERVER_STT: true,         // true = use Bhashini (via your Apps Script) when the phone's own speech-to-text is unavailable.
-      //        Only set true after adding your Bhashini keys in Apps Script (see SETUP.md).
-      AUDIO_BASE: "https://drive.google.com/drive/folders/18EuAcUjW2u0YC5LtRLaYZFNSA2nXXd_k",            // Optional: folder URL with recorded QUESTION audio named <item id>-te.mp3 / -en.mp3
-      SERVER_CHUNK_SECONDS: 28   // Bhashini works best with short clips; teachers tap again to keep talking
-    };
-    /* Teachers' voices are never recorded or stored. Speech becomes editable text; only saved text is sent. */
+    <script>
+        /* ================= SETTINGS (edit these before sharing) ================= */
+        const CONFIG = {
+            ENDPOINT: "https://script.google.com/macros/s/AKfycbzPSs7xLI7VplZCS13-J6YUDRr5SOAG-BECAFohiuiSimfw2XWnjDurQbPT5YOTvNZX8Q/exec",              // Your Google Apps Script web-app URL. Empty = demo mode (nothing is sent).
+            KEY: "VitaEdu2026",    // Must match SHARED_KEY in Code.gs
+            CONTACT: "teacher@vitainspire.com",               // REQUIRED before sharing: WhatsApp number or email for questions and deletion requests
+            RETENTION_MONTHS: 12,      // How long answers are kept after the study ends (shown to teachers)
+            SERVER_STT: true,         // true = use Bhashini (via your Apps Script) when the phone's own speech-to-text is unavailable.
+            //        Only set true after adding your Bhashini keys in Apps Script (see SETUP.md).
+            AUDIO_BASE: "https://drive.google.com/drive/folders/18EuAcUjW2u0YC5LtRLaYZFNSA2nXXd_k",            // Optional: folder URL with recorded QUESTION audio named <item id>-te.mp3 / -en.mp3
+            SERVER_CHUNK_SECONDS: 28   // Bhashini works best with short clips; teachers tap again to keep talking
+        };
+        /* Teachers' voices are never recorded or stored. Speech becomes editable text; only saved text is sent. */
 
-    /* ================= THE QUESTIONS =================
-       Each one maps to a decision about what AI tool to build (see the "why" comments). Most are taps; typing or
-       speaking is optional except for three short "tell us" items, which can still be skipped. */
-    const SECTIONS = [
-      { id: "class", te: "మీ తరగతి", en: "Your class" },
-      { id: "teach", te: "మీ బోధన", en: "Your teaching" },
-      { id: "time", te: "మీ తయారీ, సమయం", en: "Your preparation" },
-      { id: "ideas", te: "కొత్త ఆలోచనలు", en: "New ideas" },
-      { id: "say", te: "మీ మాట", en: "Your say" }
-    ];
-    const CONCEPTS = [
-      { id: "worksheets", te: "వాట్సాప్‌లో పాఠం పేరు పంపితే, ఒక నిమిషంలో తెలుగు + ఇంగ్లీష్ వర్క్‌షీట్ — సులభం, మధ్యస్థం, కష్టం అనే 3 స్థాయిల్లో, ప్రింట్‌కు సిద్ధంగా.", en: "Send a chapter name on WhatsApp and get a print-ready Telugu + English worksheet at 3 levels (easy, medium, hard) in a minute.", ste: "3 స్థాయిల వర్క్‌షీట్లు", sen: "3-level worksheets" },
-      { id: "levelcheck", te: "10 నిమిషాల చిన్న పరీక్ష — పిల్లలను స్థాయి వారీగా గుంపులుగా విభజించి, ప్రతి గుంపుకు సరిపడే కృత్యాలు.", en: "A 10-minute check that sorts children into level groups, with the right activities for each group.", ste: "స్థాయి పరీక్ష + గుంపు కృత్యాలు", sen: "Level check + group activities" },
-      { id: "notebooks", te: "5 నోట్‌బుక్‌ల ఫోటో తీస్తే — ఎక్కువమంది పిల్లలు చేస్తున్న తప్పు ఏమిటో, దాన్ని సరిచేసే 5 నిమిషాల కృత్యం.", en: "Photograph 5 notebooks and see the mistake most children are making, plus a 5-minute activity to fix it.", ste: "నోట్‌బుక్ ఫోటో → తప్పుల విశ్లేషణ", sen: "Notebook photo → common mistakes" },
-      { id: "lessonplan", te: "ఏ పాఠానికైనా సిద్ధమైన 40 నిమిషాల పాఠ్య ప్రణాళిక — మన ఊరి ఉదాహరణతో మొదలు, తక్కువ ఖర్చు కృత్యం లేదా ప్రయోగం, బోర్డు బొమ్మ, 5 చెక్ ప్రశ్నలు.", en: "A ready 40-minute lesson plan for any chapter — a local example to open, a low-cost activity or experiment, a board diagram and 5 check questions.", ste: "సిద్ధమైన పాఠ్య ప్రణాళిక", sen: "Ready lesson plans" },
-      { id: "homepractice", te: "పిల్లలకు ఇంట్లో తల్లిదండ్రుల ఫోన్‌లో వాట్సాప్ ద్వారా రోజూ 10 నిమిషాల అభ్యాసం — ఎవరు ఎక్కడ ఇరుక్కున్నారో మీకు వారపు నివేదిక.", en: "10 minutes of daily practice for children on a parent's phone via WhatsApp — with a weekly report telling you who is stuck where.", ste: "ఇంట్లో ఫోన్‌లో అభ్యాసం", sen: "Home practice on a phone" }
-    ];
-    const ITEMS = [
-      // why: is there felt need for better tools at all, or is the textbook enough?
-      {
-        id: "tool_need", sec: "class", type: "single", col: true, more: true,
-        te: "మీ సబ్జెక్టు బోధించేటప్పుడు, పిల్లలు భావనలను అర్థం చేసుకుని వాడుకునేలా చేయడానికి — ఏది నిజం?", en: "When you teach your subject, what is closest to the truth about helping children understand and apply concepts?",
-        mte: "ఏ పాఠానికి ఎక్కువ అవసరం? (ఐచ్ఛికం)", men: "Which chapter needs it most? (optional)",
-        opts: [["enough", "పాఠ్యపుస్తకం సరిపోతుంది — అదనంగా ఏమీ అవసరం లేదు", "The textbook is enough — nothing extra needed"], ["have_some", "కొన్ని సాధనాలు, పద్ధతులు ఉన్నాయి, కానీ ఇంకా మంచివి కావాలి", "I have some tools and methods, but need better ones"], ["need_badly", "మంచి సాధనాలు, పద్ధతులు చాలా అవసరం", "I badly need better tools and methods"], ["time", "సామగ్రి సరిపోతుంది — సమస్య సమయమే", "Materials are fine — time is the problem"]]
-      },
-      // why: understanding vs application gap → what kind of material (practice, application, basics)
-      {
-        id: "avg_student", sec: "class", type: "single", col: true,
-        te: "మీ తరగతిలో సగటు విద్యార్థి ఎలా ఉంటారు?", en: "How does an average student in your class do?",
-        opts: [["apply", "అర్థం చేసుకుని, కొత్త ప్రశ్నలకూ వాడగలరు", "Understands, and can use it on new questions"], ["understand", "అర్థం చేసుకుంటారు, కానీ కొత్త ప్రశ్నలకు వాడలేరు", "Understands, but can't use it on new questions"], ["memorise", "అర్థం కాకుండా బట్టీ పడతారు", "Memorises without understanding"], ["struggle", "పాఠాన్ని అనుసరించడమే కష్టం", "Struggles to follow the lesson"]]
-      },
-      // why: how big the catch-up need is → level-based materials and level checks
-      {
-        id: "levels", sec: "class", type: "count10",
-        te: "మీ 6–8 తరగతుల్లో ప్రతి 10 మంది పిల్లల్లో ఎంతమంది ఇవి సొంతంగా చేయగలరు?", en: "In your classes 6–8, out of every 10 children, how many can do these on their own?",
-        hte: "సుమారుగా చెప్పండి — పిల్లల బొమ్మలపై నొక్కండి.", hen: "A rough guess is fine — tap the figures.",
-        rows: [
-          { id: "read", te: "పాఠ్యపుస్తకంలోని పేరాను తడబడకుండా చదవడం", en: "Read a textbook paragraph without stumbling" },
-          { id: "divide", te: "84 ÷ 4 లాంటి భాగహారం", en: "Do a division like 84 ÷ 4" },
-          { id: "word", te: "చిన్న లెక్క కథను (word problem) సొంతంగా సాధించడం", en: "Solve a short word problem on their own" },
-          { id: "explain", te: "ఒక సైన్స్ విషయాన్ని తమ మాటల్లో వివరించడం", en: "Explain a science idea in their own words" }]
-      },
-      // why: root causes decide the fix (basics, language, hands-on, practice, relevance)
-      {
-        id: "why_behind", sec: "class", type: "multi", max: 3, col: true, more: true,
-        te: "కొందరు పిల్లలు ఎందుకు వెనుకబడతారు? 3 వరకు ఎంచుకోండి.", en: "Why do some children fall behind? Pick up to 3.",
-        mte: "ఒక ఉదాహరణ చెప్పాలనుకుంటే (ఐచ్ఛికం)", men: "Want to give an example? (optional)",
-        opts: [["foundations", "కింది తరగతుల పునాది బలహీనం", "Weak foundations from earlier classes"], ["language", "పాఠ్యపుస్తకం భాష, పదాలు అర్థం కావు", "They don't understand the textbook's language or terms"], ["abstract", "భావనలు కంటికి కనిపించవు — ప్రయోగాలు, నమూనాలు లేవు", "Concepts feel abstract — no experiments or models"], ["practice", "అభ్యాసానికి సమయం సరిపోదు", "Not enough time to practise"], ["attendance", "తరచూ గైర్హాజరు", "They are often absent"], ["home", "ఇంట్లో సహాయం లేదు", "No help at home"], ["class_size", "పెద్ద తరగతి — ఒక్కొక్కరిపై దృష్టి పెట్టలేం", "Big class — no time for each child"], ["relevance", "నిజ జీవితంలో ఉపయోగం కనిపించక ఆసక్తి తగ్గుతుంది", "They can't see the real-life use, so lose interest"], ["pace", "సిలబస్ చాలా వేగంగా సాగుతుంది", "The syllabus moves too fast"]]
-      },
-      // why: seeds a Telugu misconception bank → notebook-photo tool, worksheet distractors
-      {
-        id: "mistake", sec: "class", type: "open",
-        te: "పిల్లలు మళ్ళీ మళ్ళీ చేసే ఒక తప్పు చెప్పండి.", en: "Tell us one mistake children make again and again.",
-        hte: "ఉదా: 1/2 + 1/3 = 2/5 అని రాయడం, లేదా ‘బరువైన వస్తువులు వేగంగా పడతాయి’ అనుకోవడం. ఇలాంటి తప్పులను గుర్తించి సరిచేసే సాధనం తయారు చేయాలనుకుంటున్నాం.",
-        hen: "For example: writing 1/2 + 1/3 = 2/5, or thinking ‘heavier things fall faster’. We want to build a tool that spots and fixes mistakes like these."
-      },
-      // why: can students be reached directly at home → whether to build student practice, not only teacher tools
-      {
-        id: "home_phone", sec: "class", type: "count10",
-        te: "మీ తరగతిలో ప్రతి 10 మంది పిల్లల్లో ఎంతమంది ఇంట్లో ఫోన్‌లో రోజూ 10 నిమిషాలు అభ్యాసం చేయగలరు?", en: "Out of every 10 children in your class, how many could practise on a phone at home for 10 minutes a day?",
-        hte: "ఇంట్లో ఎవరిదైనా స్మార్ట్‌ఫోన్ ఉండి, పిల్లలకు ఇవ్వగలిగితే.", hen: "Count them if someone at home has a smartphone and would let them use it.",
-        rows: [{ id: "phone", te: "ఇంట్లో ఫోన్‌లో అభ్యాసం చేయగలిగేవారు", en: "Could practise on a phone at home" }]
-      },
-      // why: is differentiation happening at all, and what blocks it
-      {
-        id: "half_lost", sec: "teach", type: "single", col: true, more: true,
-        te: "మూడో పీరియడ్. మీరు భిన్నాలు చెప్పారు. సగం మందికి అర్థమైంది, సగం మందికి కాలేదు. సాధారణంగా తర్వాత ఏమవుతుంది?", en: "Period 3. You've taught fractions. Half the class got it, half are lost. What usually happens next?",
-        hte: "తప్పు సమాధానం లేదు — సిలబస్ తరచూ సమయం ఇవ్వదు.", hen: "There's no wrong answer — the syllabus often leaves no time.",
-        opts: [["again", "మళ్ళీ అందరికీ చెబుతాను", "I explain again to everyone"], ["peers", "అర్థమైనవారు మిగతావారికి చెబుతారు", "Children who got it help the others"], ["later", "వెనుకబడినవారికి తర్వాత విడిగా చెబుతాను", "I help the ones behind separately later"], ["move_on", "సిలబస్ కోసం ముందుకు వెళ్తాను", "I move on to finish the syllabus"], ["homework", "హోంవర్క్ / అభ్యాసం ఇస్తాను", "I give homework or practice"], ["other", "ఇంకేదైనా", "Something else"]]
-      },
-      // why: is remedial material missing → what to generate
-      {
-        id: "remedial_material", sec: "teach", type: "multi", max: 6, col: true,
-        te: "వెనుకబడిన పిల్లలకు నేర్పించడానికి మీ దగ్గర ఏమున్నాయి? ఉన్నవన్నీ ఎంచుకోండి.", en: "What do you have to teach children who are behind? Pick all that apply.",
-        opts: [["nothing", "అదనంగా ఏమీ లేవు", "Nothing extra"], ["bridge", "బ్రిడ్జ్ కోర్సు పుస్తకాలు", "Bridge course books"], ["own", "నేను తయారుచేసిన వర్క్‌షీట్లు", "Worksheets I make myself"], ["youtube", "యూట్యూబ్ వీడియోలు", "YouTube videos"], ["ngo", "NGO / ఇతర సంస్థల సామగ్రి", "NGO or other materials"], ["other", "ఇంకేదైనా", "Something else"]]
-      },
-      // why: do test results turn into action → test-to-lesson tool
-      {
-        id: "after_test", sec: "teach", type: "single", col: true, more: true,
-        te: "స్లిప్ టెస్ట్ అయ్యాక, ఫలితాలతో సాధారణంగా ఏం చేస్తారు?", en: "After a slip test, what do you usually do with the results?",
-        opts: [["enter_only", "యాప్‌లో నమోదు చేస్తాను, అంతే", "Enter them in the app, that's all"], ["reteach", "అందరికీ మళ్ళీ చెబుతాను", "Re-teach the whole class"], ["group", "మార్కుల ప్రకారం గుంపులుగా చేసి చెబుతాను", "Group children by marks and teach each group"], ["extra", "తక్కువ మార్కుల వారికి అదనపు పని ఇస్తాను", "Give extra work to low scorers"], ["no_time", "సమయం లేక ఏమీ చేయలేను", "No time to do anything with them"]]
-      },
-      // why: teacher-sourced local examples → the local-context bank
-      {
-        id: "best_trick", sec: "teach", type: "open", share: true,
-        te: "మీ బెస్ట్ ట్రిక్ పంచుకోండి: ఏ పాఠాన్నైనా పిల్లలకు వెంటనే అర్థమయ్యేలా చేసే మీ ఉదాహరణ, ఆట, కథ లేదా కృత్యం ఏమిటి?", en: "Share your best trick: what example, game, story or activity makes a topic click for your children?",
-        hte: "సంత, పొలం, వంట, క్రికెట్, బస్సు టికెట్ — ఏదైనా.", hen: "The market, the farm, cooking, cricket, a bus ticket — anything."
-      },
-      // why: which tools teachers already use to prepare → where ours must plug in and what it must beat
-      {
-        id: "prep_sources", sec: "time", type: "multi", max: 9, col: true,
-        te: "ఈ వారం మీ తరగతులకు సిద్ధమవడానికి ఏమేమి వాడారు? వాడినవన్నీ ఎంచుకోండి.", en: "What did you use to prepare your classes this week? Pick everything you used.",
-        opts: [["textbook", "పాఠ్యపుస్తకం", "Textbook"], ["handbook", "ఉపాధ్యాయ కరదీపిక", "Teacher handbook"], ["guides", "గైడ్లు / ప్రశ్నల బ్యాంకులు", "Guides or question banks"], ["youtube", "యూట్యూబ్", "YouTube"], ["diksha", "దీక్ష / విద్యాశాఖ కంటెంట్", "DIKSHA / department content"], ["whatsapp", "వాట్సాప్ గ్రూపుల్లో వచ్చిన సామగ్రి", "Material from WhatsApp groups"], ["colleagues", "తోటి ఉపాధ్యాయుల సహాయం", "Help from colleagues"], ["ai", "ChatGPT / Gemini", "ChatGPT / Gemini"], ["other", "ఇంకేదైనా", "Something else"]]
-      },
-      // why: how well those tools actually work → the bar our tool has to clear (only shows what they picked)
-      {
-        id: "prep_rating", sec: "time", type: "ratesel", src: "prep_sources", more: true,
-        te: "మీరు వాడినవి ఎంత ఉపయోగపడ్డాయి?", en: "How useful were the ones you used?",
-        mte: "వీటిలో ఏమి లోపించింది? (ఐచ్ఛికం)", men: "What was missing in them? (optional)"
-      },
-      // why: total preparation time → the time an AI helper can give back
-      {
-        id: "prep_hours", sec: "time", type: "single", col: true,
-        te: "ఈ వారం తరగతులకు సిద్ధమవడానికి మొత్తం ఎంత సమయం పట్టింది?", en: "In total, how much time did preparing your classes take this week?",
-        opts: [["lt2", "2 గంటల లోపు", "Under 2 hours"], ["2_5", "2–5 గంటలు", "2–5 hours"], ["5_10", "5–10 గంటలు", "5–10 hours"], ["gt10", "10 గంటల కంటే ఎక్కువ", "More than 10 hours"], ["no_time", "ఈ వారం సిద్ధమయ్యే సమయమే దొరకలేదు", "I didn't get time to prepare this week"]]
-      },
-      // why: the teacher's own top priority for an AI helper, in their words
-      {
-        id: "helper", sec: "time", type: "open",
-        te: "రోజూ ఒక గంట మీకు ఒక సహాయకుడు ఉంటే, ముందుగా వారిని ఏమి చేయమని అడుగుతారు?", en: "If you had a helper for one hour every day, what would you ask them to do first?",
-        hte: "బోధన, తయారీ, దిద్దుబాటు, రికార్డులు — ఏదైనా. మీ సమాధానమే మేము ముందు తయారు చేసే సాధనాన్ని నిర్ణయిస్తుంది.", hen: "Teaching, preparing, correcting, records — anything. Your answer shapes the first tool we build."
-      },
-      // why: direct test of what to build
-      {
-        id: "concepts", sec: "ideas", type: "concepts",
-        te: "ఈ ఆలోచనలు మీకు ఉపయోగపడతాయా?", en: "Would these help you?",
-        hte: "ఇవి ఇంకా తయారు కాలేదు — మీ సమాధానమే మేము ఏది తయారు చేయాలో నిర్ణయిస్తుంది.", hen: "None of these exist yet — your answers decide what we build."
-      },
-      // why: forced priority
-      {
-        id: "first_tool", sec: "ideas", type: "pick", col: true, more: true,
-        te: "ఒక్కటే ముందుగా కావాలంటే, ఏది?", en: "If you could have just one first, which would it be?",
-        mte: "ఎందుకు? (ఐచ్ఛికం)", men: "Why? (optional)"
-      },
-      // why: output language decides how every tool generates content
-      {
-        id: "materials_lang", sec: "ideas", type: "single", col: true,
-        te: "వర్క్‌షీట్లు, సామగ్రి ఏ భాషలో కావాలి?", en: "Which language do you want worksheets and materials in?",
-        opts: [["telugu", "తెలుగు మాత్రమే", "Telugu only"], ["english", "ఇంగ్లీష్ మాత్రమే", "English only"], ["both", "రెండూ పక్కపక్కనే", "Both, side by side"], ["by_medium", "మాధ్యమాన్ని బట్టి వేర్వేరుగా", "Separate, depending on the medium"]]
-      },
-      // why: delivery channel decides what we build first (WhatsApp bot, web app, print service, classroom screen)
-      {
-        id: "channel", sec: "ideas", type: "multi", max: 2, col: true,
-        te: "ఈ సాధనాలు మీకు ఎలా అందితే బాగుంటుంది? 2 వరకు.", en: "How would you like to get these tools? Up to 2.",
-        opts: [["whatsapp", "వాట్సాప్ మెసేజ్‌లో", "In a WhatsApp message"], ["web", "ఫోన్‌లో వెబ్‌సైట్ / యాప్", "A website or app on my phone"], ["printed", "NGO ద్వారా ప్రింట్ చేసి బడికి", "Printed and delivered to school by an NGO"], ["screen", "తరగతి స్మార్ట్ బోర్డుపై", "On the classroom smart board"]]
-      },
-      // why: adoption risks to design around
-      {
-        id: "barriers", sec: "ideas", type: "multi", max: 3, col: true,
-        te: "ఇలాంటి సాధనం వాడకుండా మిమ్మల్ని ఏది ఆపవచ్చు? 3 వరకు.", en: "What might stop you from using a tool like this? Up to 3.",
-        opts: [["time", "నేర్చుకునే సమయం లేదు", "No time to learn it"], ["data", "ఇంటర్నెట్ / డేటా", "Internet or data"], ["printing", "ప్రింటింగ్ ఖర్చు / సౌకర్యం", "Printing cost or access"], ["telugu", "తెలుగు నాణ్యత", "Quality of the Telugu"], ["textbook", "మా పాఠ్యపుస్తకానికి సరిపోకపోవడం", "Not matching our textbook"], ["rules", "విద్యాశాఖ నిబంధనలు", "Department rules"], ["apps", "ఇప్పటికే చాలా యాప్‌లు", "Too many apps already"], ["trust", "AI ఇచ్చేది సరైనదో కాదో నమ్మకం లేదు", "Not sure AI content would be correct"], ["none", "ఏదీ లేదు, ప్రయత్నిస్తాను", "Nothing, I'd try it"]]
-      },
-      // why: the unfiltered priority, in their words
-      {
-        id: "minister", sec: "say", type: "open",
-        te: "విద్యాశాఖ మంత్రితో మీ తరగతి గురించి ఒక్క మాట చెప్పే అవకాశం వస్తే, ఏం చెబుతారు?", en: "If you could tell the Education Minister one thing about your classroom, what would it be?",
-        hte: "ఇది మంత్రికి పంపం — మీ నిజమైన మాట వినడానికే అడుగుతున్నాం.", hen: "We won't send this to the minister — we just want to hear what you really think."
-      }
-    ];
+        /* ================= THE QUESTIONS =================
+           Each one maps to a decision about what AI tool to build (see the "why" comments). Most are taps; typing or
+           speaking is optional except for three short "tell us" items, which can still be skipped. */
+        const SECTIONS = [
+            { id: "class", te: "మీ తరగతి", en: "Your class" },
+            { id: "teach", te: "మీ బోధన", en: "Your teaching" },
+            { id: "time", te: "మీ తయారీ, సమయం", en: "Your preparation" },
+            { id: "ideas", te: "కొత్త ఆలోచనలు", en: "New ideas" },
+            { id: "say", te: "మీ మాట", en: "Your say" }
+        ];
+        const CONCEPTS = [
+            { id: "worksheets", te: "వాట్సాప్‌లో పాఠం పేరు పంపితే, ఒక నిమిషంలో తెలుగు + ఇంగ్లీష్ వర్క్‌షీట్ — సులభం, మధ్యస్థం, కష్టం అనే 3 స్థాయిల్లో, ప్రింట్‌కు సిద్ధంగా.", en: "Send a chapter name on WhatsApp and get a print-ready Telugu + English worksheet at 3 levels (easy, medium, hard) in a minute.", ste: "3 స్థాయిల వర్క్‌షీట్లు", sen: "3-level worksheets" },
+            { id: "levelcheck", te: "10 నిమిషాల చిన్న పరీక్ష — పిల్లలను స్థాయి వారీగా గుంపులుగా విభజించి, ప్రతి గుంపుకు సరిపడే కృత్యాలు.", en: "A 10-minute check that sorts children into level groups, with the right activities for each group.", ste: "స్థాయి పరీక్ష + గుంపు కృత్యాలు", sen: "Level check + group activities" },
+            { id: "notebooks", te: "5 నోట్‌బుక్‌ల ఫోటో తీస్తే — ఎక్కువమంది పిల్లలు చేస్తున్న తప్పు ఏమిటో, దాన్ని సరిచేసే 5 నిమిషాల కృత్యం.", en: "Photograph 5 notebooks and see the mistake most children are making, plus a 5-minute activity to fix it.", ste: "నోట్‌బుక్ ఫోటో → తప్పుల విశ్లేషణ", sen: "Notebook photo → common mistakes" },
+            { id: "lessonplan", te: "ఏ పాఠానికైనా సిద్ధమైన 40 నిమిషాల పాఠ్య ప్రణాళిక — మన ఊరి ఉదాహరణతో మొదలు, తక్కువ ఖర్చు కృత్యం లేదా ప్రయోగం, బోర్డు బొమ్మ, 5 చెక్ ప్రశ్నలు.", en: "A ready 40-minute lesson plan for any chapter — a local example to open, a low-cost activity or experiment, a board diagram and 5 check questions.", ste: "సిద్ధమైన పాఠ్య ప్రణాళిక", sen: "Ready lesson plans" },
+            { id: "homepractice", te: "పిల్లలకు ఇంట్లో తల్లిదండ్రుల ఫోన్‌లో వాట్సాప్ ద్వారా రోజూ 10 నిమిషాల అభ్యాసం — ఎవరు ఎక్కడ ఇరుక్కున్నారో మీకు వారపు నివేదిక.", en: "10 minutes of daily practice for children on a parent's phone via WhatsApp — with a weekly report telling you who is stuck where.", ste: "ఇంట్లో ఫోన్‌లో అభ్యాసం", sen: "Home practice on a phone" }
+        ];
+        const ITEMS = [
+            // why: is there felt need for better tools at all, or is the textbook enough?
+            {
+                id: "tool_need", sec: "class", type: "single", col: true, more: true,
+                te: "మీ సబ్జెక్టు బోధించేటప్పుడు, పిల్లలు భావనలను అర్థం చేసుకుని వాడుకునేలా చేయడానికి — ఏది నిజం?", en: "When you teach your subject, what is closest to the truth about helping children understand and apply concepts?",
+                mte: "ఏ పాఠానికి ఎక్కువ అవసరం? (ఐచ్ఛికం)", men: "Which chapter needs it most? (optional)",
+                opts: [["enough", "పాఠ్యపుస్తకం సరిపోతుంది — అదనంగా ఏమీ అవసరం లేదు", "The textbook is enough — nothing extra needed"], ["have_some", "కొన్ని సాధనాలు, పద్ధతులు ఉన్నాయి, కానీ ఇంకా మంచివి కావాలి", "I have some tools and methods, but need better ones"], ["need_badly", "మంచి సాధనాలు, పద్ధతులు చాలా అవసరం", "I badly need better tools and methods"], ["time", "సామగ్రి సరిపోతుంది — సమస్య సమయమే", "Materials are fine — time is the problem"]]
+            },
+            // why: understanding vs application gap → what kind of material (practice, application, basics)
+            {
+                id: "avg_student", sec: "class", type: "single", col: true,
+                te: "మీ తరగతిలో సగటు విద్యార్థి ఎలా ఉంటారు?", en: "How does an average student in your class do?",
+                opts: [["apply", "అర్థం చేసుకుని, కొత్త ప్రశ్నలకూ వాడగలరు", "Understands, and can use it on new questions"], ["understand", "అర్థం చేసుకుంటారు, కానీ కొత్త ప్రశ్నలకు వాడలేరు", "Understands, but can't use it on new questions"], ["memorise", "అర్థం కాకుండా బట్టీ పడతారు", "Memorises without understanding"], ["struggle", "పాఠాన్ని అనుసరించడమే కష్టం", "Struggles to follow the lesson"]]
+            },
+            // why: how big the catch-up need is → level-based materials and level checks
+            {
+                id: "levels", sec: "class", type: "count10",
+                te: "మీ 6–8 తరగతుల్లో ప్రతి 10 మంది పిల్లల్లో ఎంతమంది ఇవి సొంతంగా చేయగలరు?", en: "In your classes 6–8, out of every 10 children, how many can do these on their own?",
+                hte: "సుమారుగా చెప్పండి — పిల్లల బొమ్మలపై నొక్కండి.", hen: "A rough guess is fine — tap the figures.",
+                rows: [
+                    { id: "read", te: "పాఠ్యపుస్తకంలోని పేరాను తడబడకుండా చదవడం", en: "Read a textbook paragraph without stumbling" },
+                    { id: "divide", te: "84 ÷ 4 లాంటి భాగహారం", en: "Do a division like 84 ÷ 4" },
+                    { id: "word", te: "చిన్న లెక్క కథను (word problem) సొంతంగా సాధించడం", en: "Solve a short word problem on their own" },
+                    { id: "explain", te: "ఒక సైన్స్ విషయాన్ని తమ మాటల్లో వివరించడం", en: "Explain a science idea in their own words" }]
+            },
+            // why: root causes decide the fix (basics, language, hands-on, practice, relevance)
+            {
+                id: "why_behind", sec: "class", type: "multi", max: 3, col: true, more: true,
+                te: "కొందరు పిల్లలు ఎందుకు వెనుకబడతారు? 3 వరకు ఎంచుకోండి.", en: "Why do some children fall behind? Pick up to 3.",
+                mte: "ఒక ఉదాహరణ చెప్పాలనుకుంటే (ఐచ్ఛికం)", men: "Want to give an example? (optional)",
+                opts: [["foundations", "కింది తరగతుల పునాది బలహీనం", "Weak foundations from earlier classes"], ["language", "పాఠ్యపుస్తకం భాష, పదాలు అర్థం కావు", "They don't understand the textbook's language or terms"], ["abstract", "భావనలు కంటికి కనిపించవు — ప్రయోగాలు, నమూనాలు లేవు", "Concepts feel abstract — no experiments or models"], ["practice", "అభ్యాసానికి సమయం సరిపోదు", "Not enough time to practise"], ["attendance", "తరచూ గైర్హాజరు", "They are often absent"], ["home", "ఇంట్లో సహాయం లేదు", "No help at home"], ["class_size", "పెద్ద తరగతి — ఒక్కొక్కరిపై దృష్టి పెట్టలేం", "Big class — no time for each child"], ["relevance", "నిజ జీవితంలో ఉపయోగం కనిపించక ఆసక్తి తగ్గుతుంది", "They can't see the real-life use, so lose interest"], ["pace", "సిలబస్ చాలా వేగంగా సాగుతుంది", "The syllabus moves too fast"]]
+            },
+            // why: seeds a Telugu misconception bank → notebook-photo tool, worksheet distractors
+            {
+                id: "mistake", sec: "class", type: "open",
+                te: "పిల్లలు మళ్ళీ మళ్ళీ చేసే ఒక తప్పు చెప్పండి.", en: "Tell us one mistake children make again and again.",
+                hte: "ఉదా: 1/2 + 1/3 = 2/5 అని రాయడం, లేదా ‘బరువైన వస్తువులు వేగంగా పడతాయి’ అనుకోవడం. ఇలాంటి తప్పులను గుర్తించి సరిచేసే సాధనం తయారు చేయాలనుకుంటున్నాం.",
+                hen: "For example: writing 1/2 + 1/3 = 2/5, or thinking ‘heavier things fall faster’. We want to build a tool that spots and fixes mistakes like these."
+            },
+            // why: can students be reached directly at home → whether to build student practice, not only teacher tools
+            {
+                id: "home_phone", sec: "class", type: "count10",
+                te: "మీ తరగతిలో ప్రతి 10 మంది పిల్లల్లో ఎంతమంది ఇంట్లో ఫోన్‌లో రోజూ 10 నిమిషాలు అభ్యాసం చేయగలరు?", en: "Out of every 10 children in your class, how many could practise on a phone at home for 10 minutes a day?",
+                hte: "ఇంట్లో ఎవరిదైనా స్మార్ట్‌ఫోన్ ఉండి, పిల్లలకు ఇవ్వగలిగితే.", hen: "Count them if someone at home has a smartphone and would let them use it.",
+                rows: [{ id: "phone", te: "ఇంట్లో ఫోన్‌లో అభ్యాసం చేయగలిగేవారు", en: "Could practise on a phone at home" }]
+            },
+            // why: is differentiation happening at all, and what blocks it
+            {
+                id: "half_lost", sec: "teach", type: "single", col: true, more: true,
+                te: "మూడో పీరియడ్. మీరు భిన్నాలు చెప్పారు. సగం మందికి అర్థమైంది, సగం మందికి కాలేదు. సాధారణంగా తర్వాత ఏమవుతుంది?", en: "Period 3. You've taught fractions. Half the class got it, half are lost. What usually happens next?",
+                hte: "తప్పు సమాధానం లేదు — సిలబస్ తరచూ సమయం ఇవ్వదు.", hen: "There's no wrong answer — the syllabus often leaves no time.",
+                opts: [["again", "మళ్ళీ అందరికీ చెబుతాను", "I explain again to everyone"], ["peers", "అర్థమైనవారు మిగతావారికి చెబుతారు", "Children who got it help the others"], ["later", "వెనుకబడినవారికి తర్వాత విడిగా చెబుతాను", "I help the ones behind separately later"], ["move_on", "సిలబస్ కోసం ముందుకు వెళ్తాను", "I move on to finish the syllabus"], ["homework", "హోంవర్క్ / అభ్యాసం ఇస్తాను", "I give homework or practice"], ["other", "ఇంకేదైనా", "Something else"]]
+            },
+            // why: is remedial material missing → what to generate
+            {
+                id: "remedial_material", sec: "teach", type: "multi", max: 6, col: true,
+                te: "వెనుకబడిన పిల్లలకు నేర్పించడానికి మీ దగ్గర ఏమున్నాయి? ఉన్నవన్నీ ఎంచుకోండి.", en: "What do you have to teach children who are behind? Pick all that apply.",
+                opts: [["nothing", "అదనంగా ఏమీ లేవు", "Nothing extra"], ["bridge", "బ్రిడ్జ్ కోర్సు పుస్తకాలు", "Bridge course books"], ["own", "నేను తయారుచేసిన వర్క్‌షీట్లు", "Worksheets I make myself"], ["youtube", "యూట్యూబ్ వీడియోలు", "YouTube videos"], ["ngo", "NGO / ఇతర సంస్థల సామగ్రి", "NGO or other materials"], ["other", "ఇంకేదైనా", "Something else"]]
+            },
+            // why: do test results turn into action → test-to-lesson tool
+            {
+                id: "after_test", sec: "teach", type: "single", col: true, more: true,
+                te: "స్లిప్ టెస్ట్ అయ్యాక, ఫలితాలతో సాధారణంగా ఏం చేస్తారు?", en: "After a slip test, what do you usually do with the results?",
+                opts: [["enter_only", "యాప్‌లో నమోదు చేస్తాను, అంతే", "Enter them in the app, that's all"], ["reteach", "అందరికీ మళ్ళీ చెబుతాను", "Re-teach the whole class"], ["group", "మార్కుల ప్రకారం గుంపులుగా చేసి చెబుతాను", "Group children by marks and teach each group"], ["extra", "తక్కువ మార్కుల వారికి అదనపు పని ఇస్తాను", "Give extra work to low scorers"], ["no_time", "సమయం లేక ఏమీ చేయలేను", "No time to do anything with them"]]
+            },
+            // why: teacher-sourced local examples → the local-context bank
+            {
+                id: "best_trick", sec: "teach", type: "open", share: true,
+                te: "మీ బెస్ట్ ట్రిక్ పంచుకోండి: ఏ పాఠాన్నైనా పిల్లలకు వెంటనే అర్థమయ్యేలా చేసే మీ ఉదాహరణ, ఆట, కథ లేదా కృత్యం ఏమిటి?", en: "Share your best trick: what example, game, story or activity makes a topic click for your children?",
+                hte: "సంత, పొలం, వంట, క్రికెట్, బస్సు టికెట్ — ఏదైనా.", hen: "The market, the farm, cooking, cricket, a bus ticket — anything."
+            },
+            // why: which tools teachers already use to prepare → where ours must plug in and what it must beat
+            {
+                id: "prep_sources", sec: "time", type: "multi", max: 9, col: true,
+                te: "ఈ వారం మీ తరగతులకు సిద్ధమవడానికి ఏమేమి వాడారు? వాడినవన్నీ ఎంచుకోండి.", en: "What did you use to prepare your classes this week? Pick everything you used.",
+                opts: [["textbook", "పాఠ్యపుస్తకం", "Textbook"], ["handbook", "ఉపాధ్యాయ కరదీపిక", "Teacher handbook"], ["guides", "గైడ్లు / ప్రశ్నల బ్యాంకులు", "Guides or question banks"], ["youtube", "యూట్యూబ్", "YouTube"], ["diksha", "దీక్ష / విద్యాశాఖ కంటెంట్", "DIKSHA / department content"], ["whatsapp", "వాట్సాప్ గ్రూపుల్లో వచ్చిన సామగ్రి", "Material from WhatsApp groups"], ["colleagues", "తోటి ఉపాధ్యాయుల సహాయం", "Help from colleagues"], ["ai", "ChatGPT / Gemini", "ChatGPT / Gemini"], ["other", "ఇంకేదైనా", "Something else"]]
+            },
+            // why: how well those tools actually work → the bar our tool has to clear (only shows what they picked)
+            {
+                id: "prep_rating", sec: "time", type: "ratesel", src: "prep_sources", more: true,
+                te: "మీరు వాడినవి ఎంత ఉపయోగపడ్డాయి?", en: "How useful were the ones you used?",
+                mte: "వీటిలో ఏమి లోపించింది? (ఐచ్ఛికం)", men: "What was missing in them? (optional)"
+            },
+            // why: total preparation time → the time an AI helper can give back
+            {
+                id: "prep_hours", sec: "time", type: "single", col: true,
+                te: "ఈ వారం తరగతులకు సిద్ధమవడానికి మొత్తం ఎంత సమయం పట్టింది?", en: "In total, how much time did preparing your classes take this week?",
+                opts: [["lt2", "2 గంటల లోపు", "Under 2 hours"], ["2_5", "2–5 గంటలు", "2–5 hours"], ["5_10", "5–10 గంటలు", "5–10 hours"], ["gt10", "10 గంటల కంటే ఎక్కువ", "More than 10 hours"], ["no_time", "ఈ వారం సిద్ధమయ్యే సమయమే దొరకలేదు", "I didn't get time to prepare this week"]]
+            },
+            // why: the teacher's own top priority for an AI helper, in their words
+            {
+                id: "helper", sec: "time", type: "open",
+                te: "రోజూ ఒక గంట మీకు ఒక సహాయకుడు ఉంటే, ముందుగా వారిని ఏమి చేయమని అడుగుతారు?", en: "If you had a helper for one hour every day, what would you ask them to do first?",
+                hte: "బోధన, తయారీ, దిద్దుబాటు, రికార్డులు — ఏదైనా. మీ సమాధానమే మేము ముందు తయారు చేసే సాధనాన్ని నిర్ణయిస్తుంది.", hen: "Teaching, preparing, correcting, records — anything. Your answer shapes the first tool we build."
+            },
+            // why: direct test of what to build
+            {
+                id: "concepts", sec: "ideas", type: "concepts",
+                te: "ఈ ఆలోచనలు మీకు ఉపయోగపడతాయా?", en: "Would these help you?",
+                hte: "ఇవి ఇంకా తయారు కాలేదు — మీ సమాధానమే మేము ఏది తయారు చేయాలో నిర్ణయిస్తుంది.", hen: "None of these exist yet — your answers decide what we build."
+            },
+            // why: forced priority
+            {
+                id: "first_tool", sec: "ideas", type: "pick", col: true, more: true,
+                te: "ఒక్కటే ముందుగా కావాలంటే, ఏది?", en: "If you could have just one first, which would it be?",
+                mte: "ఎందుకు? (ఐచ్ఛికం)", men: "Why? (optional)"
+            },
+            // why: output language decides how every tool generates content
+            {
+                id: "materials_lang", sec: "ideas", type: "single", col: true,
+                te: "వర్క్‌షీట్లు, సామగ్రి ఏ భాషలో కావాలి?", en: "Which language do you want worksheets and materials in?",
+                opts: [["telugu", "తెలుగు మాత్రమే", "Telugu only"], ["english", "ఇంగ్లీష్ మాత్రమే", "English only"], ["both", "రెండూ పక్కపక్కనే", "Both, side by side"], ["by_medium", "మాధ్యమాన్ని బట్టి వేర్వేరుగా", "Separate, depending on the medium"]]
+            },
+            // why: delivery channel decides what we build first (WhatsApp bot, web app, print service, classroom screen)
+            {
+                id: "channel", sec: "ideas", type: "multi", max: 2, col: true,
+                te: "ఈ సాధనాలు మీకు ఎలా అందితే బాగుంటుంది? 2 వరకు.", en: "How would you like to get these tools? Up to 2.",
+                opts: [["whatsapp", "వాట్సాప్ మెసేజ్‌లో", "In a WhatsApp message"], ["web", "ఫోన్‌లో వెబ్‌సైట్ / యాప్", "A website or app on my phone"], ["printed", "NGO ద్వారా ప్రింట్ చేసి బడికి", "Printed and delivered to school by an NGO"], ["screen", "తరగతి స్మార్ట్ బోర్డుపై", "On the classroom smart board"]]
+            },
+            // why: adoption risks to design around
+            {
+                id: "barriers", sec: "ideas", type: "multi", max: 3, col: true,
+                te: "ఇలాంటి సాధనం వాడకుండా మిమ్మల్ని ఏది ఆపవచ్చు? 3 వరకు.", en: "What might stop you from using a tool like this? Up to 3.",
+                opts: [["time", "నేర్చుకునే సమయం లేదు", "No time to learn it"], ["data", "ఇంటర్నెట్ / డేటా", "Internet or data"], ["printing", "ప్రింటింగ్ ఖర్చు / సౌకర్యం", "Printing cost or access"], ["telugu", "తెలుగు నాణ్యత", "Quality of the Telugu"], ["textbook", "మా పాఠ్యపుస్తకానికి సరిపోకపోవడం", "Not matching our textbook"], ["rules", "విద్యాశాఖ నిబంధనలు", "Department rules"], ["apps", "ఇప్పటికే చాలా యాప్‌లు", "Too many apps already"], ["trust", "AI ఇచ్చేది సరైనదో కాదో నమ్మకం లేదు", "Not sure AI content would be correct"], ["none", "ఏదీ లేదు, ప్రయత్నిస్తాను", "Nothing, I'd try it"]]
+            },
+            // why: the unfiltered priority, in their words
+            {
+                id: "minister", sec: "say", type: "open",
+                te: "విద్యాశాఖ మంత్రితో మీ తరగతి గురించి ఒక్క మాట చెప్పే అవకాశం వస్తే, ఏం చెబుతారు?", en: "If you could tell the Education Minister one thing about your classroom, what would it be?",
+                hte: "ఇది మంత్రికి పంపం — మీ నిజమైన మాట వినడానికే అడుగుతున్నాం.", hen: "We won't send this to the minister — we just want to hear what you really think."
+            }
+        ];
 
-    /* ================= QUICK-TAP PROFILE ================= */
-    const PROFILE_SCREENS = [
-      {
-        id: "about", te: "మీ గురించి కొంచెం", en: "A little about you", district: true, groups: [
-          { id: "state", te: "రాష్ట్రం", en: "State", opts: [["ap", "ఆంధ్రప్రదేశ్", "Andhra Pradesh"], ["ts", "తెలంగాణ", "Telangana"]] },
-          { id: "subject", te: "నేను బోధించేది", en: "I teach", opts: [["maths", "గణితం", "Maths"], ["science", "సైన్స్", "Science"], ["both", "రెండూ", "Both"], ["other", "ఇతరం", "Other"]] },
-          { id: "classes", multi: true, te: "తరగతులు", en: "Classes", opts: [["6", "6", "6"], ["7", "7", "7"], ["8", "8", "8"], ["other", "ఇతర తరగతులు", "Other classes"]] },
-          { id: "medium", te: "బోధనా మాధ్యమం", en: "Medium of teaching", opts: [["telugu", "తెలుగు", "Telugu"], ["english", "ఇంగ్లీషు", "English"], ["both", "రెండూ", "Both"]] },
-          { id: "years", te: "బోధనా అనుభవం", en: "Years of teaching", opts: [["lt2", "2 కంటే తక్కువ", "Under 2"], ["2-5", "2–5", "2–5"], ["6-10", "6–10", "6–10"], ["10+", "10 కంటే ఎక్కువ", "More than 10"]] }
-        ]
-      },
-      {
-        id: "school", te: "మీ బడి గురించి", en: "About your school", groups: [
-          { id: "school", te: "పాఠశాల రకం", en: "School type", opts: [["govt", "ప్రభుత్వ / జడ్‌పీ / మున్సిపల్", "Govt / ZP / Municipal"], ["aided", "ఎయిడెడ్", "Aided"], ["private", "ప్రైవేట్", "Private"], ["other", "ఇతరం", "Other"]] },
-          { id: "classsize", te: "మీ పెద్ద తరగతిలో పిల్లలు", en: "Children in your biggest class", opts: [["lt20", "20 లోపు", "Under 20"], ["20-40", "20–40", "20–40"], ["40+", "40 కంటే ఎక్కువ", "More than 40"]] },
-          { id: "print", te: "బడిలో వర్క్‌షీట్లు ప్రింట్ / జిరాక్స్ చేయగలరా?", en: "Can you print or photocopy worksheets at school?", opts: [["easy", "సులభంగా", "Easily"], ["sometimes", "అప్పుడప్పుడు", "Sometimes"], ["no", "కుదరదు", "No"]] },
-          { id: "screen", te: "తరగతిలో స్మార్ట్ బోర్డు / టీవీ", en: "Smart board or TV in your classroom", opts: [["works", "పనిచేస్తుంది", "Works"], ["broken", "పనిచేయడం లేదు", "Not working"], ["none", "లేదు", "None"]] }
-        ]
-      }
-    ];
+        /* ================= QUICK-TAP PROFILE ================= */
+        const PROFILE_SCREENS = [
+            {
+                id: "about", te: "మీ గురించి కొంచెం", en: "A little about you", district: true, groups: [
+                    { id: "state", te: "రాష్ట్రం", en: "State", opts: [["ap", "ఆంధ్రప్రదేశ్", "Andhra Pradesh"], ["ts", "తెలంగాణ", "Telangana"]] },
+                    { id: "subject", te: "నేను బోధించేది", en: "I teach", opts: [["maths", "గణితం", "Maths"], ["science", "సైన్స్", "Science"], ["both", "రెండూ", "Both"], ["other", "ఇతరం", "Other"]] },
+                    { id: "classes", multi: true, te: "తరగతులు", en: "Classes", opts: [["6", "6", "6"], ["7", "7", "7"], ["8", "8", "8"], ["other", "ఇతర తరగతులు", "Other classes"]] },
+                    { id: "medium", te: "బోధనా మాధ్యమం", en: "Medium of teaching", opts: [["telugu", "తెలుగు", "Telugu"], ["english", "ఇంగ్లీషు", "English"], ["both", "రెండూ", "Both"]] },
+                    { id: "years", te: "బోధనా అనుభవం", en: "Years of teaching", opts: [["lt2", "2 కంటే తక్కువ", "Under 2"], ["2-5", "2–5", "2–5"], ["6-10", "6–10", "6–10"], ["10+", "10 కంటే ఎక్కువ", "More than 10"]] }
+                ]
+            },
+            {
+                id: "school", te: "మీ బడి గురించి", en: "About your school", groups: [
+                    { id: "school", te: "పాఠశాల రకం", en: "School type", opts: [["govt", "ప్రభుత్వ / జడ్‌పీ / మున్సిపల్", "Govt / ZP / Municipal"], ["aided", "ఎయిడెడ్", "Aided"], ["private", "ప్రైవేట్", "Private"], ["other", "ఇతరం", "Other"]] },
+                    { id: "classsize", te: "మీ పెద్ద తరగతిలో పిల్లలు", en: "Children in your biggest class", opts: [["lt20", "20 లోపు", "Under 20"], ["20-40", "20–40", "20–40"], ["40+", "40 కంటే ఎక్కువ", "More than 40"]] },
+                    { id: "print", te: "బడిలో వర్క్‌షీట్లు ప్రింట్ / జిరాక్స్ చేయగలరా?", en: "Can you print or photocopy worksheets at school?", opts: [["easy", "సులభంగా", "Easily"], ["sometimes", "అప్పుడప్పుడు", "Sometimes"], ["no", "కుదరదు", "No"]] },
+                    { id: "screen", te: "తరగతిలో స్మార్ట్ బోర్డు / టీవీ", en: "Smart board or TV in your classroom", opts: [["works", "పనిచేస్తుంది", "Works"], ["broken", "పనిచేయడం లేదు", "Not working"], ["none", "లేదు", "None"]] }
+                ]
+            }
+        ];
 
-    /* ================= WORDS ================= */
-    const T = {
-      te: {
-        h1: "ఉపాధ్యాయుల కోసం ఉచిత AI సాధనాలు — ఏవి కావాలో మీరే చెప్పండి",
-        intro: "నమస్కారం! ఆంధ్రప్రదేశ్, తెలంగాణ ఉపాధ్యాయుల కోసం మేము ఉచిత సాధనాలు తయారు చేస్తున్నాం — వర్క్‌షీట్లు, స్థాయి పరీక్షలు, మన ఊరి ఉదాహరణలు. ఏది ముందు తయారు చేయాలో మీ సమాధానాలే నిర్ణయిస్తాయి.",
-        p: ["సరైన లేదా తప్పు సమాధానాలు లేవు. మీ తరగతిలో నిజంగా ఏం జరుగుతుందో అదే మాకు కావాలి.", "మీ పేరు అవసరం లేదు.", "ఇది తనిఖీ కాదు. మీ సమాధానాలు విద్యాశాఖకు గానీ, ప్రధానోపాధ్యాయులకు గానీ పంపబడవు.", "చాలా ప్రశ్నలకు నొక్కితే చాలు. కావాలంటే మాట్లాడి లేదా టైప్ చేసి చెప్పండి — మీ గొంతును రికార్డ్ చేయం."],
-        chips: ["సుమారు 10 నిమిషాలు", "ఎక్కువగా నొక్కితే చాలు", "ఏ ప్రశ్ననైనా వదిలేయవచ్చు"],
-        privacyTitle: "మీ సమాధానాలను ఎలా ఉపయోగిస్తాం",
-        privacy: (m, server) => ["Vitainspire బృందం మాత్రమే మీ సమాధానాలు చదువుతుంది. వాటిని ప్రభుత్వ అధికారులకు గానీ, బయటివారికి గానీ ఇవ్వం.", "మీ గొంతును రికార్డ్ చేయం, దాచం. మైక్ నొక్కినప్పుడు మీ ఫోన్ స్పీచ్ సేవ (ఉదా: Google) మాటను రాతగా మారుస్తుంది." + (server ? " ఆ సేవ లేని ఫోన్లలో భారత ప్రభుత్వ భాషా సేవ ‘భాషిణి’ ఈ పని చేస్తుంది; ఆడియోను మేము దాచం." : ""), "మేము దాచేవి: మీరు నొక్కిన ఎంపికలు, మీరు సేవ్ చేసిన రాత, జిల్లా (ఇస్తే). పేరు, ఫోన్ నంబర్ అడగం.", "సమాధానాలు మా ప్రైవేట్ Google Sheet లో ఉంటాయి. అధ్యయనం ముగిసిన " + m + " నెలల్లోపు తొలగిస్తాం.", "మీ సమాధానాలు తొలగించాలంటే, చివర్లో వచ్చే మీ కోడ్‌తో మమ్మల్ని సంప్రదించండి."],
-        consent: "పై విషయాలు చదివాను. ఉపాధ్యాయుల కోసం ఉచిత సాధనాలు రూపొందించడానికి నా సమాధానాలను Vitainspire బృందం ఉపయోగించుకోవచ్చని అంగీకరిస్తున్నాను.",
-        start: "మొదలుపెడదాం", resume: "ఆపిన చోటు నుండి కొనసాగించండి", restart: "కొత్తగా మొదలుపెట్టండి",
-        contact: "సందేహాలకు / తొలగింపుకు:",
-        tapSub: "సరిపోయేవి నొక్కండి. అన్నీ ఐచ్ఛికం.", district: "జిల్లా / మండలం (ఐచ్ఛికం)", cont: "కొనసాగించండి",
-        secOf: (i, n, name) => `${i}/${n} · ${name}`, listen: "ప్రశ్న వినండి",
-        dk: "తెలియదు", zero: "ఎవరూ లేరు", of10: n => `10 లో ${n}`,
-        picked: (n, m) => `${n} / ${m} ఎంచుకున్నారు`,
-        rate: [["yes", "తప్పక వాడతాను"], ["maybe", "బహుశా"], ["no", "అవసరం లేదు"]],
-        useful: [["very", "చాలా ఉపయోగం"], ["some", "కొంత"], ["little", "పెద్దగా లేదు"]],
-        moreBtn: "+ మరింత చెప్పాలనుకుంటే (ఐచ్ఛికం)", share: "నా పేరు లేకుండా ఈ ట్రిక్‌ను ఇతర ఉపాధ్యాయులతో పంచుకోవచ్చు.",
-        tap: "మైక్ నొక్కి మాట్లాడండి", listening: "వింటున్నాం… పూర్తయ్యాక మళ్ళీ నొక్కండి", transcribing: "మాటను రాతగా మారుస్తోంది…",
-        chunkHint: s => `${s} సెకన్ల వరకు మాట్లాడి, కొనసాగించడానికి మళ్ళీ నొక్కండి.`,
-        speaking: "మాట్లాడే భాష", answerPh: "ఇక్కడ మాట్లాడండి లేదా టైప్ చేయండి…",
-        checkHint: "సేవ్ చేసే ముందు రాతను ఒకసారి చూసి తప్పులు సరిచేయండి. కీబోర్డ్ మైక్ (Gboard) తో కూడా మాట్లాడవచ్చు.",
-        next: "తర్వాత →", finish: "ముగించండి", skip: "ఈ ప్రశ్న వదిలేయండి", back: "← వెనక్కి",
-        noSpeech: "ఈ బ్రౌజర్‌లో ఇక్కడి మైక్ పనిచేయదు. టైప్ చేయండి, లేదా మీ కీబోర్డ్ మైక్ వాడండి.",
-        micBlocked: "మైక్రోఫోన్‌కు అనుమతి దొరకలేదు. పై అడ్రస్ బార్‌లోని తాళం గుర్తు నొక్కి అనుమతించండి, లేదా టైప్ చేయండి.",
-        sttFail: "మాటను రాతగా మార్చలేకపోయాం. మళ్ళీ ప్రయత్నించండి లేదా టైప్ చేయండి.",
-        needNet: "మాట నుంచి రాతకు ఇంటర్నెట్ అవసరం. టైప్ చేయండి, లేదా నెట్ వచ్చాక ప్రయత్నించండి.",
-        switched: "వేరే సేవతో ప్రయత్నిస్తాం. మళ్ళీ మైక్ నొక్కండి.",
-        cheers: ["ధన్యవాదాలు!", "చాలా ఉపయోగకరం.", "బాగుంది — ఇది మాకు నిజంగా అవసరం.", "ధన్యవాదాలు, కొనసాగిద్దాం."],
-        secDone: name => `‘${name}’ పూర్తయింది — ధన్యవాదాలు!`, skipped: "సరే, తర్వాతి ప్రశ్నకు వెళ్దాం.",
-        fuTitle: "మొదటి సాధనం ప్రయత్నించాలనుకుంటున్నారా? (ఐచ్ఛికం)", fuBody: "సాధనాలు సిద్ధమయ్యాక ఉచిత తెలుగు–ఇంగ్లీష్ కార్యాచరణ ప్యాక్ పంపుతాం, మొదట ప్రయత్నించే ఉపాధ్యాయుల్లో మిమ్మల్ని చేర్చుకుంటాం. మీ నంబర్ మీ సమాధానాలతో కలపకుండా వేరుగా దాచబడుతుంది.",
-        fuPh: "వాట్సాప్ నంబర్ (10 అంకెలు)", fuConsent: "ఉపాధ్యాయుల ఉచిత సాధనాల గురించి Vitainspire నన్ను వాట్సాప్‌లో సంప్రదించవచ్చు.", fuSend: "పంపండి", fuSkip: "వద్దు, ధన్యవాదాలు", fuBad: "దయచేసి 10 అంకెల నంబర్ ఇవ్వండి.", fuThanks: "ధన్యవాదాలు! సిద్ధమయ్యాక పంపుతాం.",
-        saved: "అన్ని సమాధానాలు సేవ్ అయ్యాయి", sending: n => `${n} సమాధానాలు పంపుతోంది…`, offline: n => `నెట్ లేదు — ${n} సమాధానాలు నెట్ వచ్చాక పంపుతాం`, ready: "సిద్ధం",
-        demo: "డెమో మోడ్: సమాధానాలు ఎక్కడికీ పంపబడవు.",
-        doneTitle: "ధన్యవాదాలు, గురువుగారూ!", doneBody: "ఏ సాధనం ముందు తయారు చేయాలో మీలాంటి ఉపాధ్యాయుల సమాధానాలే నిర్ణయిస్తాయి.",
-        answered: a => `మీరు ${a} ప్రశ్నలకు సమాధానం ఇచ్చారు`,
-        codeLabel: "మీ సమాధానాల కోడ్", codeHelp: "మీ సమాధానాలు తొలగించాలంటే ఈ కోడ్‌తో మమ్మల్ని సంప్రదించండి.",
-        keepOpen: "అన్నీ పంపేవరకు దయచేసి ఈ పేజీ మూసివేయకండి.", allSent: "అన్నీ చేరాయి. ఇప్పుడు పేజీ మూసివేయవచ్చు.",
-        shareBtn: "మరో ఉపాధ్యాయునికి WhatsApp లో పంపండి", copy: "లింక్ కాపీ చేయండి", copied: "లింక్ కాపీ అయింది",
-        shareMsg: "ఉపాధ్యాయుల కోసం ఉచిత AI సాధనాలు తయారు చేస్తున్నారు — ఏవి ముందు కావాలో మనమే చెప్పొచ్చు. సుమారు 10 నిమిషాలు, ఎక్కువగా నొక్కితే చాలు, పేరు అవసరం లేదు: ",
-        foot: "Vitainspire · ఉపాధ్యాయుల కోసం ఉచిత సాధనాలు"
-      },
-      en: {
-        h1: "Free AI tools for teachers — you tell us which ones",
-        intro: "Namaste! We are building free tools for teachers in Andhra Pradesh and Telangana — worksheets, level checks, local examples. Your answers decide what we build first.",
-        p: ["There are no right or wrong answers. We want what really happens in your class.", "Your name is not needed.", "This is not an inspection. Your answers do not go to the department or your headmaster.", "Most questions are just taps. If you like, speak or type to say more — we never record your voice."],
-        chips: ["About 10 minutes", "Mostly taps", "Skip any question"],
-        privacyTitle: "How we use your answers",
-        privacy: (m, server) => ["Only the Vitainspire team reads your answers. We do not give them to government officials or anyone outside the team.", "We never record or keep your voice. When you tap the mic, your phone's speech service (for example Google) turns your speech into text." + (server ? " On phones without it, Bhashini, the Government of India's language service, does this; we don't keep the audio." : ""), "We keep: the options you tap, the text you save, and your district if you give it. We don't ask for your name or phone number.", "Answers are kept in our private Google Sheet and deleted within " + m + " months after the study ends.", "To delete your answers, contact us with the code you get at the end."],
-        consent: "I have read the above. I agree that the Vitainspire team may use my answers to design free tools for teachers.",
-        start: "Let's begin", resume: "Continue where you left off", restart: "Start over",
-        contact: "Questions or deletion requests:",
-        tapSub: "Tap what fits. Everything is optional.", district: "District / mandal (optional)", cont: "Continue",
-        secOf: (i, n, name) => `${i}/${n} · ${name}`, listen: "Listen to the question",
-        dk: "Not sure", zero: "None", of10: n => `${n} of 10`,
-        picked: (n, m) => `${n} of ${m} picked`,
-        rate: [["yes", "I'd use it"], ["maybe", "Maybe"], ["no", "Not needed"]],
-        useful: [["very", "Very useful"], ["some", "Somewhat"], ["little", "Not much"]],
-        moreBtn: "+ Want to say more? (optional)", share: "You may share this trick with other teachers, without my name.",
-        tap: "Tap the mic and speak", listening: "Listening… tap again when you're done", transcribing: "Turning your speech into text…",
-        chunkHint: s => `Speak for up to ${s} seconds, then tap again to continue.`,
-        speaking: "I'm speaking", answerPh: "Speak or type here…",
-        checkHint: "Check the text and fix any mistakes before saving. Your keyboard's mic (Gboard) works too.",
-        next: "Next →", finish: "Finish", skip: "Skip this question", back: "← Back",
-        noSpeech: "The mic here doesn't work in this browser. Please type, or use the mic on your keyboard.",
-        micBlocked: "We couldn't use the microphone. Tap the lock icon in the address bar and allow it, or type.",
-        sttFail: "We couldn't turn that into text. Please try again or type.",
-        needNet: "Speech-to-text needs internet. Please type, or try again when you're connected.",
-        switched: "Let's try another service. Tap the mic again.",
-        cheers: ["Thank you!", "That's really useful.", "Great — this is exactly what we need.", "Thanks, let's keep going."],
-        secDone: name => `‘${name}’ done — thank you!`, skipped: "No problem, let's go to the next one.",
-        fuTitle: "Want to try the first tool? (optional)", fuBody: "When the tools are ready we'll send you a free Telugu–English activity pack and include you among the first teachers to try them. Your number is stored separately and is not linked to your answers.",
-        fuPh: "WhatsApp number (10 digits)", fuConsent: "Vitainspire may contact me on WhatsApp about free tools for teachers.", fuSend: "Send", fuSkip: "No, thanks", fuBad: "Please enter a 10-digit number.", fuThanks: "Thank you! We'll be in touch when it's ready.",
-        saved: "All answers saved", sending: n => `Sending ${n} answer${n > 1 ? 's' : ''}…`, offline: n => `Offline — ${n} answer${n > 1 ? 's' : ''} will send when you're connected`, ready: "Ready",
-        demo: "Demo mode: answers are not sent anywhere.",
-        doneTitle: "Thank you, teacher!", doneBody: "Answers from teachers like you decide which tool we build first.",
-        answered: a => `You answered ${a} question${a === 1 ? '' : 's'}`,
-        codeLabel: "Your answer code", codeHelp: "Quote this code if you ever want your answers deleted.",
-        keepOpen: "Please keep this page open until everything is sent.", allSent: "Everything has arrived. You can close this page now.",
-        shareBtn: "Share with another teacher on WhatsApp", copy: "Copy link", copied: "Link copied",
-        shareMsg: "Free AI tools for teachers are being built — and we get to say which ones come first. About 10 minutes, mostly taps, no name needed: ",
-        foot: "Vitainspire · Free tools for teachers"
-      }
-    };
+        /* ================= WORDS ================= */
+        const T = {
+            te: {
+                h1: "ఉపాధ్యాయుల కోసం ఉచిత AI సాధనాలు — ఏవి కావాలో మీరే చెప్పండి",
+                intro: "నమస్కారం! ఆంధ్రప్రదేశ్, తెలంగాణ ఉపాధ్యాయుల కోసం మేము ఉచిత సాధనాలు తయారు చేస్తున్నాం — వర్క్‌షీట్లు, స్థాయి పరీక్షలు, మన ఊరి ఉదాహరణలు. ఏది ముందు తయారు చేయాలో మీ సమాధానాలే నిర్ణయిస్తాయి.",
+                p: ["సరైన లేదా తప్పు సమాధానాలు లేవు. మీ తరగతిలో నిజంగా ఏం జరుగుతుందో అదే మాకు కావాలి.", "మీ పేరు అవసరం లేదు.", "ఇది తనిఖీ కాదు. మీ సమాధానాలు విద్యాశాఖకు గానీ, ప్రధానోపాధ్యాయులకు గానీ పంపబడవు.", "చాలా ప్రశ్నలకు నొక్కితే చాలు. కావాలంటే మాట్లాడి లేదా టైప్ చేసి చెప్పండి — మీ గొంతును రికార్డ్ చేయం."],
+                chips: ["సుమారు 10 నిమిషాలు", "ఎక్కువగా నొక్కితే చాలు", "ఏ ప్రశ్ననైనా వదిలేయవచ్చు"],
+                privacyTitle: "మీ సమాధానాలను ఎలా ఉపయోగిస్తాం",
+                privacy: (m, server) => ["Vitainspire బృందం మాత్రమే మీ సమాధానాలు చదువుతుంది. వాటిని ప్రభుత్వ అధికారులకు గానీ, బయటివారికి గానీ ఇవ్వం.", "మీ గొంతును రికార్డ్ చేయం, దాచం. మైక్ నొక్కినప్పుడు మీ ఫోన్ స్పీచ్ సేవ (ఉదా: Google) మాటను రాతగా మారుస్తుంది." + (server ? " ఆ సేవ లేని ఫోన్లలో భారత ప్రభుత్వ భాషా సేవ ‘భాషిణి’ ఈ పని చేస్తుంది; ఆడియోను మేము దాచం." : ""), "మేము దాచేవి: మీరు నొక్కిన ఎంపికలు, మీరు సేవ్ చేసిన రాత, జిల్లా (ఇస్తే). పేరు, ఫోన్ నంబర్ అడగం.", "సమాధానాలు మా ప్రైవేట్ Google Sheet లో ఉంటాయి. అధ్యయనం ముగిసిన " + m + " నెలల్లోపు తొలగిస్తాం.", "మీ సమాధానాలు తొలగించాలంటే, చివర్లో వచ్చే మీ కోడ్‌తో మమ్మల్ని సంప్రదించండి."],
+                consent: "పై విషయాలు చదివాను. ఉపాధ్యాయుల కోసం ఉచిత సాధనాలు రూపొందించడానికి నా సమాధానాలను Vitainspire బృందం ఉపయోగించుకోవచ్చని అంగీకరిస్తున్నాను.",
+                start: "మొదలుపెడదాం", resume: "ఆపిన చోటు నుండి కొనసాగించండి", restart: "కొత్తగా మొదలుపెట్టండి",
+                contact: "సందేహాలకు / తొలగింపుకు:",
+                tapSub: "సరిపోయేవి నొక్కండి. అన్నీ ఐచ్ఛికం.", district: "జిల్లా / మండలం (ఐచ్ఛికం)", cont: "కొనసాగించండి",
+                secOf: (i, n, name) => `${i}/${n} · ${name}`, listen: "ప్రశ్న వినండి",
+                dk: "తెలియదు", zero: "ఎవరూ లేరు", of10: n => `10 లో ${n}`,
+                picked: (n, m) => `${n} / ${m} ఎంచుకున్నారు`,
+                rate: [["yes", "తప్పక వాడతాను"], ["maybe", "బహుశా"], ["no", "అవసరం లేదు"]],
+                useful: [["very", "చాలా ఉపయోగం"], ["some", "కొంత"], ["little", "పెద్దగా లేదు"]],
+                moreBtn: "+ మరింత చెప్పాలనుకుంటే (ఐచ్ఛికం)", share: "నా పేరు లేకుండా ఈ ట్రిక్‌ను ఇతర ఉపాధ్యాయులతో పంచుకోవచ్చు.",
+                tap: "మైక్ నొక్కి మాట్లాడండి", listening: "వింటున్నాం… పూర్తయ్యాక మళ్ళీ నొక్కండి", transcribing: "మాటను రాతగా మారుస్తోంది…",
+                chunkHint: s => `${s} సెకన్ల వరకు మాట్లాడి, కొనసాగించడానికి మళ్ళీ నొక్కండి.`,
+                speaking: "మాట్లాడే భాష", answerPh: "ఇక్కడ మాట్లాడండి లేదా టైప్ చేయండి…",
+                checkHint: "సేవ్ చేసే ముందు రాతను ఒకసారి చూసి తప్పులు సరిచేయండి. కీబోర్డ్ మైక్ (Gboard) తో కూడా మాట్లాడవచ్చు.",
+                next: "తర్వాత →", finish: "ముగించండి", skip: "ఈ ప్రశ్న వదిలేయండి", back: "← వెనక్కి",
+                noSpeech: "ఈ బ్రౌజర్‌లో ఇక్కడి మైక్ పనిచేయదు. టైప్ చేయండి, లేదా మీ కీబోర్డ్ మైక్ వాడండి.",
+                micBlocked: "మైక్రోఫోన్‌కు అనుమతి దొరకలేదు. పై అడ్రస్ బార్‌లోని తాళం గుర్తు నొక్కి అనుమతించండి, లేదా టైప్ చేయండి.",
+                sttFail: "మాటను రాతగా మార్చలేకపోయాం. మళ్ళీ ప్రయత్నించండి లేదా టైప్ చేయండి.",
+                needNet: "మాట నుంచి రాతకు ఇంటర్నెట్ అవసరం. టైప్ చేయండి, లేదా నెట్ వచ్చాక ప్రయత్నించండి.",
+                switched: "వేరే సేవతో ప్రయత్నిస్తాం. మళ్ళీ మైక్ నొక్కండి.",
+                cheers: ["ధన్యవాదాలు!", "చాలా ఉపయోగకరం.", "బాగుంది — ఇది మాకు నిజంగా అవసరం.", "ధన్యవాదాలు, కొనసాగిద్దాం."],
+                secDone: name => `‘${name}’ పూర్తయింది — ధన్యవాదాలు!`, skipped: "సరే, తర్వాతి ప్రశ్నకు వెళ్దాం.",
+                fuTitle: "మొదటి సాధనం ప్రయత్నించాలనుకుంటున్నారా? (ఐచ్ఛికం)", fuBody: "సాధనాలు సిద్ధమయ్యాక ఉచిత తెలుగు–ఇంగ్లీష్ కార్యాచరణ ప్యాక్ పంపుతాం, మొదట ప్రయత్నించే ఉపాధ్యాయుల్లో మిమ్మల్ని చేర్చుకుంటాం. మీ నంబర్ మీ సమాధానాలతో కలపకుండా వేరుగా దాచబడుతుంది.",
+                fuPh: "వాట్సాప్ నంబర్ (10 అంకెలు)", fuConsent: "ఉపాధ్యాయుల ఉచిత సాధనాల గురించి Vitainspire నన్ను వాట్సాప్‌లో సంప్రదించవచ్చు.", fuSend: "పంపండి", fuSkip: "వద్దు, ధన్యవాదాలు", fuBad: "దయచేసి 10 అంకెల నంబర్ ఇవ్వండి.", fuThanks: "ధన్యవాదాలు! సిద్ధమయ్యాక పంపుతాం.",
+                saved: "అన్ని సమాధానాలు సేవ్ అయ్యాయి", sending: n => `${n} సమాధానాలు పంపుతోంది…`, offline: n => `నెట్ లేదు — ${n} సమాధానాలు నెట్ వచ్చాక పంపుతాం`, ready: "సిద్ధం",
+                demo: "డెమో మోడ్: సమాధానాలు ఎక్కడికీ పంపబడవు.",
+                doneTitle: "ధన్యవాదాలు, గురువుగారూ!", doneBody: "ఏ సాధనం ముందు తయారు చేయాలో మీలాంటి ఉపాధ్యాయుల సమాధానాలే నిర్ణయిస్తాయి.",
+                answered: a => `మీరు ${a} ప్రశ్నలకు సమాధానం ఇచ్చారు`,
+                codeLabel: "మీ సమాధానాల కోడ్", codeHelp: "మీ సమాధానాలు తొలగించాలంటే ఈ కోడ్‌తో మమ్మల్ని సంప్రదించండి.",
+                keepOpen: "అన్నీ పంపేవరకు దయచేసి ఈ పేజీ మూసివేయకండి.", allSent: "అన్నీ చేరాయి. ఇప్పుడు పేజీ మూసివేయవచ్చు.",
+                shareBtn: "మరో ఉపాధ్యాయునికి WhatsApp లో పంపండి", copy: "లింక్ కాపీ చేయండి", copied: "లింక్ కాపీ అయింది",
+                shareMsg: "ఉపాధ్యాయుల కోసం ఉచిత AI సాధనాలు తయారు చేస్తున్నారు — ఏవి ముందు కావాలో మనమే చెప్పొచ్చు. సుమారు 10 నిమిషాలు, ఎక్కువగా నొక్కితే చాలు, పేరు అవసరం లేదు: ",
+                foot: "Vitainspire · ఉపాధ్యాయుల కోసం ఉచిత సాధనాలు"
+            },
+            en: {
+                h1: "Free AI tools for teachers — you tell us which ones",
+                intro: "Namaste! We are building free tools for teachers in Andhra Pradesh and Telangana — worksheets, level checks, local examples. Your answers decide what we build first.",
+                p: ["There are no right or wrong answers. We want what really happens in your class.", "Your name is not needed.", "This is not an inspection. Your answers do not go to the department or your headmaster.", "Most questions are just taps. If you like, speak or type to say more — we never record your voice."],
+                chips: ["About 10 minutes", "Mostly taps", "Skip any question"],
+                privacyTitle: "How we use your answers",
+                privacy: (m, server) => ["Only the Vitainspire team reads your answers. We do not give them to government officials or anyone outside the team.", "We never record or keep your voice. When you tap the mic, your phone's speech service (for example Google) turns your speech into text." + (server ? " On phones without it, Bhashini, the Government of India's language service, does this; we don't keep the audio." : ""), "We keep: the options you tap, the text you save, and your district if you give it. We don't ask for your name or phone number.", "Answers are kept in our private Google Sheet and deleted within " + m + " months after the study ends.", "To delete your answers, contact us with the code you get at the end."],
+                consent: "I have read the above. I agree that the Vitainspire team may use my answers to design free tools for teachers.",
+                start: "Let's begin", resume: "Continue where you left off", restart: "Start over",
+                contact: "Questions or deletion requests:",
+                tapSub: "Tap what fits. Everything is optional.", district: "District / mandal (optional)", cont: "Continue",
+                secOf: (i, n, name) => `${i}/${n} · ${name}`, listen: "Listen to the question",
+                dk: "Not sure", zero: "None", of10: n => `${n} of 10`,
+                picked: (n, m) => `${n} of ${m} picked`,
+                rate: [["yes", "I'd use it"], ["maybe", "Maybe"], ["no", "Not needed"]],
+                useful: [["very", "Very useful"], ["some", "Somewhat"], ["little", "Not much"]],
+                moreBtn: "+ Want to say more? (optional)", share: "You may share this trick with other teachers, without my name.",
+                tap: "Tap the mic and speak", listening: "Listening… tap again when you're done", transcribing: "Turning your speech into text…",
+                chunkHint: s => `Speak for up to ${s} seconds, then tap again to continue.`,
+                speaking: "I'm speaking", answerPh: "Speak or type here…",
+                checkHint: "Check the text and fix any mistakes before saving. Your keyboard's mic (Gboard) works too.",
+                next: "Next →", finish: "Finish", skip: "Skip this question", back: "← Back",
+                noSpeech: "The mic here doesn't work in this browser. Please type, or use the mic on your keyboard.",
+                micBlocked: "We couldn't use the microphone. Tap the lock icon in the address bar and allow it, or type.",
+                sttFail: "We couldn't turn that into text. Please try again or type.",
+                needNet: "Speech-to-text needs internet. Please type, or try again when you're connected.",
+                switched: "Let's try another service. Tap the mic again.",
+                cheers: ["Thank you!", "That's really useful.", "Great — this is exactly what we need.", "Thanks, let's keep going."],
+                secDone: name => `‘${name}’ done — thank you!`, skipped: "No problem, let's go to the next one.",
+                fuTitle: "Want to try the first tool? (optional)", fuBody: "When the tools are ready we'll send you a free Telugu–English activity pack and include you among the first teachers to try them. Your number is stored separately and is not linked to your answers.",
+                fuPh: "WhatsApp number (10 digits)", fuConsent: "Vitainspire may contact me on WhatsApp about free tools for teachers.", fuSend: "Send", fuSkip: "No, thanks", fuBad: "Please enter a 10-digit number.", fuThanks: "Thank you! We'll be in touch when it's ready.",
+                saved: "All answers saved", sending: n => `Sending ${n} answer${n > 1 ? 's' : ''}…`, offline: n => `Offline — ${n} answer${n > 1 ? 's' : ''} will send when you're connected`, ready: "Ready",
+                demo: "Demo mode: answers are not sent anywhere.",
+                doneTitle: "Thank you, teacher!", doneBody: "Answers from teachers like you decide which tool we build first.",
+                answered: a => `You answered ${a} question${a === 1 ? '' : 's'}`,
+                codeLabel: "Your answer code", codeHelp: "Quote this code if you ever want your answers deleted.",
+                keepOpen: "Please keep this page open until everything is sent.", allSent: "Everything has arrived. You can close this page now.",
+                shareBtn: "Share with another teacher on WhatsApp", copy: "Copy link", copied: "Link copied",
+                shareMsg: "Free AI tools for teachers are being built — and we get to say which ones come first. About 10 minutes, mostly taps, no name needed: ",
+                foot: "Vitainspire · Free tools for teachers"
+            }
+        };
 
-    /* ================= STATE ================= */
-    const LS = {
-      get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d } catch (e) { return d } },
-      set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)) } catch (e) { } }
-    };
-    const uid = () => (crypto.randomUUID ? crypto.randomUUID() : 'xxxxxxxx-xxxx-4xxx-8xxx-xxxxxxxxxxxx'.replace(/x/g, () => (Math.random() * 16 | 0).toString(16)));
-    const params = new URLSearchParams(location.search);
-    const REF = (params.get('ref') || '').replace(/[^\w.-]/g, '').slice(0, 40);
-    const VERSION = 3;
+        /* ================= STATE ================= */
+        const LS = {
+            get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d } catch (e) { return d } },
+            set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)) } catch (e) { } }
+        };
+        const uid = () => (crypto.randomUUID ? crypto.randomUUID() : 'xxxxxxxx-xxxx-4xxx-8xxx-xxxxxxxxxxxx'.replace(/x/g, () => (Math.random() * 16 | 0).toString(16)));
+        const params = new URLSearchParams(location.search);
+        const REF = (params.get('ref') || '').replace(/[^\w.-]/g, '').slice(0, 40);
+        const VERSION = 3;
 
-    let S = LS.get('mm_state', null);
-    const fresh = () => ({ v: VERSION, sessionId: uid(), step: 'welcome', screen: 0, idx: 0, lang: (params.get('lang') === 'en' ? 'en' : 'te'), sttLang: null, consent: false, profile: {}, vals: {}, drafts: {}, spoken: {}, moreOpen: {}, done: {}, ref: REF, completed: false, followup: null });
-    if (S && S.v !== VERSION) S = null;   // older app version on this phone: start clean
-    let resumable = !!(S && S.step && S.step !== 'welcome' && !S.completed);
-    if (!S || !S.sessionId) S = fresh();
-    if (S.completed) { const keepLang = S.lang; S = fresh(); S.lang = keepLang; }
-    if (REF && !S.ref) S.ref = REF;
-    if (resumable) { S._resumeFrom = S.step; S.step = 'welcome'; }
-    const save = () => LS.set('mm_state', S);
-    const t = () => T[S.lang];
-    const code = () => S.sessionId.replace(/-/g, '').slice(0, 6).toUpperCase();
-    const item = () => ITEMS[S.idx];
-    const secIndex = id => SECTIONS.findIndex(s => s.id === id);
+        let S = LS.get('mm_state', null);
+        const fresh = () => ({ v: VERSION, sessionId: uid(), step: 'welcome', screen: 0, idx: 0, lang: (params.get('lang') === 'en' ? 'en' : 'te'), sttLang: null, consent: false, profile: {}, vals: {}, drafts: {}, spoken: {}, moreOpen: {}, done: {}, ref: REF, completed: false, followup: null });
+        if (S && S.v !== VERSION) S = null;   // older app version on this phone: start clean
+        let resumable = !!(S && S.step && S.step !== 'welcome' && !S.completed);
+        if (!S || !S.sessionId) S = fresh();
+        if (S.completed) { const keepLang = S.lang; S = fresh(); S.lang = keepLang; }
+        if (REF && !S.ref) S.ref = REF;
+        if (resumable) { S._resumeFrom = S.step; S.step = 'welcome'; }
+        const save = () => LS.set('mm_state', S);
+        const t = () => T[S.lang];
+        const code = () => S.sessionId.replace(/-/g, '').slice(0, 6).toUpperCase();
+        const item = () => ITEMS[S.idx];
+        const secIndex = id => SECTIONS.findIndex(s => s.id === id);
 
-    /* ================= UPLOAD QUEUE (text only; survives reloads & bad network) ================= */
-    const Q = (() => {
-      const mem = new Map(); let dbp = null;
-      function open() {
-        if (dbp) return dbp;
-        dbp = new Promise((res) => {
-          try {
-            const r = indexedDB.open('meemaata', 1);
-            r.onupgradeneeded = () => r.result.createObjectStore('q', { keyPath: 'answerId' });
-            r.onsuccess = () => res(r.result); r.onerror = () => res(null);
-          } catch (e) { res(null); }
-        });
-        return dbp;
-      }
-      async function tx(mode, fn) {
-        const db = await open(); if (!db) return null;
-        return new Promise((res) => {
-          try { const r = fn(db.transaction('q', mode).objectStore('q')); r.onsuccess = () => res(r.result); r.onerror = () => res(null); }
-          catch (e) { res(null); }
-        });
-      }
-      return {
-        async put(it) { mem.set(it.answerId, it); await tx('readwrite', s => s.put(it)); },
-        async all() { const fromDb = await tx('readonly', s => s.getAll()); if (Array.isArray(fromDb)) fromDb.forEach(i => { if (!mem.has(i.answerId)) mem.set(i.answerId, i); }); return [...mem.values()].filter(i => !i.blob).sort((a, b) => a.ts < b.ts ? -1 : 1); },
-        async del(id) { mem.delete(id); await tx('readwrite', s => s.delete(id)); }
-      };
-    })();
-    let pending = 0, pumping = false;
-    const sleep = ms => new Promise(r => setTimeout(r, ms));
-    async function post(body) {
-      const r = await fetch(CONFIG.ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(body), redirect: 'follow' });
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-      let j = null; try { j = await r.json(); } catch (e) { }
-      return j;
-    }
-    async function send(it) {
-      if (!CONFIG.ENDPOINT) { await sleep(300); return; }
-      const j = await post(Object.assign({}, it.meta, { key: CONFIG.KEY, answerId: it.answerId }));
-      // Only count an answer as sent when the backend confirms it. Anything else (an error page, a sign-in page,
-      // a cold-start hiccup) is retried; the backend ignores duplicates, so retrying is safe.
-      if (!j || j.ok !== true) throw new Error((j && j.error) || 'no confirmation from server');
-    }
-    async function pump() {
-      if (pumping) return; pumping = true;
-      try {
-        const items = await Q.all(); pending = items.length; showStatus();
-        for (const it of items) {
-          if (navigator.onLine === false) break;
-          try { await send(it); await Q.del(it.answerId); }
-          catch (e) { console.warn('Mee Maata upload will retry:', e.message || e); break; }
-          pending = Math.max(0, pending - 1); showStatus();
+        /* ================= UPLOAD QUEUE (text only; survives reloads & bad network) ================= */
+        const Q = (() => {
+            const mem = new Map(); let dbp = null;
+            function open() {
+                if (dbp) return dbp;
+                dbp = new Promise((res) => {
+                    try {
+                        const r = indexedDB.open('meemaata', 1);
+                        r.onupgradeneeded = () => r.result.createObjectStore('q', { keyPath: 'answerId' });
+                        r.onsuccess = () => res(r.result); r.onerror = () => res(null);
+                    } catch (e) { res(null); }
+                });
+                return dbp;
+            }
+            async function tx(mode, fn) {
+                const db = await open(); if (!db) return null;
+                return new Promise((res) => {
+                    try { const r = fn(db.transaction('q', mode).objectStore('q')); r.onsuccess = () => res(r.result); r.onerror = () => res(null); }
+                    catch (e) { res(null); }
+                });
+            }
+            return {
+                async put(it) { mem.set(it.answerId, it); await tx('readwrite', s => s.put(it)); },
+                async all() { const fromDb = await tx('readonly', s => s.getAll()); if (Array.isArray(fromDb)) fromDb.forEach(i => { if (!mem.has(i.answerId)) mem.set(i.answerId, i); }); return [...mem.values()].filter(i => !i.blob).sort((a, b) => a.ts < b.ts ? -1 : 1); },
+                async del(id) { mem.delete(id); await tx('readwrite', s => s.delete(id)); }
+            };
+        })();
+        let pending = 0, pumping = false;
+        const sleep = ms => new Promise(r => setTimeout(r, ms));
+        async function post(body) {
+            const r = await fetch(CONFIG.ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(body), redirect: 'follow' });
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            let j = null; try { j = await r.json(); } catch (e) { }
+            return j;
         }
-        pending = (await Q.all()).length;
-      } finally { pumping = false; showStatus(); renderDoneStatus(); }
-    }
-    async function enqueue(meta) {
-      const it = { answerId: uid(), ts: new Date().toISOString(), meta };
-      await Q.put(it); pending++; showStatus(); pump();
-    }
-    setInterval(pump, 15000);
-    addEventListener('online', pump);
-    addEventListener('offline', showStatus);
-    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') pump(); });
-    function baseMeta(type) { return { type, sessionId: S.sessionId, ref: S.ref || '', lang: S.lang, clientTime: new Date().toISOString(), ua: navigator.userAgent.slice(0, 180) }; }
+        async function send(it) {
+            if (!CONFIG.ENDPOINT) { await sleep(300); return; }
+            const j = await post(Object.assign({}, it.meta, { key: CONFIG.KEY, answerId: it.answerId }));
+            // Only count an answer as sent when the backend confirms it. Anything else (an error page, a sign-in page,
+            // a cold-start hiccup) is retried; the backend ignores duplicates, so retrying is safe.
+            if (!j || j.ok !== true) throw new Error((j && j.error) || 'no confirmation from server');
+        }
+        async function pump() {
+            if (pumping) return; pumping = true;
+            try {
+                const items = await Q.all(); pending = items.length; showStatus();
+                for (const it of items) {
+                    if (navigator.onLine === false) break;
+                    try { await send(it); await Q.del(it.answerId); }
+                    catch (e) { console.warn('Mee Maata upload will retry:', e.message || e); break; }
+                    pending = Math.max(0, pending - 1); showStatus();
+                }
+                pending = (await Q.all()).length;
+            } finally { pumping = false; showStatus(); renderDoneStatus(); }
+        }
+        async function enqueue(meta) {
+            const it = { answerId: uid(), ts: new Date().toISOString(), meta };
+            await Q.put(it); pending++; showStatus(); pump();
+        }
+        setInterval(pump, 15000);
+        addEventListener('online', pump);
+        addEventListener('offline', showStatus);
+        document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') pump(); });
+        function baseMeta(type) { return { type, sessionId: S.sessionId, ref: S.ref || '', lang: S.lang, clientTime: new Date().toISOString(), ua: navigator.userAgent.slice(0, 180) }; }
 
-    /* ================= UI HELPERS ================= */
-    const $ = s => document.querySelector(s);
-    const app = $('#app');
-    const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-    function toast(msg) { const el = $('#toast'); el.textContent = msg; el.classList.add('show'); clearTimeout(toast._t); toast._t = setTimeout(() => el.classList.remove('show'), 2600); }
-    function showStatus() {
-      const el = $('#status'), tx = $('#statusText');
-      el.classList.remove('ok', 'wait');
-      if (pending > 0) { el.classList.add('wait'); tx.textContent = navigator.onLine === false ? t().offline(pending) : t().sending(pending); }
-      else { el.classList.add('ok'); tx.textContent = Object.keys(S.done).length ? t().saved : t().ready; }
-    }
-    function go(step) { S.step = step; save(); render(); scrollTo(0, 0); const h = app.querySelector('h1,h2,.qtext'); if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); } }
-    function setLang(l) {
-      S.lang = l; save(); document.documentElement.lang = l;
-      document.querySelectorAll('.lang button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === l)));
-      $('#demo').textContent = t().demo; $('#demo').hidden = !!CONFIG.ENDPOINT;
-      stopSpeaking(); render();
-    }
-    document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => { if (dict.state !== 'idle') return; setLang(b.dataset.lang); }));
-    const ICON = {
-      check: '<svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6 10.5l2.6 2.6L14 7.6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-      mic: '<svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>',
-      stop: '<svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2.5" fill="currentColor"/></svg>',
-      dots: '<svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="12" r="2" fill="currentColor"/><circle cx="12" cy="12" r="2" fill="currentColor"/><circle cx="18" cy="12" r="2" fill="currentColor"/></svg>',
-      speaker: '<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>',
-      kid: '<svg viewBox="0 0 24 32" aria-hidden="true"><circle cx="12" cy="7" r="5" fill="currentColor"/><path d="M4 30v-9a8 8 0 0 1 16 0v9z" fill="currentColor"/></svg>',
-      star: '<svg width="36" height="36" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 16.8l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z" fill="currentColor"/></svg>',
-      wa: '<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.6-2-1-1 .9c-1-.4-2.4-1.8-2.8-2.8l.9-1-1-2-1.6 1z" fill="currentColor"/></svg>'
-    };
-
-    /* ================= HEAR THE QUESTION ================= */
-    let voices = [], qAudio = null;
-    function loadVoices() { try { voices = speechSynthesis.getVoices() || []; } catch (e) { voices = []; } }
-    if ('speechSynthesis' in window) { loadVoices(); speechSynthesis.onvoiceschanged = loadVoices; }
-    function voiceFor(l) { const want = l === 'te' ? ['te'] : ['en-in', 'en']; for (const w of want) { const v = voices.find(v => v.lang && v.lang.replace('_', '-').toLowerCase().startsWith(w)); if (v) return v; } return null; }
-    function canListen() { return !!CONFIG.AUDIO_BASE || !!voiceFor(S.lang); }
-    function speak(it) {
-      stopSpeaking();
-      if (CONFIG.AUDIO_BASE) { qAudio = new Audio(CONFIG.AUDIO_BASE.replace(/\/$/, '') + '/' + it.id + '-' + S.lang + '.mp3'); qAudio.play().catch(() => ttsSpeak(it[S.lang])); return; }
-      ttsSpeak(it[S.lang]);
-    }
-    function ttsSpeak(text) { try { const v = voiceFor(S.lang); if (!v) return; const u = new SpeechSynthesisUtterance(text); u.voice = v; u.lang = v.lang; u.rate = 0.95; speechSynthesis.speak(u); } catch (e) { } }
-    function stopSpeaking() { try { speechSynthesis.cancel(); } catch (e) { } try { if (qAudio) { qAudio.pause(); qAudio = null; } } catch (e) { } }
-
-    /* ================= DICTATION: speech -> editable text. Voice is never stored. ================= */
-    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-    const canServer = () => !!(CONFIG.SERVER_STT && CONFIG.ENDPOINT && navigator.mediaDevices && navigator.mediaDevices.getUserMedia && (window.AudioContext || window.webkitAudioContext));
-    const dict = {
-      state: 'idle', engine: (SR ? 'browser' : (canServer() ? 'server' : null)), rec: null, wantOn: false, interim: '', err: '', secs: 0, timer: null,
-      stream: null, ctx: null, proc: null, bufs: [], rate: 48000, raf: null, level: 0, gotAudio: false, watch: null
-    };
-    const sttLang = () => S.sttLang || S.lang;
-    function ta() { return $('#answer'); }
-    function appendText(txt) {
-      txt = String(txt || '').trim(); if (!txt) return;
-      const el = ta(); if (!el) return;
-      const cur = el.value.replace(/\s+$/, '');
-      el.value = cur ? cur + ' ' + txt : txt;
-      S.spoken[item().id] = true; draftFromBox();
-      el.scrollTop = el.scrollHeight;
-    }
-    function draftFromBox() { const el = ta(); if (!el) return; S.drafts[item().id] = el.value; save(); updateNext(); }
-    function setDictUI() {
-      const btn = $('#micbtn'), lab = $('#miclabel'), side = $('#micextra'), box = ta();
-      const er = $('#dictErr'); if (er) { er.textContent = dict.err; er.hidden = !dict.err; }
-      document.querySelectorAll('.lockwhilebusy').forEach(b => b.disabled = dict.state !== 'idle');
-      if (box) box.classList.toggle('live', dict.state === 'listening');
-      const im = $('#interim'); if (im) im.textContent = dict.interim;
-      updateNext();
-      if (!btn) return;
-      btn.classList.toggle('on', dict.state === 'listening');
-      btn.classList.toggle('busy', dict.state === 'transcribing');
-      btn.innerHTML = dict.state === 'listening' ? ICON.stop : dict.state === 'transcribing' ? ICON.dots : ICON.mic;
-      btn.setAttribute('aria-label', dict.state === 'listening' ? t().listening : t().tap);
-      lab.textContent = dict.state === 'listening' ? t().listening : dict.state === 'transcribing' ? t().transcribing : t().tap;
-      side.innerHTML = dict.state === 'listening'
-        ? `<div class="meter" id="meter" aria-hidden="true">${'<span></span>'.repeat(16)}</div>${dict.engine === 'server' ? `<div class="timer" id="timer">0:${String(dict.secs).padStart(2, '0')} / 0:${CONFIG.SERVER_CHUNK_SECONDS}</div>` : ''}`
-        : (dict.engine === 'server' ? `<div class="small muted">${t().chunkHint(CONFIG.SERVER_CHUNK_SECONDS)}</div>` : '');
-    }
-    function dictError(msg) { dict.err = msg; setDictUI(); }
-    function noEngine() { dict.engine = null; dict.err = t().noSpeech; dict.state = 'idle'; dict.rec = null; renderQ(); }
-    async function toggleDictation() {
-      stopSpeaking();
-      if (dict.state === 'listening') { stopDictation(); return; }
-      if (dict.state !== 'idle') return;
-      dict.err = ''; dict.interim = '';
-      if (!dict.engine) { dictError(t().noSpeech); return; }
-      if (navigator.onLine === false) { dictError(t().needNet); return; }
-      if (dict.engine === 'browser') startBrowser(); else startServer();
-    }
-    function stopDictation() {
-      if (dict.engine === 'browser') { dict.wantOn = false; try { dict.rec && dict.rec.stop(); } catch (e) { } }
-      else finishServer();
-    }
-    function startBrowser() {
-      try {
-        const r = new SR(); dict.rec = r;
-        r.lang = sttLang() === 'te' ? 'te-IN' : 'en-IN';
-        r.continuous = true; r.interimResults = true; r.maxAlternatives = 1;
-        r.onaudiostart = () => { dict.gotAudio = true; };
-        r.onresult = e => {
-          let interim = '';
-          for (let i = e.resultIndex; i < e.results.length; i++) { const res = e.results[i]; if (res.isFinal) appendText(res[0].transcript); else interim += res[0].transcript; }
-          dict.interim = interim; const im = $('#interim'); if (im) im.textContent = interim;
+        /* ================= UI HELPERS ================= */
+        const $ = s => document.querySelector(s);
+        const app = $('#app');
+        const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        function toast(msg) { const el = $('#toast'); el.textContent = msg; el.classList.add('show'); clearTimeout(toast._t); toast._t = setTimeout(() => el.classList.remove('show'), 2600); }
+        function showStatus() {
+            const el = $('#status'), tx = $('#statusText');
+            el.classList.remove('ok', 'wait');
+            if (pending > 0) { el.classList.add('wait'); tx.textContent = navigator.onLine === false ? t().offline(pending) : t().sending(pending); }
+            else { el.classList.add('ok'); tx.textContent = Object.keys(S.done).length ? t().saved : t().ready; }
+        }
+        function go(step) { S.step = step; save(); render(); scrollTo(0, 0); const h = app.querySelector('h1,h2,.qtext'); if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); } }
+        function setLang(l) {
+            S.lang = l; save(); document.documentElement.lang = l;
+            document.querySelectorAll('.lang button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === l)));
+            $('#demo').textContent = t().demo; $('#demo').hidden = !!CONFIG.ENDPOINT;
+            stopSpeaking(); render();
+        }
+        document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => { if (dict.state !== 'idle') return; setLang(b.dataset.lang); }));
+        const ICON = {
+            check: '<svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6 10.5l2.6 2.6L14 7.6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+            mic: '<svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>',
+            stop: '<svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2.5" fill="currentColor"/></svg>',
+            dots: '<svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="12" r="2" fill="currentColor"/><circle cx="12" cy="12" r="2" fill="currentColor"/><circle cx="18" cy="12" r="2" fill="currentColor"/></svg>',
+            speaker: '<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>',
+            kid: '<svg viewBox="0 0 24 32" aria-hidden="true"><circle cx="12" cy="7" r="5" fill="currentColor"/><path d="M4 30v-9a8 8 0 0 1 16 0v9z" fill="currentColor"/></svg>',
+            star: '<svg width="36" height="36" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 16.8l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z" fill="currentColor"/></svg>',
+            wa: '<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.6-2-1-1 .9c-1-.4-2.4-1.8-2.8-2.8l.9-1-1-2-1.6 1z" fill="currentColor"/></svg>'
         };
-        r.onerror = e => {
-          const c = e.error || '';
-          if (c === 'no-speech' || c === 'aborted') return;
-          dict.wantOn = false;
-          if (c === 'not-allowed') { dict.err = t().micBlocked; return; }
-          if (c === 'network' && navigator.onLine === false) { dict.err = t().needNet; return; }
-          if (canServer()) { dict.engine = 'server'; dict.err = t().switched; } else { dict.engine = null; dict.err = t().noSpeech; }
-        };
-        r.onend = () => {
-          if (dict.interim) { appendText(dict.interim); dict.interim = ''; }
-          if (dict.wantOn) { try { r.start(); return; } catch (e) { } }   // Android stops after pauses; keep listening until the teacher taps stop
-          clearTimeout(dict.watch); dict.state = 'idle'; dict.rec = null;
-          if (!dict.engine) renderQ(); else setDictUI();
-        };
-        // Some browsers expose the API but never start the mic: fall back after 5 s.
-        dict.gotAudio = false; clearTimeout(dict.watch);
-        dict.watch = setTimeout(() => {
-          if (dict.state === 'listening' && dict.engine === 'browser' && !dict.gotAudio) {
-            dict.wantOn = false; try { r.abort(); } catch (e) { }
-            if (canServer()) { dict.engine = 'server'; dict.err = t().switched; dict.state = 'idle'; dict.rec = null; setDictUI(); } else noEngine();
-          }
-        }, 5000);
-        dict.wantOn = true; dict.state = 'listening'; setDictUI();
-        r.start();
-      } catch (e) {
-        dict.state = 'idle';
-        if (canServer()) { dict.engine = 'server'; dictError(t().switched); } else noEngine();
-      }
-    }
-    async function startServer() {
-      try { dict.stream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true, autoGainControl: true } }); }
-      catch (e) { dictError(t().micBlocked); return; }
-      try {
-        const AC = window.AudioContext || window.webkitAudioContext;
-        dict.ctx = new AC(); try { await dict.ctx.resume(); } catch (e) { }
-        dict.rate = dict.ctx.sampleRate; dict.bufs = [];
-        const src = dict.ctx.createMediaStreamSource(dict.stream);
-        dict.proc = dict.ctx.createScriptProcessor(4096, 1, 1);
-        dict.proc.onaudioprocess = e => { const d = e.inputBuffer.getChannelData(0); dict.bufs.push(new Float32Array(d)); let s = 0; for (let i = 0; i < d.length; i += 8) s += d[i] * d[i]; dict.level = Math.min(1, Math.sqrt(s / (d.length / 8)) * 5); };
-        src.connect(dict.proc); dict.proc.connect(dict.ctx.destination);
-      } catch (e) { cleanupServer(); dictError(t().sttFail); return; }
-      dict.secs = 0; dict.state = 'listening'; setDictUI(); meterLoop();
-      dict.timer = setInterval(() => { dict.secs++; const el = $('#timer'); if (el) el.textContent = `0:${String(dict.secs).padStart(2, '0')} / 0:${CONFIG.SERVER_CHUNK_SECONDS}`; if (dict.secs >= CONFIG.SERVER_CHUNK_SECONDS) finishServer(); }, 1000);
-    }
-    function meterLoop() {
-      document.querySelectorAll('#meter span').forEach((b, i) => { const w = 0.45 + 0.55 * Math.abs(Math.sin((i + 1) * 1.7 + performance.now() / 180)); b.style.height = (3 + Math.round(dict.level * w * 16)) + 'px'; });
-      if (dict.state === 'listening') dict.raf = requestAnimationFrame(meterLoop);
-    }
-    function cleanupServer() {
-      clearInterval(dict.timer); cancelAnimationFrame(dict.raf);
-      try { dict.proc && dict.proc.disconnect(); } catch (e) { }
-      try { dict.stream && dict.stream.getTracks().forEach(tr => tr.stop()); } catch (e) { }
-      try { dict.ctx && dict.ctx.close(); } catch (e) { }
-      dict.proc = null; dict.stream = null; dict.ctx = null;
-    }
-    async function finishServer() {
-      if (dict.state !== 'listening') return;
-      const bufs = dict.bufs, rate = dict.rate; dict.bufs = [];
-      cleanupServer();
-      if (dict.secs < 1) { dict.state = 'idle'; setDictUI(); return; }
-      dict.state = 'transcribing'; setDictUI();
-      try {
-        const j = await post({ type: 'transcribe', key: CONFIG.KEY, sessionId: S.sessionId, sttLang: sttLang(), audioBase64: encodeWav16k(bufs, rate) });
-        if (!j || j.ok === false || typeof j.text !== 'string') throw new Error((j && j.error) || 'no text');
-        if (j.text.trim()) appendText(j.text); else dict.err = t().sttFail;
-      } catch (e) { console.warn('transcribe failed', e); dict.err = navigator.onLine === false ? t().needNet : t().sttFail; }
-      dict.state = 'idle'; setDictUI();
-    }
-    function encodeWav16k(bufs, inRate) {
-      let len = 0; bufs.forEach(b => len += b.length);
-      const all = new Float32Array(len); let o = 0; bufs.forEach(b => { all.set(b, o); o += b.length; });
-      const ratio = inRate / 16000, outLen = Math.floor(len / ratio), pcm = new Int16Array(outLen);
-      for (let i = 0; i < outLen; i++) { const s = Math.floor(i * ratio), e = Math.min(len, Math.floor((i + 1) * ratio)); let sum = 0, c = 0; for (let j = s; j < e; j++) { sum += all[j]; c++; } const v = Math.max(-1, Math.min(1, c ? sum / c : 0)); pcm[i] = v < 0 ? v * 0x8000 : v * 0x7FFF; }
-      const buf = new ArrayBuffer(44 + pcm.length * 2), dv = new DataView(buf);
-      const w = (p, s) => { for (let i = 0; i < s.length; i++) dv.setUint8(p + i, s.charCodeAt(i)); };
-      w(0, 'RIFF'); dv.setUint32(4, 36 + pcm.length * 2, true); w(8, 'WAVE'); w(12, 'fmt '); dv.setUint32(16, 16, true); dv.setUint16(20, 1, true); dv.setUint16(22, 1, true);
-      dv.setUint32(24, 16000, true); dv.setUint32(28, 32000, true); dv.setUint16(32, 2, true); dv.setUint16(34, 16, true); w(36, 'data'); dv.setUint32(40, pcm.length * 2, true);
-      new Int16Array(buf, 44).set(pcm);
-      let bin = ''; const bytes = new Uint8Array(buf); for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
-      return btoa(bin);
-    }
-    function abortDictation() { dict.wantOn = false; clearTimeout(dict.watch); try { dict.rec && dict.rec.abort(); } catch (e) { } if (dict.engine === 'server') cleanupServer(); dict.state = 'idle'; dict.interim = ''; dict.err = ''; }
 
-    /* ================= SCREENS ================= */
-    function render() {
-      showStatus();
-      ({ welcome: renderWelcome, profile: renderProfile, q: renderQ, followup: renderFollowup, done: renderDone }[S.step] || renderWelcome)();
-    }
-    function renderWelcome() {
-      const x = t();
-      app.innerHTML = `
+        /* ================= HEAR THE QUESTION ================= */
+        let voices = [], qAudio = null;
+        function loadVoices() { try { voices = speechSynthesis.getVoices() || []; } catch (e) { voices = []; } }
+        if ('speechSynthesis' in window) { loadVoices(); speechSynthesis.onvoiceschanged = loadVoices; }
+        function voiceFor(l) { const want = l === 'te' ? ['te'] : ['en-in', 'en']; for (const w of want) { const v = voices.find(v => v.lang && v.lang.replace('_', '-').toLowerCase().startsWith(w)); if (v) return v; } return null; }
+        function canListen() { return !!CONFIG.AUDIO_BASE || !!voiceFor(S.lang); }
+        function speak(it) {
+            stopSpeaking();
+            if (CONFIG.AUDIO_BASE) { qAudio = new Audio(CONFIG.AUDIO_BASE.replace(/\/$/, '') + '/' + it.id + '-' + S.lang + '.mp3'); qAudio.play().catch(() => ttsSpeak(it[S.lang])); return; }
+            ttsSpeak(it[S.lang]);
+        }
+        function ttsSpeak(text) { try { const v = voiceFor(S.lang); if (!v) return; const u = new SpeechSynthesisUtterance(text); u.voice = v; u.lang = v.lang; u.rate = 0.95; speechSynthesis.speak(u); } catch (e) { } }
+        function stopSpeaking() { try { speechSynthesis.cancel(); } catch (e) { } try { if (qAudio) { qAudio.pause(); qAudio = null; } } catch (e) { } }
+
+        /* ================= DICTATION: speech -> editable text. Voice is never stored. ================= */
+        const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const canServer = () => !!(CONFIG.SERVER_STT && CONFIG.ENDPOINT && navigator.mediaDevices && navigator.mediaDevices.getUserMedia && (window.AudioContext || window.webkitAudioContext));
+        const dict = {
+            state: 'idle', engine: (SR ? 'browser' : (canServer() ? 'server' : null)), rec: null, wantOn: false, interim: '', err: '', secs: 0, timer: null,
+            stream: null, ctx: null, proc: null, bufs: [], rate: 48000, raf: null, level: 0, gotAudio: false, watch: null
+        };
+        const sttLang = () => S.sttLang || S.lang;
+        function ta() { return $('#answer'); }
+        function appendText(txt) {
+            txt = String(txt || '').trim(); if (!txt) return;
+            const el = ta(); if (!el) return;
+            const cur = el.value.replace(/\s+$/, '');
+            el.value = cur ? cur + ' ' + txt : txt;
+            S.spoken[item().id] = true; draftFromBox();
+            el.scrollTop = el.scrollHeight;
+        }
+        function draftFromBox() { const el = ta(); if (!el) return; S.drafts[item().id] = el.value; save(); updateNext(); }
+        function setDictUI() {
+            const btn = $('#micbtn'), lab = $('#miclabel'), side = $('#micextra'), box = ta();
+            const er = $('#dictErr'); if (er) { er.textContent = dict.err; er.hidden = !dict.err; }
+            document.querySelectorAll('.lockwhilebusy').forEach(b => b.disabled = dict.state !== 'idle');
+            if (box) { box.classList.toggle('live', dict.state === 'listening'); box.readOnly = dict.state === 'listening'; }
+            const im = $('#interim'); if (im) im.textContent = dict.interim;
+            updateNext();
+            if (!btn) return;
+            btn.classList.toggle('on', dict.state === 'listening');
+            btn.classList.toggle('busy', dict.state === 'transcribing');
+            btn.innerHTML = dict.state === 'listening' ? ICON.stop : dict.state === 'transcribing' ? ICON.dots : ICON.mic;
+            btn.setAttribute('aria-label', dict.state === 'listening' ? t().listening : t().tap);
+            lab.textContent = dict.state === 'listening' ? t().listening : dict.state === 'transcribing' ? t().transcribing : t().tap;
+            side.innerHTML = dict.state === 'listening'
+                ? `<div class="meter" id="meter" aria-hidden="true">${'<span></span>'.repeat(16)}</div>${dict.engine === 'server' ? `<div class="timer" id="timer">0:${String(dict.secs).padStart(2, '0')} / 0:${CONFIG.SERVER_CHUNK_SECONDS}</div>` : ''}`
+                : (dict.engine === 'server' ? `<div class="small muted">${t().chunkHint(CONFIG.SERVER_CHUNK_SECONDS)}</div>` : '');
+        }
+        function dictError(msg) { dict.err = msg; setDictUI(); }
+        function noEngine() { dict.engine = null; dict.err = t().noSpeech; dict.state = 'idle'; dict.rec = null; renderQ(); }
+        async function toggleDictation() {
+            stopSpeaking();
+            if (dict.state === 'listening') { stopDictation(); return; }
+            if (dict.state !== 'idle') return;
+            dict.err = ''; dict.interim = '';
+            if (!dict.engine) { dictError(t().noSpeech); return; }
+            if (navigator.onLine === false) { dictError(t().needNet); return; }
+            if (dict.engine === 'browser') startBrowser(); else startServer();
+        }
+        function stopDictation() {
+            if (dict.engine === 'browser') { dict.wantOn = false; try { dict.rec && dict.rec.stop(); } catch (e) { } }
+            else finishServer();
+        }
+        const IS_ANDROID = /Android/i.test(navigator.userAgent);
+        /* Android Chrome repeats and accumulates results ("how", "how are", "how are you", "how are you"…).
+           Keep one copy: a segment that repeats or extends the previous one replaces it instead of being added. */
+        function mergeSegments(list) {
+            const out = [];
+            for (const raw of list) {
+                const s = String(raw || '').trim(); if (!s) continue;
+                const last = out[out.length - 1];
+                if (last && (s === last || s.startsWith(last))) out[out.length - 1] = s;
+                else if (last && last.endsWith(s)) continue;
+                else out.push(s);
+            }
+            return out;
+        }
+        function showDictated() {
+            const el = ta(); if (!el) return;
+            const spoken = mergeSegments([...dict.sessions, dict.cur]);
+            el.value = [dict.base, ...spoken].filter(Boolean).join(' ');
+            if (spoken.length) S.spoken[item().id] = true;
+            draftFromBox(); el.scrollTop = el.scrollHeight;
+            const im = $('#interim'); if (im) im.textContent = dict.interim;
+        }
+        function startBrowser() {
+            try {
+                const r = new SR(); dict.rec = r;
+                r.lang = sttLang() === 'te' ? 'te-IN' : 'en-IN';
+                // Android: short sessions that we restart (its continuous mode duplicates text). Desktop/iOS: continuous.
+                r.continuous = !IS_ANDROID; r.interimResults = true; r.maxAlternatives = 1;
+                const box = ta(); dict.base = box ? box.value.replace(/\s+$/, '') : ''; dict.sessions = []; dict.cur = ''; dict.interim = '';
+                r.onaudiostart = () => { dict.gotAudio = true; };
+                r.onresult = e => {
+                    const finals = []; let interim = '';
+                    for (let i = 0; i < e.results.length; i++) { const res = e.results[i]; if (res.isFinal) finals.push(res[0].transcript); else interim = res[0].transcript; }
+                    dict.cur = mergeSegments(finals).join(' ');
+                    dict.interim = interim.trim();
+                    showDictated();
+                };
+                r.onerror = e => {
+                    const c = e.error || '';
+                    if (c === 'no-speech' || c === 'aborted') return;
+                    dict.wantOn = false;
+                    if (c === 'not-allowed') { dict.err = t().micBlocked; return; }
+                    if (c === 'network' && navigator.onLine === false) { dict.err = t().needNet; return; }
+                    if (canServer()) { dict.engine = 'server'; dict.err = t().switched; } else { dict.engine = null; dict.err = t().noSpeech; }
+                };
+                r.onend = () => {
+                    const said = (dict.cur || dict.interim).trim();   // a trailing interim counts only if no final text arrived
+                    if (said) dict.sessions = mergeSegments([...dict.sessions, said]);
+                    dict.cur = ''; dict.interim = ''; showDictated();
+                    if (dict.wantOn) { try { r.start(); return; } catch (e) { } }   // Android stops after pauses; keep listening until the teacher taps stop
+                    clearTimeout(dict.watch); dict.state = 'idle'; dict.rec = null;
+                    if (!dict.engine) renderQ(); else setDictUI();
+                };
+                // Some browsers expose the API but never start the mic: fall back after 5 s.
+                dict.gotAudio = false; clearTimeout(dict.watch);
+                dict.watch = setTimeout(() => {
+                    if (dict.state === 'listening' && dict.engine === 'browser' && !dict.gotAudio) {
+                        dict.wantOn = false; try { r.abort(); } catch (e) { }
+                        if (canServer()) { dict.engine = 'server'; dict.err = t().switched; dict.state = 'idle'; dict.rec = null; setDictUI(); } else noEngine();
+                    }
+                }, 5000);
+                dict.wantOn = true; dict.state = 'listening'; setDictUI();
+                r.start();
+            } catch (e) {
+                dict.state = 'idle';
+                if (canServer()) { dict.engine = 'server'; dictError(t().switched); } else noEngine();
+            }
+        }
+        async function startServer() {
+            try { dict.stream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true, autoGainControl: true } }); }
+            catch (e) { dictError(t().micBlocked); return; }
+            try {
+                const AC = window.AudioContext || window.webkitAudioContext;
+                dict.ctx = new AC(); try { await dict.ctx.resume(); } catch (e) { }
+                dict.rate = dict.ctx.sampleRate; dict.bufs = [];
+                const src = dict.ctx.createMediaStreamSource(dict.stream);
+                dict.proc = dict.ctx.createScriptProcessor(4096, 1, 1);
+                dict.proc.onaudioprocess = e => { const d = e.inputBuffer.getChannelData(0); dict.bufs.push(new Float32Array(d)); let s = 0; for (let i = 0; i < d.length; i += 8) s += d[i] * d[i]; dict.level = Math.min(1, Math.sqrt(s / (d.length / 8)) * 5); };
+                src.connect(dict.proc); dict.proc.connect(dict.ctx.destination);
+            } catch (e) { cleanupServer(); dictError(t().sttFail); return; }
+            dict.secs = 0; dict.state = 'listening'; setDictUI(); meterLoop();
+            dict.timer = setInterval(() => { dict.secs++; const el = $('#timer'); if (el) el.textContent = `0:${String(dict.secs).padStart(2, '0')} / 0:${CONFIG.SERVER_CHUNK_SECONDS}`; if (dict.secs >= CONFIG.SERVER_CHUNK_SECONDS) finishServer(); }, 1000);
+        }
+        function meterLoop() {
+            document.querySelectorAll('#meter span').forEach((b, i) => { const w = 0.45 + 0.55 * Math.abs(Math.sin((i + 1) * 1.7 + performance.now() / 180)); b.style.height = (3 + Math.round(dict.level * w * 16)) + 'px'; });
+            if (dict.state === 'listening') dict.raf = requestAnimationFrame(meterLoop);
+        }
+        function cleanupServer() {
+            clearInterval(dict.timer); cancelAnimationFrame(dict.raf);
+            try { dict.proc && dict.proc.disconnect(); } catch (e) { }
+            try { dict.stream && dict.stream.getTracks().forEach(tr => tr.stop()); } catch (e) { }
+            try { dict.ctx && dict.ctx.close(); } catch (e) { }
+            dict.proc = null; dict.stream = null; dict.ctx = null;
+        }
+        async function finishServer() {
+            if (dict.state !== 'listening') return;
+            const bufs = dict.bufs, rate = dict.rate; dict.bufs = [];
+            cleanupServer();
+            if (dict.secs < 1) { dict.state = 'idle'; setDictUI(); return; }
+            dict.state = 'transcribing'; setDictUI();
+            try {
+                const j = await post({ type: 'transcribe', key: CONFIG.KEY, sessionId: S.sessionId, sttLang: sttLang(), audioBase64: encodeWav16k(bufs, rate) });
+                if (!j || j.ok === false || typeof j.text !== 'string') throw new Error((j && j.error) || 'no text');
+                if (j.text.trim()) appendText(j.text); else dict.err = t().sttFail;
+            } catch (e) { console.warn('transcribe failed', e); dict.err = navigator.onLine === false ? t().needNet : t().sttFail; }
+            dict.state = 'idle'; setDictUI();
+        }
+        function encodeWav16k(bufs, inRate) {
+            let len = 0; bufs.forEach(b => len += b.length);
+            const all = new Float32Array(len); let o = 0; bufs.forEach(b => { all.set(b, o); o += b.length; });
+            const ratio = inRate / 16000, outLen = Math.floor(len / ratio), pcm = new Int16Array(outLen);
+            for (let i = 0; i < outLen; i++) { const s = Math.floor(i * ratio), e = Math.min(len, Math.floor((i + 1) * ratio)); let sum = 0, c = 0; for (let j = s; j < e; j++) { sum += all[j]; c++; } const v = Math.max(-1, Math.min(1, c ? sum / c : 0)); pcm[i] = v < 0 ? v * 0x8000 : v * 0x7FFF; }
+            const buf = new ArrayBuffer(44 + pcm.length * 2), dv = new DataView(buf);
+            const w = (p, s) => { for (let i = 0; i < s.length; i++) dv.setUint8(p + i, s.charCodeAt(i)); };
+            w(0, 'RIFF'); dv.setUint32(4, 36 + pcm.length * 2, true); w(8, 'WAVE'); w(12, 'fmt '); dv.setUint32(16, 16, true); dv.setUint16(20, 1, true); dv.setUint16(22, 1, true);
+            dv.setUint32(24, 16000, true); dv.setUint32(28, 32000, true); dv.setUint16(32, 2, true); dv.setUint16(34, 16, true); w(36, 'data'); dv.setUint32(40, pcm.length * 2, true);
+            new Int16Array(buf, 44).set(pcm);
+            let bin = ''; const bytes = new Uint8Array(buf); for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+            return btoa(bin);
+        }
+        function abortDictation() { dict.wantOn = false; clearTimeout(dict.watch); try { dict.rec && dict.rec.abort(); } catch (e) { } if (dict.engine === 'server') cleanupServer(); dict.state = 'idle'; dict.interim = ''; dict.err = ''; }
+
+        /* ================= SCREENS ================= */
+        function render() {
+            showStatus();
+            ({ welcome: renderWelcome, profile: renderProfile, q: renderQ, followup: renderFollowup, done: renderDone }[S.step] || renderWelcome)();
+        }
+        function renderWelcome() {
+            const x = t();
+            app.innerHTML = `
     <h1>${x.h1}</h1>
     <p>${x.intro}</p>
     <ul class="promises">${x.p.map(s => `<li>${ICON.check}<span>${s}</span></li>`).join('')}</ul>
@@ -1472,72 +1503,72 @@
     <label class="card consent" for="consent"><input type="checkbox" id="consent" ${S.consent ? 'checked' : ''}><span>${x.consent}</span></label>
     <div class="stack" style="margin-top:16px">
       ${resumable ? `<button class="btn btn-gold btn-block" id="resume" ${S.consent ? '' : 'disabled'}>${x.resume}</button><button class="link" id="restart">${x.restart}</button>`
-          : `<button class="btn btn-primary btn-block" id="start" ${S.consent ? '' : 'disabled'}>${x.start}</button>`}
+                    : `<button class="btn btn-primary btn-block" id="start" ${S.consent ? '' : 'disabled'}>${x.start}</button>`}
     </div>
     ${CONFIG.CONTACT ? `<p class="foot">${x.contact} <span style="user-select:all">${esc(CONFIG.CONTACT)}</span></p>` : ''}
     <p class="foot">${x.foot}</p>`;
-      $('#consent').addEventListener('change', e => { S.consent = e.target.checked; save(); const b = $('#start') || $('#resume'); if (b) b.disabled = !S.consent; });
-      if ($('#start')) $('#start').addEventListener('click', () => { S.screen = 0; go('profile'); });
-      if ($('#resume')) $('#resume').addEventListener('click', () => { const to = S._resumeFrom || 'profile'; delete S._resumeFrom; resumable = false; go(to); });
-      if ($('#restart')) $('#restart').addEventListener('click', () => { const l = S.lang; S = fresh(); S.lang = l; resumable = false; save(); render(); });
-    }
-    function renderProfile() {
-      const x = t(), L = S.lang, scr = PROFILE_SCREENS[S.screen || 0];
-      app.innerHTML = `
+            $('#consent').addEventListener('change', e => { S.consent = e.target.checked; save(); const b = $('#start') || $('#resume'); if (b) b.disabled = !S.consent; });
+            if ($('#start')) $('#start').addEventListener('click', () => { S.screen = 0; go('profile'); });
+            if ($('#resume')) $('#resume').addEventListener('click', () => { const to = S._resumeFrom || 'profile'; delete S._resumeFrom; resumable = false; go(to); });
+            if ($('#restart')) $('#restart').addEventListener('click', () => { const l = S.lang; S = fresh(); S.lang = l; resumable = false; save(); render(); });
+        }
+        function renderProfile() {
+            const x = t(), L = S.lang, scr = PROFILE_SCREENS[S.screen || 0];
+            app.innerHTML = `
     <div class="progress"><span>${(S.screen || 0) + 1} / ${PROFILE_SCREENS.length}</span><div class="bar"><i style="width:${Math.round(((S.screen || 0) + 1) / PROFILE_SCREENS.length * 100)}%"></i></div></div>
     <h2>${scr[L]}</h2><p class="muted small">${x.tapSub}</p>
     ${scr.groups.map(g => `<div class="chipgroup" role="group" aria-label="${esc(g[L])}"><h3>${g[L]}</h3><div class="opts">${g.opts.map(o => { const v = S.profile[g.id]; const on = g.multi ? (Array.isArray(v) && v.includes(o[0])) : v === o[0]; return `<button type="button" class="opt" data-g="${g.id}" data-v="${o[0]}" aria-pressed="${on}">${L === 'te' ? o[1] : o[2]}</button>`; }).join('')}</div></div>`).join('')}
     ${scr.district ? `<div class="chipgroup"><h3><label for="district">${x.district}</label></h3><input type="text" id="district" maxlength="60" autocomplete="off" value="${esc(S.profile.district || '')}"></div>` : ''}
     <button class="btn btn-primary btn-block" id="pnext">${x.cont}</button>
     <div class="links"><button class="link" id="pback">${x.back}</button></div>`;
-      app.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => {
-        const g = scr.groups.find(p => p.id === b.dataset.g), v = b.dataset.v;
-        if (g.multi) { const arr = Array.isArray(S.profile[g.id]) ? S.profile[g.id] : []; S.profile[g.id] = arr.includes(v) ? arr.filter(a => a !== v) : [...arr, v]; }
-        else S.profile[g.id] = S.profile[g.id] === v ? undefined : v;
-        save();
-        b.parentNode.querySelectorAll('.opt').forEach(o => { const cur = S.profile[g.id]; o.setAttribute('aria-pressed', String(g.multi ? (Array.isArray(cur) && cur.includes(o.dataset.v)) : cur === o.dataset.v)); });
-      }));
-      const d = $('#district'); if (d) d.addEventListener('input', e => { S.profile.district = e.target.value.slice(0, 60); save(); });
-      $('#pnext').addEventListener('click', () => {
-        if ((S.screen || 0) < PROFILE_SCREENS.length - 1) { S.screen = (S.screen || 0) + 1; go('profile'); return; }
-        enqueue(Object.assign(baseMeta('profile'), { profile: S.profile }));
-        S.idx = S.idx || 0; go('q');
-      });
-      $('#pback').addEventListener('click', () => { if ((S.screen || 0) > 0) { S.screen--; go('profile'); } else go('welcome'); });
-    }
+            app.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => {
+                const g = scr.groups.find(p => p.id === b.dataset.g), v = b.dataset.v;
+                if (g.multi) { const arr = Array.isArray(S.profile[g.id]) ? S.profile[g.id] : []; S.profile[g.id] = arr.includes(v) ? arr.filter(a => a !== v) : [...arr, v]; }
+                else S.profile[g.id] = S.profile[g.id] === v ? undefined : v;
+                save();
+                b.parentNode.querySelectorAll('.opt').forEach(o => { const cur = S.profile[g.id]; o.setAttribute('aria-pressed', String(g.multi ? (Array.isArray(cur) && cur.includes(o.dataset.v)) : cur === o.dataset.v)); });
+            }));
+            const d = $('#district'); if (d) d.addEventListener('input', e => { S.profile.district = e.target.value.slice(0, 60); save(); });
+            $('#pnext').addEventListener('click', () => {
+                if ((S.screen || 0) < PROFILE_SCREENS.length - 1) { S.screen = (S.screen || 0) + 1; go('profile'); return; }
+                enqueue(Object.assign(baseMeta('profile'), { profile: S.profile }));
+                S.idx = S.idx || 0; go('q');
+            });
+            $('#pback').addEventListener('click', () => { if ((S.screen || 0) > 0) { S.screen--; go('profile'); } else go('welcome'); });
+        }
 
-    /* ---- item bodies ---- */
-    const optLabel = (o) => S.lang === 'te' ? o[1] : o[2];
-    function bodyHTML(it) {
-      const x = t(), L = S.lang, v = S.vals[it.id] || {};
-      if (it.type === 'count10') {
-        return it.rows.map(r => {
-          const n = (v.counts || {})[r.id];
-          return `<div class="krow" data-row="${r.id}"><div class="lab"><span>${r[L]}</span><span class="val">${n === 'dk' ? x.dk : (n == null ? '' : x.of10(n))}</span></div>
+        /* ---- item bodies ---- */
+        const optLabel = (o) => S.lang === 'te' ? o[1] : o[2];
+        function bodyHTML(it) {
+            const x = t(), L = S.lang, v = S.vals[it.id] || {};
+            if (it.type === 'count10') {
+                return it.rows.map(r => {
+                    const n = (v.counts || {})[r.id];
+                    return `<div class="krow" data-row="${r.id}"><div class="lab"><span>${r[L]}</span><span class="val">${n === 'dk' ? x.dk : (n == null ? '' : x.of10(n))}</span></div>
         <div class="kids" role="group" aria-label="${esc(r[L])}">${Array.from({ length: 10 }, (_, i) => `<button type="button" class="kid ${typeof n === 'number' && i < n ? 'on' : ''}" data-k="${i + 1}" aria-label="${i + 1}">${ICON.kid}</button>`).join('')}</div>
         <div class="kextra"><button type="button" class="mini" data-k="0" aria-pressed="${n === 0}">${x.zero}</button><button type="button" class="mini" data-k="dk" aria-pressed="${n === 'dk'}">${x.dk}</button></div></div>`;
-        }).join('');
-      }
-      if (it.type === 'single' || it.type === 'multi' || it.type === 'pick') {
-        const opts = it.type === 'pick' ? CONCEPTS.map(c => [c.id, c.ste, c.sen]) : it.opts;
-        const sel = it.type === 'multi' ? (v.choices || []) : (v.choice ? [v.choice] : []);
-        const full = it.type === 'multi' && sel.length >= it.max;
-        return `<div class="opts ${it.col ? 'col' : ''}" role="group">${opts.map(o => `<button type="button" class="opt" data-v="${o[0]}" aria-pressed="${sel.includes(o[0])}" ${full && !sel.includes(o[0]) ? 'disabled' : ''}>${optLabel(o)}</button>`).join('')}</div>
+                }).join('');
+            }
+            if (it.type === 'single' || it.type === 'multi' || it.type === 'pick') {
+                const opts = it.type === 'pick' ? CONCEPTS.map(c => [c.id, c.ste, c.sen]) : it.opts;
+                const sel = it.type === 'multi' ? (v.choices || []) : (v.choice ? [v.choice] : []);
+                const full = it.type === 'multi' && sel.length >= it.max;
+                return `<div class="opts ${it.col ? 'col' : ''}" role="group">${opts.map(o => `<button type="button" class="opt" data-v="${o[0]}" aria-pressed="${sel.includes(o[0])}" ${full && !sel.includes(o[0]) ? 'disabled' : ''}>${optLabel(o)}</button>`).join('')}</div>
       ${it.type === 'multi' && it.max < opts.length ? `<p class="counter" id="counter">${x.picked(sel.length, it.max)}</p>` : ''}`;
-      }
-      if (it.type === 'ratesel') {
-        const src = ITEMS.find(i => i.id === it.src), chosen = (S.vals[it.src] || {}).choices || [], rt = v.ratings || {};
-        return chosen.map(k => { const o = src.opts.find(o => o[0] === k); return `<div class="concept" data-c="${k}"><p><strong>${optLabel(o)}</strong></p><div class="opts" role="group">${x.useful.map(r => `<button type="button" class="opt" data-r="${r[0]}" aria-pressed="${rt[k] === r[0]}">${r[1]}</button>`).join('')}</div></div>`; }).join('');
-      }
-      if (it.type === 'concepts') {
-        const rt = v.ratings || {};
-        return CONCEPTS.map(c => `<div class="concept" data-c="${c.id}"><p>${c[L]}</p><div class="opts" role="group">${x.rate.map(r => `<button type="button" class="opt" data-r="${r[0]}" aria-pressed="${rt[c.id] === r[0]}">${r[1]}</button>`).join('')}</div></div>`).join('');
-      }
-      return '';
-    }
-    function dictHTML(it) {
-      const x = t(), sl = sttLang();
-      return `<div class="dictbox" id="dictbox">
+            }
+            if (it.type === 'ratesel') {
+                const src = ITEMS.find(i => i.id === it.src), chosen = (S.vals[it.src] || {}).choices || [], rt = v.ratings || {};
+                return chosen.map(k => { const o = src.opts.find(o => o[0] === k); return `<div class="concept" data-c="${k}"><p><strong>${optLabel(o)}</strong></p><div class="opts" role="group">${x.useful.map(r => `<button type="button" class="opt" data-r="${r[0]}" aria-pressed="${rt[k] === r[0]}">${r[1]}</button>`).join('')}</div></div>`; }).join('');
+            }
+            if (it.type === 'concepts') {
+                const rt = v.ratings || {};
+                return CONCEPTS.map(c => `<div class="concept" data-c="${c.id}"><p>${c[L]}</p><div class="opts" role="group">${x.rate.map(r => `<button type="button" class="opt" data-r="${r[0]}" aria-pressed="${rt[c.id] === r[0]}">${r[1]}</button>`).join('')}</div></div>`).join('');
+            }
+            return '';
+        }
+        function dictHTML(it) {
+            const x = t(), sl = sttLang();
+            return `<div class="dictbox" id="dictbox">
     ${dict.engine ? `<div class="microw">
       <button class="micbtn" id="micbtn" type="button"></button>
       <div class="micside"><div class="miclabel" id="miclabel"></div><div id="micextra"></div>
@@ -1551,24 +1582,24 @@
     <p class="small muted" style="margin:8px 0 0">${x.checkHint}</p>
     ${it.share ? `<label class="consent small" for="share" style="margin-top:10px"><input type="checkbox" id="share" ${(S.vals[it.id] || {}).share ? 'checked' : ''}><span>${x.share}</span></label>` : ''}
   </div>`;
-    }
-    function isAnswered(it) {
-      const v = S.vals[it.id] || {}, txt = (S.drafts[it.id] || '').trim();
-      if (it.type === 'count10') return it.rows.every(r => (v.counts || {})[r.id] != null);
-      if (it.type === 'single' || it.type === 'pick') return !!v.choice;
-      if (it.type === 'multi') return (v.choices || []).length > 0;
-      if (it.type === 'concepts') return CONCEPTS.every(c => (v.ratings || {})[c.id]);
-      if (it.type === 'ratesel') return ((S.vals[it.src] || {}).choices || []).every(k => (v.ratings || {})[k]);
-      if (it.type === 'open') return !!txt;
-      return false;
-    }
-    function updateNext() { const b = $('#next'); if (b) b.disabled = !isAnswered(item()) || dict.state !== 'idle'; }
-    function renderQ() {
-      const x = t(), L = S.lang, it = item(), sec = SECTIONS[secIndex(it.sec)];
-      const showDict = it.type === 'open' || (it.more && (S.moreOpen[it.id] || (S.drafts[it.id] || '').trim()));
-      const last = S.idx === ITEMS.length - 1;
-      const hint = L === 'te' ? it.hte : it.hen;
-      app.innerHTML = `
+        }
+        function isAnswered(it) {
+            const v = S.vals[it.id] || {}, txt = (S.drafts[it.id] || '').trim();
+            if (it.type === 'count10') return it.rows.every(r => (v.counts || {})[r.id] != null);
+            if (it.type === 'single' || it.type === 'pick') return !!v.choice;
+            if (it.type === 'multi') return (v.choices || []).length > 0;
+            if (it.type === 'concepts') return CONCEPTS.every(c => (v.ratings || {})[c.id]);
+            if (it.type === 'ratesel') return ((S.vals[it.src] || {}).choices || []).every(k => (v.ratings || {})[k]);
+            if (it.type === 'open') return !!txt;
+            return false;
+        }
+        function updateNext() { const b = $('#next'); if (b) b.disabled = !isAnswered(item()) || dict.state !== 'idle'; }
+        function renderQ() {
+            const x = t(), L = S.lang, it = item(), sec = SECTIONS[secIndex(it.sec)];
+            const showDict = it.type === 'open' || (it.more && (S.moreOpen[it.id] || (S.drafts[it.id] || '').trim()));
+            const last = S.idx === ITEMS.length - 1;
+            const hint = L === 'te' ? it.hte : it.hen;
+            app.innerHTML = `
     <div class="progress"><span class="secchip">${x.secOf(secIndex(it.sec) + 1, SECTIONS.length, sec[L])}</span><div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="${ITEMS.length}" aria-valuenow="${S.idx}"><i style="width:${Math.round(S.idx / ITEMS.length * 100)}%"></i></div></div>
     <p class="qtext" id="qtext">${it[L]}</p>
     ${hint ? `<div class="hint">${hint}</div>` : ''}
@@ -1579,91 +1610,91 @@
       <button class="btn btn-gold btn-block" id="next" type="button">${last ? x.finish : x.next}</button>
       <div class="links"><button class="link lockwhilebusy" id="qback" type="button">${x.back}</button><button class="link lockwhilebusy" id="skip" type="button">${x.skip}</button></div>
     </div>`;
-      wireBody(it);
-      const on = (id, fn) => { const el = $('#' + id); if (el) el.addEventListener('click', fn); };
-      on('listen', () => speak(it));
-      on('more', () => { S.moreOpen[it.id] = true; save(); renderQ(); const el = ta(); if (el) el.focus(); });
-      if (showDict) {
-        on('micbtn', toggleDictation);
-        app.querySelectorAll('[data-stt]').forEach(b => b.addEventListener('click', () => { S.sttLang = b.dataset.stt; save(); app.querySelectorAll('[data-stt]').forEach(o => o.setAttribute('aria-pressed', String(o.dataset.stt === S.sttLang))); }));
-        ta().addEventListener('input', draftFromBox);
-        const sh = $('#share'); if (sh) sh.addEventListener('change', e => { (S.vals[it.id] = S.vals[it.id] || {}).share = e.target.checked; save(); });
-      }
-      on('next', () => advance(false));
-      on('skip', () => advance(true));
-      on('qback', () => { stopSpeaking(); abortDictation(); if (S.idx === 0) { S.screen = PROFILE_SCREENS.length - 1; go('profile'); } else { S.idx--; while (S.idx > 0 && !applicable(item())) S.idx--; go('q'); } });
-      setDictUI();
-    }
-    function wireBody(it) {
-      const v = S.vals[it.id] = S.vals[it.id] || {};
-      if (it.type === 'count10') {
-        v.counts = v.counts || {};
-        app.querySelectorAll('.krow').forEach(row => {
-          const rid = row.dataset.row;
-          row.querySelectorAll('[data-k]').forEach(b => b.addEventListener('click', () => {
-            const k = b.dataset.k; const cur = v.counts[rid];
-            v.counts[rid] = k === 'dk' ? 'dk' : (Number(k) === cur && k !== '0' ? Number(k) - 1 : Number(k));
-            save(); refreshBody(it);
-          }));
-        });
-      } else if (it.type === 'single' || it.type === 'pick') {
-        app.querySelectorAll('#body .opt').forEach(b => b.addEventListener('click', () => { v.choice = v.choice === b.dataset.v ? undefined : b.dataset.v; save(); refreshBody(it); }));
-      } else if (it.type === 'multi') {
-        app.querySelectorAll('#body .opt').forEach(b => b.addEventListener('click', () => {
-          const arr = v.choices || []; const k = b.dataset.v;
-          v.choices = arr.includes(k) ? arr.filter(a => a !== k) : (arr.length < it.max ? [...arr, k] : arr);
-          save(); refreshBody(it);
-        }));
-      } else if (it.type === 'concepts' || it.type === 'ratesel') {
-        v.ratings = v.ratings || {};
-        app.querySelectorAll('.concept').forEach(c => c.querySelectorAll('[data-r]').forEach(b => b.addEventListener('click', () => { v.ratings[c.dataset.c] = b.dataset.r; save(); refreshBody(it); })));
-      }
-    }
-    function refreshBody(it) { const body = $('#body'); if (!body) return; body.innerHTML = bodyHTML(it); wireBody(it); updateNext(); }
-    function valueFor(it) {
-      const v = S.vals[it.id] || {};
-      if (it.type === 'count10') return v.counts || {};
-      if (it.type === 'single' || it.type === 'pick') return v.choice || '';
-      if (it.type === 'multi') return v.choices || [];
-      if (it.type === 'concepts' || it.type === 'ratesel') return v.ratings || {};
-      return '';
-    }
-    // A follow-up question only appears when the question it depends on was answered.
-    function applicable(it) {
-      if (it.type === 'ratesel') return S.done[it.src] !== 'skipped' && ((S.vals[it.src] || {}).choices || []).length > 0;
-      return true;
-    }
-    function advance(skipped) {
-      stopSpeaking();
-      if (dict.state !== 'idle') return;
-      const it = item(), x = t();
-      if (!skipped && !isAnswered(it)) return;
-      const text = skipped ? '' : (S.drafts[it.id] || '').trim();
-      const how = skipped ? 'skipped' : (text ? (S.spoken[it.id] ? 'tap+spoken' : 'tap+typed') : 'tap');
-      enqueue(Object.assign(baseMeta('answer'), {
-        qid: it.id, qno: S.idx + 1, section: it.sec, tag: it.type, question: it.en,
-        value: skipped ? '' : valueFor(it), text, answerType: it.type === 'open' && !skipped ? (S.spoken[it.id] ? 'spoken' : 'typed') : how,
-        sttLang: S.spoken[it.id] ? sttLang() : '', share: !!(S.vals[it.id] || {}).share
-      }));
-      S.done[it.id] = skipped ? 'skipped' : 'answered';
-      abortDictation();
-      if (S.idx >= ITEMS.length - 1) { finish(); return; }
-      const prevSec = it.sec;
-      S.idx++; while (S.idx < ITEMS.length - 1 && !applicable(item())) S.idx++;
-      go('q');
-      const sec = SECTIONS[secIndex(prevSec)];
-      if (item().sec !== prevSec) toast(x.secDone(sec[S.lang]));
-      else if (skipped) toast(x.skipped);
-      else toast(x.cheers[S.idx % x.cheers.length]);
-    }
-    function answeredCount() { return Object.values(S.done).filter(v => v === 'answered').length; }
-    function finish() {
-      enqueue(Object.assign(baseMeta('complete'), { answered: answeredCount(), profile: S.profile }));
-      go('followup');
-    }
-    function renderFollowup() {
-      const x = t();
-      app.innerHTML = `
+            wireBody(it);
+            const on = (id, fn) => { const el = $('#' + id); if (el) el.addEventListener('click', fn); };
+            on('listen', () => speak(it));
+            on('more', () => { S.moreOpen[it.id] = true; save(); renderQ(); const el = ta(); if (el) el.focus(); });
+            if (showDict) {
+                on('micbtn', toggleDictation);
+                app.querySelectorAll('[data-stt]').forEach(b => b.addEventListener('click', () => { S.sttLang = b.dataset.stt; save(); app.querySelectorAll('[data-stt]').forEach(o => o.setAttribute('aria-pressed', String(o.dataset.stt === S.sttLang))); }));
+                ta().addEventListener('input', draftFromBox);
+                const sh = $('#share'); if (sh) sh.addEventListener('change', e => { (S.vals[it.id] = S.vals[it.id] || {}).share = e.target.checked; save(); });
+            }
+            on('next', () => advance(false));
+            on('skip', () => advance(true));
+            on('qback', () => { stopSpeaking(); abortDictation(); if (S.idx === 0) { S.screen = PROFILE_SCREENS.length - 1; go('profile'); } else { S.idx--; while (S.idx > 0 && !applicable(item())) S.idx--; go('q'); } });
+            setDictUI();
+        }
+        function wireBody(it) {
+            const v = S.vals[it.id] = S.vals[it.id] || {};
+            if (it.type === 'count10') {
+                v.counts = v.counts || {};
+                app.querySelectorAll('.krow').forEach(row => {
+                    const rid = row.dataset.row;
+                    row.querySelectorAll('[data-k]').forEach(b => b.addEventListener('click', () => {
+                        const k = b.dataset.k; const cur = v.counts[rid];
+                        v.counts[rid] = k === 'dk' ? 'dk' : (Number(k) === cur && k !== '0' ? Number(k) - 1 : Number(k));
+                        save(); refreshBody(it);
+                    }));
+                });
+            } else if (it.type === 'single' || it.type === 'pick') {
+                app.querySelectorAll('#body .opt').forEach(b => b.addEventListener('click', () => { v.choice = v.choice === b.dataset.v ? undefined : b.dataset.v; save(); refreshBody(it); }));
+            } else if (it.type === 'multi') {
+                app.querySelectorAll('#body .opt').forEach(b => b.addEventListener('click', () => {
+                    const arr = v.choices || []; const k = b.dataset.v;
+                    v.choices = arr.includes(k) ? arr.filter(a => a !== k) : (arr.length < it.max ? [...arr, k] : arr);
+                    save(); refreshBody(it);
+                }));
+            } else if (it.type === 'concepts' || it.type === 'ratesel') {
+                v.ratings = v.ratings || {};
+                app.querySelectorAll('.concept').forEach(c => c.querySelectorAll('[data-r]').forEach(b => b.addEventListener('click', () => { v.ratings[c.dataset.c] = b.dataset.r; save(); refreshBody(it); })));
+            }
+        }
+        function refreshBody(it) { const body = $('#body'); if (!body) return; body.innerHTML = bodyHTML(it); wireBody(it); updateNext(); }
+        function valueFor(it) {
+            const v = S.vals[it.id] || {};
+            if (it.type === 'count10') return v.counts || {};
+            if (it.type === 'single' || it.type === 'pick') return v.choice || '';
+            if (it.type === 'multi') return v.choices || [];
+            if (it.type === 'concepts' || it.type === 'ratesel') return v.ratings || {};
+            return '';
+        }
+        // A follow-up question only appears when the question it depends on was answered.
+        function applicable(it) {
+            if (it.type === 'ratesel') return S.done[it.src] !== 'skipped' && ((S.vals[it.src] || {}).choices || []).length > 0;
+            return true;
+        }
+        function advance(skipped) {
+            stopSpeaking();
+            if (dict.state !== 'idle') return;
+            const it = item(), x = t();
+            if (!skipped && !isAnswered(it)) return;
+            const text = skipped ? '' : (S.drafts[it.id] || '').trim();
+            const how = skipped ? 'skipped' : (text ? (S.spoken[it.id] ? 'tap+spoken' : 'tap+typed') : 'tap');
+            enqueue(Object.assign(baseMeta('answer'), {
+                qid: it.id, qno: S.idx + 1, section: it.sec, tag: it.type, question: it.en,
+                value: skipped ? '' : valueFor(it), text, answerType: it.type === 'open' && !skipped ? (S.spoken[it.id] ? 'spoken' : 'typed') : how,
+                sttLang: S.spoken[it.id] ? sttLang() : '', share: !!(S.vals[it.id] || {}).share
+            }));
+            S.done[it.id] = skipped ? 'skipped' : 'answered';
+            abortDictation();
+            if (S.idx >= ITEMS.length - 1) { finish(); return; }
+            const prevSec = it.sec;
+            S.idx++; while (S.idx < ITEMS.length - 1 && !applicable(item())) S.idx++;
+            go('q');
+            const sec = SECTIONS[secIndex(prevSec)];
+            if (item().sec !== prevSec) toast(x.secDone(sec[S.lang]));
+            else if (skipped) toast(x.skipped);
+            else toast(x.cheers[S.idx % x.cheers.length]);
+        }
+        function answeredCount() { return Object.values(S.done).filter(v => v === 'answered').length; }
+        function finish() {
+            enqueue(Object.assign(baseMeta('complete'), { answered: answeredCount(), profile: S.profile }));
+            go('followup');
+        }
+        function renderFollowup() {
+            const x = t();
+            app.innerHTML = `
     <div class="celebrate">${ICON.star}</div>
     <h2>${x.fuTitle}</h2>
     <p>${x.fuBody}</p>
@@ -1675,22 +1706,22 @@
       <button class="btn btn-primary btn-block" id="fuSend" disabled>${x.fuSend}</button>
       <button class="btn btn-ghost btn-block" id="fuSkip">${x.fuSkip}</button>
     </div>`;
-      const upd = () => { $('#fuSend').disabled = !($('#fuc').checked && $('#phone').value.trim()); };
-      $('#phone').addEventListener('input', upd); $('#fuc').addEventListener('change', upd);
-      $('#fuSend').addEventListener('click', () => {
-        const digits = $('#phone').value.replace(/\D/g, '').replace(/^(91|0)(?=\d{10}$)/, '');
-        if (!/^[6-9]\d{9}$/.test(digits)) { const e = $('#fuErr'); e.textContent = x.fuBad; e.hidden = false; return; }
-        // Sent WITHOUT the session id, so the number cannot be linked to the answers.
-        enqueue({ type: 'followup', phone: digits, district: S.profile.district || '', ref: S.ref || '', lang: S.lang, clientTime: new Date().toISOString(), sessionId: 'contact' });
-        S.followup = true; toast(x.fuThanks); doneNow();
-      });
-      $('#fuSkip').addEventListener('click', () => { S.followup = false; doneNow(); });
-    }
-    function doneNow() { S.completed = true; go('done'); }
-    function shareUrl() { const u = new URL(location.href); u.hash = ''; u.searchParams.delete('lang'); return u.toString(); }
-    function renderDone() {
-      const x = t(), link = shareUrl();
-      app.innerHTML = `
+            const upd = () => { $('#fuSend').disabled = !($('#fuc').checked && $('#phone').value.trim()); };
+            $('#phone').addEventListener('input', upd); $('#fuc').addEventListener('change', upd);
+            $('#fuSend').addEventListener('click', () => {
+                const digits = $('#phone').value.replace(/\D/g, '').replace(/^(91|0)(?=\d{10}$)/, '');
+                if (!/^[6-9]\d{9}$/.test(digits)) { const e = $('#fuErr'); e.textContent = x.fuBad; e.hidden = false; return; }
+                // Sent WITHOUT the session id, so the number cannot be linked to the answers.
+                enqueue({ type: 'followup', phone: digits, district: S.profile.district || '', ref: S.ref || '', lang: S.lang, clientTime: new Date().toISOString(), sessionId: 'contact' });
+                S.followup = true; toast(x.fuThanks); doneNow();
+            });
+            $('#fuSkip').addEventListener('click', () => { S.followup = false; doneNow(); });
+        }
+        function doneNow() { S.completed = true; go('done'); }
+        function shareUrl() { const u = new URL(location.href); u.hash = ''; u.searchParams.delete('lang'); return u.toString(); }
+        function renderDone() {
+            const x = t(), link = shareUrl();
+            app.innerHTML = `
     <div class="celebrate">${ICON.star}</div>
     <h1>${x.doneTitle}</h1>
     <p>${x.doneBody}</p>
@@ -1702,17 +1733,17 @@
       <button class="btn btn-ghost btn-block" id="copy">${x.copy}</button>
     </div>
     <p class="foot">${x.foot}</p>`;
-      $('#copy').addEventListener('click', async () => { try { await navigator.clipboard.writeText(link); toast(x.copied); } catch (e) { toast(link); } });
-      renderDoneStatus();
-    }
-    function renderDoneStatus() { const el = $('#doneStatus'); if (!el) return; el.textContent = pending > 0 ? t().keepOpen : t().allSent; }
+            $('#copy').addEventListener('click', async () => { try { await navigator.clipboard.writeText(link); toast(x.copied); } catch (e) { toast(link); } });
+            renderDoneStatus();
+        }
+        function renderDoneStatus() { const el = $('#doneStatus'); if (!el) return; el.textContent = pending > 0 ? t().keepOpen : t().allSent; }
 
-    /* ================= START ================= */
-    if (!CONFIG.CONTACT) console.warn('Mee Maata: set CONFIG.CONTACT before sharing — teachers need it to ask questions or delete answers.');
-    setLang(S.lang);
-    pump();
-    addEventListener('beforeunload', e => { if (pending > 0 || dict.state !== 'idle') { e.preventDefault(); e.returnValue = ''; } });
-  </script>
+        /* ================= START ================= */
+        if (!CONFIG.CONTACT) console.warn('Mee Maata: set CONFIG.CONTACT before sharing — teachers need it to ask questions or delete answers.');
+        setLang(S.lang);
+        pump();
+        addEventListener('beforeunload', e => { if (pending > 0 || dict.state !== 'idle') { e.preventDefault(); e.returnValue = ''; } });
+    </script>
 </body>
 
 </html>
